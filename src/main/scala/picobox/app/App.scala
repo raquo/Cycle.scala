@@ -4,18 +4,13 @@ import cycle.base.{Drivers_DOM, Sinks_DOM, Sources_DOM}
 import picobox.app.components.Counter
 
 import scala.scalajs.js.annotation.JSExportAll
-//import cycle._monixrun.Run
-//import monix.reactive.Observable
-//import picobox.Bundle.CycleDOM.makeDOMDriver
 import cycle.xstreamrun.XStreamRun
-//import org.scalajs.dom
 import org.scalajs.dom.raw.Event
 import org.scalajs.dom.document
 import cycle.dom.CycleDOM.makeDOMDriver
 
 import scala.scalajs.js
 import scala.scalajs.js.Dynamic.{global => g}
-import scala.scalajs.js.annotation.ScalaJSDefined
 
 
 class AppComponent {
@@ -39,9 +34,7 @@ object App extends js.JSApp {
       g.console.log("+")
       g.console.log(((new AppComponent).apply _).isInstanceOf[Function1[Sources_DOM, Sinks_DOM]])
 
-      // @TODO >>> Add events module (pass default modules as well)
-
-      val DOMDriver = makeDOMDriver("#entry", js.undefined)
+      val DOMDriver = makeDOMDriver("#entry")
       val drivers = new Drivers_DOM(DOMDriver)
       //      js.debugger()
       val component = new AppComponent

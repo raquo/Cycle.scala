@@ -1,10 +1,19 @@
 import org.scalajs.dom.raw.Event
 import snabbdom.Util.EventCallback
+import snabbdom.collections._
 import xstream.XStream
 
-import scala.scalajs.js
-
 package object snabbdom {
+
+  object tags extends Tags
+
+  object allTags extends Tags with Tags2
+
+  object attrs extends Attrs with InputAttrs with GlobalAttrs
+
+  object events extends MouseEventProps with KeyboardEventProps with ClipboardEventProps
+
+  object modifiers extends Props with Styles
 
   implicit def stringToVNode(text: String): TextVNode = new TextVNode(text)
 
@@ -26,11 +35,11 @@ package object snabbdom {
     }
   }
 
-  implicit def streamToCallback[TEvent <: Event](stream: XStream[TEvent]): EventCallback[TEvent] = {
+  /** Note: You need to import this def explicitly */
+  implicit def eventStreamToCallback[TEvent <: Event](stream: XStream[TEvent]): EventCallback[TEvent] = {
     def addEventToStream(ev: TEvent): Unit = {
       println("addEventToStream")
       println(ev)
-      js.debugger()
       stream.shamefullySendNext(ev)
     }
     println("streamToCallback")

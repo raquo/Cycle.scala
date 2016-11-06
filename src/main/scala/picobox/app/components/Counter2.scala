@@ -4,12 +4,10 @@ import xstream.{MemoryXStream, XStream}
 import cycle.dom.DOMSource
 import snabbdom.VNode
 
-import scala.scalajs.js.|
-
 import org.scalajs.dom.raw.MouseEvent
 
-import snabbdom.Snabbdom.tags._
-import snabbdom.Snabbdom.attrs._
+import snabbdom.tags._
+import snabbdom.attrs._
 
 import scala.scalajs.js.Dynamic.{global => g}
 
@@ -38,20 +36,4 @@ class Counter2(
         )
       })
   }
-
-//  implicit def xxx(value: Int | Int): Int = {
-//    value.asInstanceOf[Int]
-//  }
-//
-//  implicit def xxx[A](value: A | A): A = {
-//    value.asInstanceOf[A]
-//  }
-//
-//  implicit def xxx[A](value: XStream[A | A]): XStream[A] = {
-//    value.asInstanceOf[XStream[A]]
-//  }
-//
-//  implicit def xxx[A](value: MemoryXStream[A | A]): MemoryXStream[A] = {
-//    value.asInstanceOf[MemoryXStream[A]]
-//  }
 }

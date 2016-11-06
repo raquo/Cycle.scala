@@ -3,11 +3,12 @@ package picobox.app.components
 import xstream.XStream
 import cycle.dom.DOMSource
 import snabbdom.{Modifier, VNode}
-import snabbdom.Snabbdom.tags._
-import snabbdom.Snabbdom.attrs._
+import snabbdom.tags._
+import snabbdom.attrs._
+import snabbdom.events._
+import snabbdom.eventStreamToCallback
 import org.scalajs.dom.MouseEvent
 
-import scala.scalajs.js
 import scala.scalajs.js.Dynamic.{global => g}
 import scala.util.Random
 
@@ -32,10 +33,7 @@ class Counter(
   }
 
   val DOM$: XStream[VNode] = {
-//    val x = (e: MouseEvent) => {
-//      println("call")
-//      js.debugger()
-//    }
+    val testCall = (e: MouseEvent) => println("call")
     count$
       .map((count: Int) => {
         div(
@@ -46,10 +44,10 @@ class Counter(
           p(s"Count = $count, rand = ${Random.nextInt()}"),
           "Hello",
           "world",
-          button(id := "xxx", typ := "button", "+"),
+          button(id := "xxx", typ := "button", onClick := incClick$, "call"),
           a(href := "#yolo", "boooo"),
           Seq[Modifier]("yo", b("lo"), "OMG"),
-          Some(i("some")),
+          Some(i("some", onMouseOver := testCall)),
           Option("maybe"),
           None,
           a(href := "#yolo", "hoo")

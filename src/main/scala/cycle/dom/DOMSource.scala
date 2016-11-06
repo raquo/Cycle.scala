@@ -7,12 +7,6 @@ import org.scalajs.dom.raw.HTMLElement
 import scala.scalajs.js
 import scala.scalajs.js.annotation.ScalaJSDefined
 
-@ScalaJSDefined
-trait DOMDriverOptions extends js.Object {
-  val modules: js.UndefOr[js.Array[js.Object]]
-  val transposition: js.UndefOr[Boolean]
-}
-
 @js.native
 trait DOMSource extends js.Object {
 
