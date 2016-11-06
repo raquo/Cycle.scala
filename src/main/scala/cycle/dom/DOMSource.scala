@@ -1,25 +1,46 @@
 package cycle.dom
 
 import xstream.XStream
-
-import org.scalajs.dom.raw.HTMLElement
+import org.scalajs.dom.raw.{Event, HTMLElement}
+import snabbdom.EventProp
+import snabbdom.Util.EventCallback
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.ScalaJSDefined
 
-@js.native
-trait DOMSource extends js.Object {
+@ScalaJSDefined
+trait EventOptions extends js.Object {
+  val useCapture: Boolean
+}
 
-  def select(selector: String): DOMSource = js.native
+@js.native
+trait RawDOMSource extends js.Object {
+
+  def select(selector: String): RawDOMSource = js.native
 
   def elements[TElement <: HTMLElement](): XStream[TElement] = js.native
 
-  def events[TEvent](eventType: String): XStream[TEvent] = js.native
+  def events[T <: Event](eventType: String): XStream[T] = js.native
 
-  def events[TEvent](eventType: String, options: EventsOptions): XStream[TEvent] = js.native
+  def events[T <: Event](eventType: String, options: EventOptions): XStream[T] = js.native
 }
 
 @ScalaJSDefined
-trait EventsOptions extends js.Object {
-  def useCapture: js.UndefOr[Boolean]
+class DOMSource(val rawSource: RawDOMSource) extends js.Object {
+
+  def select(selector: String): DOMSource = rawSource.select(selector)
+
+  def elements[T <: HTMLElement](): XStream[T] = rawSource.elements[T]()
+
+  @inline def events[T <: Event](eventType: String): XStream[T] =
+    rawSource.events[T](eventType)
+
+  @inline def events[T <: Event](eventType: String, options: EventOptions): XStream[T] =
+    rawSource.events[T](eventType, options)
+
+  @inline def events[T <: Event](eventProp: EventProp[EventCallback[T]]) =
+    rawSource.events[T](eventProp.key)
+
+  @inline def events[T <: Event](eventProp: EventProp[EventCallback[T]], options: EventOptions) =
+    rawSource.events[T](eventProp.key, options)
 }

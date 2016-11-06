@@ -14,7 +14,7 @@ class DOMDriverOptions(
 @js.native
 @JSImport("@cycle/dom", JSImport.Namespace)
 object RawCycleDOM extends js.Object {
-  def makeDOMDriver: js.Function2[String, js.UndefOr[DOMDriverOptions], DOMSource] = js.native
+  def makeDOMDriver(selector: String, options: js.UndefOr[DOMDriverOptions]): RawDOMSource = js.native
 }
 
 object CycleDOM {
@@ -22,6 +22,6 @@ object CycleDOM {
 
   /** @param selector CSS selector of an existing HTML element where application will be mounted */
   def makeDOMDriver(selector: String, options: DOMDriverOptions = new DOMDriverOptions()): DOMSource = {
-    RawCycleDOM.makeDOMDriver(selector, options)
+    new DOMSource(RawCycleDOM.makeDOMDriver(selector, options))
   }
 }

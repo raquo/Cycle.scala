@@ -1,6 +1,6 @@
 package cycle.base
 
-import cycle.dom.DOMSource
+import cycle.dom.RawDOMSource
 
 import scala.scalajs.js
 
@@ -9,5 +9,5 @@ trait Sources extends js.Object
 
 @js.native
 class Sources_DOM() extends Sources {
-  val DOM: DOMSource = js.native
+  val DOM: RawDOMSource = js.native
 }

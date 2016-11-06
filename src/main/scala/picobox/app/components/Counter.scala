@@ -12,12 +12,10 @@ import org.scalajs.dom.MouseEvent
 import scala.scalajs.js.Dynamic.{global => g}
 import scala.util.Random
 
-// @TODO pass DOMSource implicitly?
-
 class Counter(
   private val DOMSource: DOMSource
 ) {
-  private val incClick$ = DOMSource.select("#inc").events[MouseEvent]("click")
+  private val incClick$ = DOMSource.select("#inc").events(onClick)
   private val decClick$ = DOMSource.select("#dec").events[MouseEvent]("click")
 
 //  private val incClick$ = XStream.create[MouseEvent]()
