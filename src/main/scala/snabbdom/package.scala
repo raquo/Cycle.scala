@@ -13,7 +13,7 @@ package object snabbdom {
 
   object events extends MouseEventProps with KeyboardEventProps with ClipboardEventProps
 
-  object modifiers extends Props with Styles
+  object styles extends Styles
 
   implicit def stringToVNode(text: String): TextVNode = new TextVNode(text)
 

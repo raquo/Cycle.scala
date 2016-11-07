@@ -6,6 +6,7 @@ import snabbdom.{Modifier, VNode}
 import snabbdom.tags._
 import snabbdom.attrs._
 import snabbdom.events._
+import snabbdom.styles
 import snabbdom.eventStreamToCallback
 import org.scalajs.dom.MouseEvent
 
@@ -48,7 +49,7 @@ class Counter(
           Some(i("some", onMouseOver := testCall)),
           Option("maybe"),
           None,
-          a(href := "#yolo", "hoo")
+          a(styles.background := "#ccc", href := "#yolo", "hoo")
         )
       })
       .debug()

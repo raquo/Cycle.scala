@@ -480,14 +480,14 @@ trait Styles2 extends StyleMisc {
       *
       * MDN
       */
-    lazy val `break-all` = this := "break-all"
+    lazy val breakAll = this := "break-all"
     /**
       * Don't allow word breaks for CJK text.  Non-CJK text behavior is same
       * as normal.
       *
       * MDN
       */
-    lazy val `keep-all` = this := "keep-all"
+    lazy val keepAll = this := "keep-all"
   }
 
 }

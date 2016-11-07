@@ -103,7 +103,7 @@ trait Styles extends StyleMisc {
       *
       * MDN
       */
-    lazy val `border-box` = this := "border-box"
+    lazy val borderBox = this := "border-box"
 
     /**
       * No background is drawn below the border (background extends to the
@@ -111,14 +111,14 @@ trait Styles extends StyleMisc {
       *
       * MDN
       */
-    lazy val `padding-box` = this := "border-box"
+    lazy val paddingBox = this := "border-box"
 
     /**
       * The background is painted within (clipped to) the content box.
       *
       * MDN
       */
-    lazy val `content-box` = this := "content-box"
+    lazy val contentBox = this := "content-box"
   }
 
   /**
@@ -139,7 +139,7 @@ trait Styles extends StyleMisc {
       *
       * MDN
       */
-    lazy val `border-box` = this := "border-box"
+    lazy val borderBox = this := "border-box"
 
     /**
       * No background is drawn below the border (background extends to the
@@ -147,14 +147,14 @@ trait Styles extends StyleMisc {
       *
       * MDN
       */
-    lazy val `padding-box` = this := "padding-box"
+    lazy val paddingBox = this := "padding-box"
 
     /**
       * The background is painted within (clipped to) the content box.
       *
       * MDN
       */
-    lazy val `content-box` = this := "content-box"
+    lazy val contentBox = this := "content-box"
   }
 
   /**
@@ -478,7 +478,7 @@ trait Styles extends StyleMisc {
       *
       * MDN
       */
-    lazy val `content-box` = this := "content-box"
+    lazy val contentBox = this := "content-box"
 
     /**
       * The width and height properties include the padding and border, but not
@@ -487,7 +487,7 @@ trait Styles extends StyleMisc {
       *
       * MDN
       */
-    lazy val `border-box` = this := "border-box"
+    lazy val borderBox = this := "border-box"
   }
 
   /**
@@ -562,7 +562,7 @@ trait Styles extends StyleMisc {
       *
       * MDN
       */
-    lazy val `context-menu` = this := "context-menu"
+    lazy val contextMenu = this := "context-menu"
     /**
       * Indicating help is available.
       *
@@ -611,7 +611,7 @@ trait Styles extends StyleMisc {
       *
       * MDN
       */
-    lazy val `vertical-text` = this := "vertical-text"
+    lazy val verticalText = this := "vertical-text"
     /**
       * Indicating an alias or shortcut is to be created.
       *
@@ -635,99 +635,99 @@ trait Styles extends StyleMisc {
       *
       * MDN
       */
-    lazy val `no-drop` = this := "no-drop"
+    lazy val noDrop = this := "no-drop"
     /**
       * Cursor showing that something cannot be done.
       *
       * MDN
       */
-    lazy val `not-allowed` = this := "not-allowed"
+    lazy val notAllowed = this := "not-allowed"
     /**
       * Cursor showing that something can be scrolled in any direction (panned).
       *
       * MDN
       */
-    lazy val `all-scroll` = this := "all-scroll"
+    lazy val allScroll = this := "all-scroll"
     /**
       * The item/column can be resized horizontally. Often rendered as arrows
       * pointing left and right with a vertical separating.
       *
       * MDN
       */
-    lazy val `col-resize` = this := "col-resize"
+    lazy val colResize = this := "col-resize"
     /**
       * The item/row can be resized vertically. Often rendered as arrows pointing
       * up and down with a horizontal bar separating them.
       *
       * MDN
       */
-    lazy val `row-resize` = this := "row-resize"
+    lazy val rowResize = this := "row-resize"
     /**
       * The top edge is to be moved.
       *
       * MDN
       */
-    lazy val `n-resize` = this := "n-resize"
+    lazy val nResize = this := "n-resize"
     /**
       * The right edge is to be moved.
       *
       * MDN
       */
-    lazy val `e-resize` = this := "e-resize"
+    lazy val eResize = this := "e-resize"
     /**
       * The bottom edge is to be moved.
       *
       * MDN
       */
-    lazy val `s-resize` = this := "s-resize"
+    lazy val sResize = this := "s-resize"
     /**
       * The left edge is to be moved.
       *
       * MDN
       */
-    lazy val `w-resize` = this := "w-resize"
+    lazy val wResize = this := "w-resize"
     /**
       * The top-right corner is to be moved.
       *
       * MDN
       */
-    lazy val `ne-resize` = this := "ne-resize"
+    lazy val neResize = this := "ne-resize"
     /**
       * The top-left corner is to be moved.
       *
       * MDN
       */
-    lazy val `nw-resize` = this := "nw-resize"
+    lazy val nwResize = this := "nw-resize"
     /**
       * The bottom-right corner is to be moved.
       *
       * MDN
       */
-    lazy val `se-resize` = this := "se-resize"
+    lazy val seResize = this := "se-resize"
     /**
       * The bottom-left corner is to be moved.
       *
       * MDN
       */
-    lazy val `sw-resize` = this := "sw-resize"
+    lazy val swResize = this := "sw-resize"
 
-    lazy val `ew-resize` = this := "ew-resize"
-    lazy val `ns-resize` = this := "ns-resize"
-    lazy val `nesw-resize` = this := "nesw-resize"
-    lazy val `nwse-resize` = this := "nwse-resize"
+    lazy val ewResize = this := "ew-resize"
+    lazy val nsResize = this := "ns-resize"
+    lazy val neswResize = this := "nesw-resize"
+    lazy val nwseResize = this := "nwse-resize"
 
     /**
       * Indicates that something can be zoomed (magnified) in.
       *
       * MDN
       */
-    lazy val `zoom-in` = this := "zoom-in"
+    lazy val zoomIn = this := "zoom-in"
     /**
       * Indicates that something can be zoomed (magnified) out.
       *
       * MDN
       */
-    lazy val `zoom-out` = this := "zoom-out"
+    lazy val zoomOut = this := "zoom-out"
     /**
       * Indicates that something can be grabbed (dragged to be moved).
       *
@@ -855,14 +855,14 @@ trait Styles extends StyleMisc {
       *
       * MDN
       */
-    lazy val `list-item` = this := "list-item"
+    lazy val listItem = this := "list-item"
     /**
       * The element generates a block element box that will be flowed with
       * surrounding content as if it were a single inline box.
       *
       * MDN
       */
-    lazy val `inline-block` = this := "inline-block"
+    lazy val inlineBlock = this := "inline-block"
     /**
       * The inline-table value does not have a direct mapping in HTML. It behaves
       * like a table HTML element, but as an inline box, rather than a
@@ -870,7 +870,7 @@ trait Styles extends StyleMisc {
       *
       * MDN
       */
-    lazy val `inline-table` = this := "inline-table"
+    lazy val inlineTable = this := "inline-table"
     /**
       * Behaves like the table HTML element. It defines a block-level box.
       *
@@ -882,49 +882,49 @@ trait Styles extends StyleMisc {
       *
       * MDN
       */
-    lazy val `table-caption` = this := "table-caption"
+    lazy val tableCaption = this := "table-caption"
     /**
       * Behaves like the td HTML element
       *
       * MDN
       */
-    lazy val `table-cell` = this := "table-cell"
+    lazy val tableCell = this := "table-cell"
     /**
       * These elements behave like the corresponding col HTML elements.
       *
       * MDN
       */
-    lazy val `table-column` = this := "table-column"
+    lazy val tableColumn = this := "table-column"
     /**
       * These elements behave like the corresponding colgroup HTML elements.
       *
       * MDN
       */
-    lazy val `table-column-group` = this := "table-column-group"
+    lazy val tableColumnGroup = this := "table-column-group"
     /**
       * These elements behave like the corresponding tfoot HTML elements
       *
       * MDN
       */
-    lazy val `table-footer-group` = this := "table-footer-group"
+    lazy val tableFooterGroup = this := "table-footer-group"
     /**
       * These elements behave like the corresponding thead HTML elements
       *
       * MDN
       */
-    lazy val `table-header-group` = this := "table-header-group"
+    lazy val tableHeaderGroup = this := "table-header-group"
     /**
       * Behaves like the tr HTML element
       *
       * MDN
       */
-    lazy val `table-row` = this := "table-row"
+    lazy val tableRow = this := "table-row"
     /**
       * These elements behave like the corresponding tbody HTML elements
       *
       * MDN
       */
-    lazy val `table-row-group` = this := "table-row-group"
+    lazy val tableRowGroup = this := "table-row-group"
     /**
       * The element behaves like a block element and lays out its content according
       * to the flexbox model.
@@ -938,7 +938,7 @@ trait Styles extends StyleMisc {
       *
       * MDN
       */
-    lazy val `inline-flex` = this := "inline-flex"
+    lazy val inlineFlex = this := "inline-flex"
   }
 
 
@@ -1099,7 +1099,7 @@ trait Styles extends StyleMisc {
       *
       * MDN
       */
-    lazy val `break-word` = this := "break-word"
+    lazy val breakWord = this := "break-word"
   }
 
 
@@ -1168,14 +1168,14 @@ trait Styles extends StyleMisc {
       *
       * MDN
       */
-    lazy val `text-top` = this := "text-top"
+    lazy val textTop = this := "text-top"
     /**
       * Aligns the bottom of the element with the bottom of the parent element's
       * font.
       *
       * MDN
       */
-    lazy val `text-bottom` = this := "text-bottom"
+    lazy val textBottom = this := "text-bottom"
     /**
       * Aligns the middle of the element with the middle of lowercase letters in
       * the parent.
@@ -1382,55 +1382,55 @@ trait Styles extends StyleMisc {
       *
       * MDN
       */
-    lazy val `cjk-decimal` = this := "cjk-decimal"
+    lazy val cjkDecimal = this := "cjk-decimal"
     /**
       * Decimal numbers padded by initial zeros
       *
       * MDN
       */
-    lazy val `decimal-leading-zero` = this := "decimal-leading-zero"
+    lazy val decimalLeadingZero = this := "decimal-leading-zero"
     /**
       * Lowercase roman numerals
       *
       * MDN
       */
-    lazy val `lower-roman` = this := "lower-roman"
+    lazy val lowerRoman = this := "lower-roman"
     /**
       * Uppercase roman numerals
       *
       * MDN
       */
-    lazy val `upper-roman` = this := "upper-roman"
+    lazy val upperRoman = this := "upper-roman"
     /**
       * Lowercase classical greek
       *
       * MDN
       */
-    lazy val `lower-greek` = this := "lower-greek"
+    lazy val lowerGreek = this := "lower-greek"
     /**
       * Lowercase ASCII letters
       *
       * MDN
       */
-    lazy val `lower-alpha` = this := "lower-alpha"
+    lazy val lowerAlpha = this := "lower-alpha"
     /**
       * Lowercase ASCII letters
       *
       * MDN
       */
-    lazy val `lower-latin` = this := "lower-latin"
+    lazy val lowerLatin = this := "lower-latin"
     /**
       * Uppercase ASCII letters
       *
       * MDN
       */
-    lazy val `upper-alpha` = this := "upper-alpha"
+    lazy val upperAlpha = this := "upper-alpha"
     /**
       * Uppercase ASCII letters
       *
       * MDN
       */
-    lazy val `upper-latin` = this := "upper-latin"
+    lazy val upperLatin = this := "upper-latin"
     /**
       * Traditional Armenian numbering
       *
@@ -1462,7 +1462,7 @@ trait Styles extends StyleMisc {
       *
       * MDN
       */
-    lazy val `hiragana-iroha` = this := "hiragana-iroha"
+    lazy val hiraganaIroha = this := "hiragana-iroha"
     /**
       * Japanese Katakana
       *
@@ -1476,7 +1476,7 @@ trait Styles extends StyleMisc {
       *
       * MDN
       */
-    lazy val `katakana-iroha` = this := "katakana-iroha"
+    lazy val katakanaIroha = this := "katakana-iroha"
   }
 
 
@@ -1621,13 +1621,13 @@ trait Styles extends StyleMisc {
     * MDN
     */
   object fontSize extends Style("fontSize", "font-size") {
-    lazy val `xx-small` = this := "xx-small"
-    lazy val `x-small` = this := "x-small"
+    lazy val xxSmall = this := "xx-small"
+    lazy val xSmall = this := "x-small"
     lazy val small = this := "small"
     lazy val medium = this := "medium"
     lazy val large = this := "large"
-    lazy val `x-large` = this := "x-large"
-    lazy val `xx-large` = this := "xx-large"
+    lazy val xLarge = this := "x-large"
+    lazy val xxLarge = this := "xx-large"
     /**
       * Larger than the parent element's font size, by roughly the ratio used to
       * separate the absolute size keywords above.
@@ -2117,7 +2117,7 @@ trait Styles extends StyleMisc {
       *
       * MDN
       */
-    lazy val `line-through` = this := "line-through"
+    lazy val lineThrough = this := "line-through"
   }
 
   /**
@@ -2201,8 +2201,8 @@ trait Styles extends StyleMisc {
       * MDN
       */
     lazy val right = this := "right"
-    lazy val `under left` = this := "under left"
-    lazy val `under right` = this := "under right"
+    lazy val underLeft = this := "under left"
+    lazy val underRight = this := "under right"
   }
 
   /**
@@ -2385,14 +2385,14 @@ trait Styles extends StyleMisc {
       *
       * MDN
       */
-    lazy val `pre-wrap` = this := "pre-wrap"
+    lazy val preWrap = this := "pre-wrap"
     /**
       * Sequences of whitespace are collapsed. Lines are broken at newline
       * characters, at br, and as necessary to fill line boxes.
       *
       * MDN
       */
-    lazy val `pre-line` = this := "pre-line"
+    lazy val preLine = this := "pre-line"
   }
 
   /**
