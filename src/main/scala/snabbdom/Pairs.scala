@@ -35,8 +35,8 @@ class PropPair[TValue] (
 
 @ScalaJSDefined
 class StylePair[TValue] (
-  val style: Style,
+  val style: Style[TValue],
   val value: TValue
-) extends Pair[Style, TValue] {
+) extends Pair[Style[TValue], TValue] {
   def applyTo(tag: VNode): Unit = tag.addStyle[TValue](this)
 }

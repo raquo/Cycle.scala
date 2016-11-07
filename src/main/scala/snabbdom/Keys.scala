@@ -21,13 +21,6 @@ class Prop[TValue] (val key: String) extends Key[TValue, PropPair[TValue]] {
   override def := (value: TValue): PropPair[TValue] = new PropPair[TValue](this, value)
 }
 
-class Style (val jsKey: String, val cssKey: String) extends Key[Any, StylePair[Any]] {
-  override def := (value: Any): StylePair[Any] = new StylePair[Any](this, value.toString)
-  def := (value: Int): StylePair[Int] = new StylePair[Int](this, value)
-  def := (value: Double): StylePair[Double] = new StylePair[Double](this, value)
-  def := (value: String): StylePair[String] = new StylePair[String](this, value)
+class Style[TValue] (val jsKey: String, val cssKey: String) extends Key[TValue, StylePair[TValue]] {
+  override def := (value: TValue): StylePair[TValue] = new StylePair[TValue](this, value)
 }
-
-
-
-

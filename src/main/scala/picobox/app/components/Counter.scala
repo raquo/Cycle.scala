@@ -49,7 +49,7 @@ class Counter(
           Some(i("some", onMouseOver := testCall)),
           Option("maybe"),
           None,
-          a(styles.background := "#ccc", href := "#yolo", "hoo")
+          a(styles.borderWidth := "55", styles.background := "#ccc", href := "#yolo", "hoo")
         )
       })
       .debug()
