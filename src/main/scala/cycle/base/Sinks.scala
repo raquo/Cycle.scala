@@ -10,4 +10,6 @@ import scala.scalajs.js.annotation.ScalaJSDefined
 trait Sinks extends js.Object
 
 @ScalaJSDefined
-class Sinks_DOM(val DOM: XStream[VNode]) extends Sinks {}
+trait Sinks_DOM extends Sinks {
+  val DOM: XStream[VNode]
+}
