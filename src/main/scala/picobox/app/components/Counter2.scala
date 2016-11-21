@@ -1,6 +1,6 @@
 package picobox.app.components
 
-import xstream.{MemoryXStream, XStream}
+import xstream.{MemoryStream, XStream}
 import cycle.dom.DOMSource
 import snabbdom.VNode
 
@@ -16,7 +16,7 @@ import scala.scalajs.js.Dynamic.{global => g}
 class Counter2(
   private val DOMSource: DOMSource
 ) {
-  val count$: MemoryXStream[Int] = {
+  val count$: MemoryStream[Int] = {
 
     val increment$ = DOMSource.select("#entry #inc").events[MouseEvent]("click").map((ev: MouseEvent) => 1)
     val decrement$ = DOMSource.select("#entry #dec").events[MouseEvent]("click").map((ev: MouseEvent) => -1)

@@ -1,8 +1,10 @@
-package cycle.xstreamrun
+package cycle.xstream.run
 
-import cycle.base.{Drivers, Drivers_DOM, Sinks, Sinks_DOM, Sources, Sources_DOM}
+import cycle.base._
+import cycle.xstream.adapter.XStreamAdapter
 
 import scala.scalajs.js
+import scala.scalajs.js.Dynamic.global
 import scala.scalajs.js.annotation.{JSImport, ScalaJSDefined}
 
 @ScalaJSDefined
@@ -29,21 +31,18 @@ abstract class Main(sources: Sources) extends Sinks
 @ScalaJSDefined
 abstract class Main_DOM(sources: Sources_DOM) extends Sinks_DOM
 
-@js.native
-@JSImport("@cycle/xstream-run", JSImport.Namespace)
-object RawXStreamRun extends js.Object {
-  type DisposeFunction = js.Function0[Unit]
-
-  def run[TSources <: Sources, TSinks <: Sinks](
-    main: js.Function1[TSources, TSinks],
-    drivers: Drivers
-  ): DisposeFunction = js.native
-}
-
 object XStreamRun {
-  def run[TSources <: Sources, TSinks <: Sinks, TDrivers <: Drivers](
+  def apply[TSources <: Sources, TSinks <: Sinks, TDrivers <: Drivers](
     config: RunConfig[TSources, TSinks, TDrivers]
-  ): RawXStreamRun.DisposeFunction = {
-    RawXStreamRun.run[TSources, TSinks](config.main, config.drivers)
+  ): DisposeFunction = {
+    val execution = Cycle[TSources, TSinks, TDrivers](
+      config.main,
+      config.drivers,
+      new Options(new XStreamAdapter)
+    )
+    if (global.CyclejsDevTool_startGraphSerializer.isInstanceOf[js.Function]) {
+      global.CyclejsDevTool_startGraphSerializer.asInstanceOf[js.Function1[TSinks, Unit]](execution.sinks)
+    }
+    execution.run()
   }
 }

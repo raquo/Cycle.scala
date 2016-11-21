@@ -15,7 +15,7 @@ libraryDependencies ++= Seq(
 npmDependencies in Compile ++= Seq(
   "@cycle/dom" -> "14.0.0",
   "@cycle/http" -> "11.2.0",
-  "@cycle/xstream-run" -> "3.1.0",
+  "@cycle/base" -> "4.1.1",
   "xstream" -> "7.0.0"
 )
 

@@ -16,15 +16,15 @@ import scala.util.Random
 class Counter(
   private val DOMSource: DOMSource
 ) {
-  private val incClick$ = DOMSource.select("#inc").events(onClick)
-  private val decClick$ = DOMSource.select("#dec").events[MouseEvent]("click")
+  private val incClick$ = DOMSource.select(".inc").events(onClick)
+  private val decClick$ = DOMSource.select(".dec").events[MouseEvent]("click")
 
 //  private val incClick$ = XStream.create[MouseEvent]()
 //  private val decClick$ = XStream.create[MouseEvent]()
 
   val count$: XStream[Int] = {
-    val increment$: XStream[Int] = incClick$.map((ev: MouseEvent) => 1)
-    val decrement$: XStream[Int] = decClick$.map((ev: MouseEvent) => -1)
+    val increment$: XStream[Int] = incClick$.map(ev => 1)
+    val decrement$: XStream[Int] = decClick$.map(ev => -1)
 
     XStream.merge(increment$, decrement$)
       .startWith(0)
@@ -38,8 +38,8 @@ class Counter(
         div(
           "Foo",
           "bar",
-          button(id := "inc" /*onClick := incClick$*/, typ := "button", "+"),
-          button(id := "dec", /*onClick := x,*/ typ := "button", "–"),
+          button(cls := "inc"/*, onClick := incClick$*/, typ := "button", "+"),
+          button(cls := "dec"/*, onClick := decClick$*/, typ := "button", "–"),
           p(s"Count = $count, rand = ${Random.nextInt()}"),
           "Hello",
           "world",
@@ -49,7 +49,7 @@ class Counter(
           Some(i("some", onMouseOver := testCall)),
           Option("maybe"),
           None,
-          a(styles.borderWidth := "55", styles.background := "#ccc", href := "#yolo", "hoo")
+          a(styles.border := "5px solid orange", styles.background := "yellow", href := "#yolo", "hoo")
         )
       })
       .debug()

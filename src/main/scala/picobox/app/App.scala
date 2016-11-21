@@ -2,10 +2,10 @@ package picobox.app
 
 import cycle.base.{Drivers_DOM, Sources_DOM}
 import picobox.app.components.Counter
-import cycle.xstreamrun.{Main_DOM, RunConfig_DOM, XStreamRun}
 import org.scalajs.dom.raw.Event
 import org.scalajs.dom.document
 import cycle.dom.CycleDOM.makeDOMDriver
+import cycle.xstream.run.{Main_DOM, RunConfig_DOM, XStreamRun}
 import snabbdom.VNode
 import snabbdom.tags._
 import xstream.XStream
@@ -18,24 +18,23 @@ import scala.scalajs.js.Dynamic.{global => g}
 class App(sources: Sources_DOM) extends Main_DOM(sources) {
   g.console.log("main")
   g.console.log("Sources:", sources)
-  val child1 = new Counter(sources.DOM)
-  val child2 = new Counter(sources.DOM)
-
-  def render(DOM1: VNode, DOM2: VNode): VNode = div(DOM1, br(), br(), DOM2)
+  val counter1 = new Counter(sources.DOM)
+  val counter2 = new Counter(sources.DOM)
 
   val DOM = XStream
-    .combine(child1.DOM$, child2.DOM$)
-    .map[VNode]((render _).tupled)
+    .combine(counter1.DOM$, counter2.DOM$)
+    .map((c1: VNode, c2: VNode) =>
+      div(c1, c2)
+    )
 }
 
 object App extends js.JSApp {
   def main(): Unit = {
     document.addEventListener("DOMContentLoaded", (e: Event) => {
-      g.console.log("+")
-
+      g.console.log("=== DOMContentLoaded ===")
       val appDrivers = new Drivers_DOM(makeDOMDriver("#entry"))
       val appConfig = new RunConfig_DOM(new App(_), appDrivers)
-      XStreamRun.run(appConfig)
+      XStreamRun(appConfig)
     })
   }
 }
