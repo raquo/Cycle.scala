@@ -22,7 +22,7 @@ class App(sources: Sources_DOM) extends Sinks_DOM {
 
   val DOM = XStream
     .combine(counter1.DOM$, counter2.DOM$)
-    .map((c1: VNode, c2: VNode) => div(c1, c2))
+    .map((c1: VNode, c2: VNode) => div(c1, br(), br(), br(), c2))
 }
 
 object App extends js.JSApp {
