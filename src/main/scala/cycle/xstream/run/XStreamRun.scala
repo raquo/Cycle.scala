@@ -25,20 +25,14 @@ class RunConfig_DOM_SourceOnly(
   val drivers: Drivers_DOM
 ) extends RunConfig[Sources_DOM, Sinks, Drivers_DOM]
 
-@ScalaJSDefined
-abstract class Main(sources: Sources) extends Sinks
-
-@ScalaJSDefined
-abstract class Main_DOM(sources: Sources_DOM) extends Sinks_DOM
-
 object XStreamRun {
   def apply[TSources <: Sources, TSinks <: Sinks, TDrivers <: Drivers](
     config: RunConfig[TSources, TSinks, TDrivers]
   ): DisposeFunction = {
     val execution = Cycle[TSources, TSinks, TDrivers](
-      config.main,
-      config.drivers,
-      new Options(new XStreamAdapter)
+      main = config.main,
+      drivers = config.drivers,
+      options = new Options(new XStreamAdapter)
     )
     if (global.CyclejsDevTool_startGraphSerializer.isInstanceOf[js.Function]) {
       global.CyclejsDevTool_startGraphSerializer.asInstanceOf[js.Function1[TSinks, Unit]](execution.sinks)

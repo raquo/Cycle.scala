@@ -1,11 +1,11 @@
 package picobox.app
 
-import cycle.base.{Drivers_DOM, Sources_DOM}
+import cycle.base.{Drivers_DOM, Sinks_DOM, Sources_DOM}
 import picobox.app.components.Counter
 import org.scalajs.dom.raw.Event
 import org.scalajs.dom.document
 import cycle.dom.CycleDOM.makeDOMDriver
-import cycle.xstream.run.{Main_DOM, RunConfig_DOM, XStreamRun}
+import cycle.xstream.run.{RunConfig_DOM, XStreamRun}
 import snabbdom.VNode
 import snabbdom.tags._
 import xstream.XStream
@@ -15,7 +15,7 @@ import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.scalajs.js.Dynamic.{global => g}
 
 @ScalaJSDefined
-class App(sources: Sources_DOM) extends Main_DOM(sources) {
+class App(sources: Sources_DOM) extends Sinks_DOM {
   g.console.log("main")
   g.console.log("Sources:", sources)
   val counter1 = new Counter(sources.DOM)
@@ -23,9 +23,7 @@ class App(sources: Sources_DOM) extends Main_DOM(sources) {
 
   val DOM = XStream
     .combine(counter1.DOM$, counter2.DOM$)
-    .map((c1: VNode, c2: VNode) =>
-      div(c1, c2)
-    )
+    .map((c1: VNode, c2: VNode) => div(c1, c2))
 }
 
 object App extends js.JSApp {
