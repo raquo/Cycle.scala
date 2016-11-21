@@ -1,6 +1,8 @@
 import org.scalajs.dom.raw.Event
 import snabbdom.Util.EventCallback
 import snabbdom.collections._
+
+import scala.scalajs.js.Dynamic.{global => g}
 import xstream.XStream
 
 package object snabbdom {
@@ -38,11 +40,11 @@ package object snabbdom {
   /** Note: You need to import this def explicitly */
   implicit def eventStreamToCallback[TEvent <: Event](stream: XStream[TEvent]): EventCallback[TEvent] = {
     def addEventToStream(ev: TEvent): Unit = {
-      println("addEventToStream")
-      println(ev)
+//      g.console.log("addEventToStream")
+//      g.console.log(ev)
       stream.shamefullySendNext(ev)
     }
-    println("streamToCallback")
+//    g.console.log("streamToCallback")
     addEventToStream _
   }
 }

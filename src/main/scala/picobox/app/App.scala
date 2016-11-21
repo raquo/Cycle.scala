@@ -16,8 +16,7 @@ import scala.scalajs.js.Dynamic.{global => g}
 
 @ScalaJSDefined
 class App(sources: Sources_DOM) extends Sinks_DOM {
-  g.console.log("main")
-  g.console.log("Sources:", sources)
+  g.console.log("App Sources:", sources)
   val counter1 = new Counter(sources.DOM)
   val counter2 = new Counter(sources.DOM)
 

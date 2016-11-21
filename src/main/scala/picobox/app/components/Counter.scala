@@ -52,6 +52,5 @@ class Counter(
           a(styles.border := "5px solid orange", styles.background := "yellow", href := "#yolo", "hoo")
         )
       })
-      .debug()
   }
 }
