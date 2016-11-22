@@ -40,13 +40,16 @@ class Counter(
   val DOM$: XStream[VNode] = isolate.sink(DOMSource, {
     val testHover = (e: MouseEvent) => println("some hover")
 
+    // Note that Random.nextInt will NOT be updated if time$* updates, only when count$ updates. Because transposition.
+
     count$.map(count =>
       div(
         "Foo",
         "bar",
         button(cls := "inc", typ := "button", "+"),
         button(cls := "dec", onClick := decClick$, typ := "button", "–"),
-        p(s"Count = $count, rand = ${Random.nextInt()}"),
+        p(s"Count = $count"),
+        p(s"rand = ${Random.nextInt()}"),
         "Hello",
         "world",
         button(id := "xxx", typ := "button", onClick := altIncClick$, "alt+"),
