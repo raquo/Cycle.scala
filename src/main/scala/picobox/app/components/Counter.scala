@@ -40,15 +40,13 @@ class Counter(
   val DOM$: XStream[VNode] = isolate.sink(DOMSource, {
     val testHover = (e: MouseEvent) => println("some hover")
 
-    // @TODO[WTF] But mixing styles like this: count$.map(count => div(time1$.map(time1 => div(s"time: $time1"))) won't work as expected :(
-
-    XStream.of(
+    count$.map(count =>
       div(
         "Foo",
         "bar",
         button(cls := "inc", typ := "button", "+"),
         button(cls := "dec", onClick := decClick$, typ := "button", "–"),
-        count$.map(count => p(s"Count = $count, rand = ${Random.nextInt()}")),
+        p(s"Count = $count, rand = ${Random.nextInt()}"),
         "Hello",
         "world",
         button(id := "xxx", typ := "button", onClick := altIncClick$, "alt+"),
