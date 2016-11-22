@@ -21,7 +21,7 @@ object CycleDOM {
   val defaultModules = js.Array[Module](AttrsModule, EventsModule, PropsModule, StyleModule)
 
   /** @param selector CSS selector of an existing HTML element where application will be mounted */
-  def makeDOMDriver(selector: String, options: DOMDriverOptions = new DOMDriverOptions()): DOMSource = {
-    new DOMSource(RawCycleDOM.makeDOMDriver(selector, options))
+  def makeDOMDriver(selector: String, transposition: Boolean = false): DOMSource = {
+    new DOMSource(RawCycleDOM.makeDOMDriver(selector, new DOMDriverOptions(transposition = transposition)))
   }
 }

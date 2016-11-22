@@ -29,7 +29,7 @@ object App extends js.JSApp {
   def main(): Unit = {
     document.addEventListener("DOMContentLoaded", (e: Event) => {
       g.console.log("=== DOMContentLoaded ===")
-      val appDrivers = new Drivers_DOM(makeDOMDriver("#entry"))
+      val appDrivers = new Drivers_DOM(makeDOMDriver("#entry", transposition = true))
       val appConfig = new RunConfig_DOM(new App(_), appDrivers)
       XStreamRun(appConfig)
     })

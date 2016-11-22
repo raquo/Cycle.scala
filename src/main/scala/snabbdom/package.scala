@@ -37,6 +37,10 @@ package object snabbdom {
     }
   }
 
+  implicit def streamToStreamNode(stream: XStream[VNode]): StreamVNode = {
+    new StreamVNode(stream)
+  }
+
   /** Note: You need to import this def explicitly */
   implicit def eventStreamToCallback[TEvent <: Event](stream: XStream[TEvent]): EventCallback[TEvent] = {
     def addEventToStream(ev: TEvent): Unit = {

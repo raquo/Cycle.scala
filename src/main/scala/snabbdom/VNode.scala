@@ -1,5 +1,7 @@
 package snabbdom
 
+import xstream.XStream
+
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSName, ScalaJSDefined}
 
@@ -27,6 +29,11 @@ class IterableVNode(val modifiers: Iterable[Modifier]) extends Modifier {
 }
 
 @ScalaJSDefined
+class StreamVNode(val stream: XStream[VNode]) extends Modifier {
+  def applyTo(vnode: VNode): Unit = vnode.addStreamChild(this)
+}
+
+@ScalaJSDefined
 class VNode(tagName: String) extends Modifier with ChildVNode {
 
   type Children = js.Array[ChildVNode]
@@ -44,7 +51,7 @@ class VNode(tagName: String) extends Modifier with ChildVNode {
   /**
     * Apply the given modifiers (e.g. additional children, or new attributes) to the [[VNode]].
     */
-  @JSName("apply")
+  @JSName("applyModifiers")
   def apply(modifiers: Modifier*): VNode = {
     // ugly while loop for speed
     var i = 0
@@ -120,6 +127,11 @@ class VNode(tagName: String) extends Modifier with ChildVNode {
     } else {
       text += textNode.text
     }
+  }
+
+  def addStreamChild(streamNode: StreamVNode): Unit = {
+    // @TODO[Integrity] This is ugly. streamNode.stream is NOT actually and instance of ChildVNode
+    addChildToList(streamNode.stream.asInstanceOf[ChildVNode])
   }
 
   @inline

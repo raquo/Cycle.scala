@@ -13,10 +13,10 @@ libraryDependencies ++= Seq(
 )
 
 npmDependencies in Compile ++= Seq(
-  "@cycle/dom" -> "14.0.0",
+  "@cycle/dom" -> "14.1.0",
   "@cycle/http" -> "11.2.0",
   "@cycle/base" -> "4.1.1",
-  "xstream" -> "7.0.0"
+  "xstream" -> "8.0.0"
 )
 
 //webpackConfigFile in fastOptJS := Some(baseDirectory.value / "webpack-config.js")

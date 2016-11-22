@@ -24,6 +24,10 @@ class Counter(
   private val decClick$ = XStream.create[MouseEvent]()
   private val altIncClick$ = XStream.create[MouseEvent]()
 
+  val time1$: XStream[Int] = XStream.periodic(1000).map(i => i + 1).startWith(0)
+  val time2$: XStream[Int] = XStream.periodic(2000).map(i => i + 1).startWith(0)
+  val time3$: XStream[Int] = XStream.periodic(3000).map(i => i + 1).startWith(0)
+
   val count$: XStream[Int] = {
     val increment$: XStream[Int] = XStream.merge(incClick$, altIncClick$).map(ev => 1)
     val decrement$: XStream[Int] = decClick$.map(ev => -1)
@@ -36,24 +40,28 @@ class Counter(
   val DOM$: XStream[VNode] = isolate.sink(DOMSource, {
     val testHover = (e: MouseEvent) => println("some hover")
 
-    count$
-      .map((count: Int) => {
-        div(
-          "Foo",
-          "bar",
-          button(cls := "inc", typ := "button", "+"),
-          button(cls := "dec", onClick := decClick$, typ := "button", "–"),
-          p(s"Count = $count, rand = ${Random.nextInt()}"),
-          "Hello",
-          "world",
-          button(id := "xxx", typ := "button", onClick := altIncClick$, "alt+"),
-          a(href := "#yolo", "boooo"),
-          Seq[Modifier]("yo", b("lo"), "OMG"),
-          Some(i("some", onMouseOver := testHover)),
-          Option("maybe"),
-          None,
-          a(styles.border := "5px solid orange", styles.background := "yellow", href := "#yolo", "hoo")
-        )
-      })
+    // @TODO[WTF] But mixing styles like this: count$.map(count => div(time1$.map(time1 => div(s"time: $time1"))) won't work as expected :(
+
+    XStream.of(
+      div(
+        "Foo",
+        "bar",
+        button(cls := "inc", typ := "button", "+"),
+        button(cls := "dec", onClick := decClick$, typ := "button", "–"),
+        count$.map(count => p(s"Count = $count, rand = ${Random.nextInt()}")),
+        "Hello",
+        "world",
+        button(id := "xxx", typ := "button", onClick := altIncClick$, "alt+"),
+        a(href := "#yolo", "boooo"),
+        Seq[Modifier]("yo", b("lo"), "OMG"),
+        Some(i("some", onMouseOver := testHover)),
+        Option("maybe"),
+        None,
+        a(styles.border := "5px solid orange", styles.background := "yellow", href := "#yolo", "hoo"),
+        time1$.map(time1 => div(s"TIME1: $time1")),
+        time2$.map(time2 => div(s"TIME2: $time2")),
+        time3$.map(time3 => div(s"TIME3: $time3"))
+      )
+    )
   })
 }
