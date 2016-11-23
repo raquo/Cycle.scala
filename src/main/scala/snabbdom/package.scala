@@ -42,8 +42,8 @@ package object snabbdom {
   }
 
   /** Note: You need to import this def explicitly */
-  implicit def eventStreamToCallback[TEvent <: Event](stream: XStream[TEvent]): EventCallback[TEvent] = {
-    def addEventToStream(ev: TEvent): Unit = {
+  implicit def eventStreamToCallback[E <: Event](stream: DOMEventStream[E]): EventCallback[E] = {
+    def addEventToStream(ev: E): Unit = {
 //      g.console.log("addEventToStream")
 //      g.console.log(ev)
       stream.shamefullySendNext(ev)

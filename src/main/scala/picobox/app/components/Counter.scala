@@ -3,12 +3,10 @@ package picobox.app.components
 import xstream.XStream
 import cycle.dom.DOMSource
 import cycle.isolate.Isolate
-import snabbdom.{Modifier, VNode}
+import snabbdom.{DOMEventStream, Modifier, VNode, styles}
 import snabbdom.tags._
 import snabbdom.attrs._
 import snabbdom.events._
-import snabbdom.styles
-import snabbdom.eventStreamToCallback
 import org.scalajs.dom.MouseEvent
 
 import scala.scalajs.js.Dynamic.{global => g}
@@ -21,8 +19,8 @@ class Counter(
   private val isolatedDOMSource = isolate.source(DOMSource)
 
   private val incClick$ = isolatedDOMSource.select(".inc").events(onClick)
-  private val decClick$ = XStream.create[MouseEvent]()
-  private val altIncClick$ = XStream.create[MouseEvent]()
+  private val decClick$ = new DOMEventStream[MouseEvent]
+  private val altIncClick$ = new DOMEventStream[MouseEvent]
 
   val time1$: XStream[Int] = XStream.periodic(1000).map(i => i + 1).startWith(0)
   val time2$: XStream[Int] = XStream.periodic(2000).map(i => i + 1).startWith(0)
