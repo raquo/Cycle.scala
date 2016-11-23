@@ -35,14 +35,14 @@ class XStream[T] protected (val rawStream: RawStream[T]) {
   def last(): XStream[T] =
     XStream.fromRawStream(rawStream.last())
 
-  def startWith(initial: T): MemoryStream[T] =
-    new MemoryStream(rawStream.startWith(initial))
+  def startWith(initial: T): XStream[T] = // MemoryStream
+    new XStream(rawStream.startWith(initial))
 
   def endWhen[U](other: XStream[U]): XStream[T] =
     XStream.fromRawStream(rawStream.endWhen(other.rawStream))
 
-  def fold[R](accumulate: (R, T) => R, seed: R): MemoryStream[R] =
-    new MemoryStream(rawStream.fold(accumulate, seed))
+  def fold[R](accumulate: (R, T) => R, seed: R): XStream[R] = // MemoryStream
+    new XStream(rawStream.fold(accumulate, seed))
 
   def replaceError[E](replace: E => XStream[T]): XStream[T] =
     XStream.fromRawStream(rawStream.replaceError[E]((error: E) => replace(error).rawStream))
@@ -57,8 +57,8 @@ class XStream[T] protected (val rawStream: RawStream[T]) {
     })
   }
 
-  def remember(): MemoryStream[T] =
-    new MemoryStream(rawStream.remember())
+  def remember(): XStream[T] = // MemoryStream
+    new XStream(rawStream.remember())
 
   def debug(spy: T => Unit): XStream[T] =
     XStream.fromRawStream(rawStream.debug(spy))
@@ -109,19 +109,16 @@ object XStream {
   @inline def create[T](producer: Producer[T]): XStream[T] =
     new XStream(RawStream.create[T](producer))
 
-  @inline def createWithMemory[T](): MemoryStream[T] =
-    new MemoryStream(RawStream.createWithMemory[T]())
+  @inline def createWithMemory[T](): XStream[T] = // MemoryStream
+    new XStream(RawStream.createWithMemory[T]())
 
-  @inline def createWithMemory[T](producer: Producer[T]): MemoryStream[T] =
-    new MemoryStream(RawStream.createWithMemory[T](producer))
+  @inline def createWithMemory[T](producer: Producer[T]): XStream[T] = // MemoryStream
+    new XStream(RawStream.createWithMemory[T](producer))
 
   // fromRawStream
 
   @inline def fromRawStream[T](rawStream: RawStream[T]): XStream[T] =
     new XStream[T](rawStream)
-
-  @inline def fromRawStream[T](rawStream: RawMemoryStream[T]): MemoryStream[T] =
-    new MemoryStream[T](rawStream)
 
   @inline def fromRawStream[T1, T2](rawStream: RawStream[(T1, T2)]): TupleStream2[T1, T2] =
     new TupleStream2[T1, T2](rawStream)
@@ -131,20 +128,6 @@ object XStream {
 
   @inline def fromRawStream[T1, T2, T3, T4](rawStream: RawStream[(T1, T2, T3, T4)]): TupleStream4[T1, T2, T3, T4] =
     new TupleStream4[T1, T2, T3, T4](rawStream)
-
-  // fromRawMemoryStream
-
-  @inline def fromRawMemoryStream[T](rawStream: RawMemoryStream[T]): MemoryStream[T] =
-    new MemoryStream[T](rawStream)
-
-  @inline def fromRawMemoryStream[T1, T2](rawStream: RawMemoryStream[(T1, T2)]): TupleMemoryStream2[T1, T2] =
-    new TupleMemoryStream2[T1, T2](rawStream)
-
-  @inline def fromRawMemoryStream[T1, T2, T3](rawStream: RawMemoryStream[(T1, T2, T3)]): TupleMemoryStream3[T1, T2, T3] =
-    new TupleMemoryStream3[T1, T2, T3](rawStream)
-
-  @inline def fromRawMemoryStream[T1, T2, T3, T4](rawStream: RawMemoryStream[(T1, T2, T3, T4)]): TupleMemoryStream4[T1, T2, T3, T4] =
-    new TupleMemoryStream4[T1, T2, T3, T4](rawStream)
 
   // from<X>
 
@@ -173,13 +156,8 @@ object XStream {
   @inline def fromTuple3Stream[T1, T2, T3](stream: TupleStream3[T1, T2, T3]): TupleStream3[T1, T2, T3] =
     new TupleStream3[T1, T2, T3](RawStream.from(stream.rawStream))
 
-  // fromTuple<N>MemoryStream
-
-  @inline def fromTuple2MemoryStream[T1, T2](stream: TupleMemoryStream2[T1, T2]): TupleStream2[T1, T2] =
-    new TupleStream2[T1, T2](RawStream.from(stream.rawStream))
-
-  @inline def fromTuple3MemoryStream[T1, T2, T3](stream: TupleMemoryStream3[T1, T2, T3]): TupleStream3[T1, T2, T3] =
-    new TupleStream3[T1, T2, T3](RawStream.from(stream.rawStream))
+  @inline def fromTuple4Stream[T1, T2, T3, T4](stream: TupleStream4[T1, T2, T3, T4]): TupleStream4[T1, T2, T3, T4] =
+    new TupleStream4[T1, T2, T3, T4](RawStream.from(stream.rawStream))
 
   // Merge
 

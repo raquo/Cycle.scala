@@ -1,7 +1,7 @@
 package cycle.xstream.adapter
 
 import cycle.base.{Observer, OptionalDisposeFunction, OriginStream, StreamSubscribeFunction, Subject}
-import xstream.{Listener, MemoryStream, Producer, RawListener, XStream}
+import xstream.{Listener, Producer, RawListener, XStream}
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.ScalaJSDefined
@@ -36,7 +36,7 @@ class XStreamAdapter extends js.Object {
   }
 
   /** Create memory stream */
-  def remember[T](stream: XStream[T]): MemoryStream[T] = {
+  def remember[T](stream: XStream[T]): XStream[T] = { // MemoryStream
 //    g.console.log("> XStreamAdapter.remember")
     stream.remember()
   }
