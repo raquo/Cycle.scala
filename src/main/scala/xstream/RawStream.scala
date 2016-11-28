@@ -1,13 +1,11 @@
 package xstream
 
-import cycle.base.RawSink
-
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
 import scala.scalajs.js.|
 
 @js.native
-class RawStream[T] extends js.Object with RawSink { // @TODO remove RawSink
+class RawStream[T] extends js.Object {
 
   def addListener(listener: RawListener[T]): Unit = js.native
 

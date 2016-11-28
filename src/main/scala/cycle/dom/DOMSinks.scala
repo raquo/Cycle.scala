@@ -1,6 +1,6 @@
 package cycle.dom
 
-import cycle.base.{Sink, Sinks}
+import cycle.base.Sinks
 
 import scala.scalajs.js.annotation.ScalaJSDefined
 

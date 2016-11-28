@@ -10,11 +10,11 @@ trait Source extends js.Object
 trait RawSource extends js.Object
 
 @ScalaJSDefined
-trait IsolatableSource[SelfSource <: IsolatableSource[_, Sink], Sink] extends Source {
+trait IsolatableSource[So <: IsolatableSource[_, Si], Si] extends js.Object {
 
-  def isolateSource(source: SelfSource, scope: String): SelfSource
+  def isolateSource(source: So, scope: String): So
 
-  def isolateSink(sink: Sink, scope: String): Sink
+  def isolateSink(sink: Si, scope: String): Si
 }
 
 @ScalaJSDefined

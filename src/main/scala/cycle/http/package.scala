@@ -1,8 +1,7 @@
 package cycle
 
-import cycle.base.RawDriverFunction
-import _root_.xstream.XStream
-import _root_.xstream.RawStream
+import cycle.base.RawDriver
+import _root_.xstream.{RawStream, XStream}
 
 package object http {
 
@@ -10,5 +9,5 @@ package object http {
 
   type RawHTTPSink = RawStream[RequestOptions]
 
-  type RawHTTPDriver = RawDriverFunction[RawHTTPSink, RawHTTPSource]
+  type RawHTTPDriver = RawDriver[RawHTTPSink, RawHTTPSource]
 }

@@ -6,9 +6,6 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSImport, ScalaJSDefined}
 
 @ScalaJSDefined
-trait RawDrivers extends js.Object
-
-@ScalaJSDefined
 class RawCycleOptions (
   val streamAdapter: XStreamAdapter
 ) extends js.Object

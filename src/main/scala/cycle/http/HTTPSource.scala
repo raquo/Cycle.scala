@@ -1,13 +1,13 @@
 package cycle.http
 
-import cycle.base.{IsolatableSource, RawSource, Sources}
-import xstream.{RawStream, XStream}
+import cycle.base.{IsolatableSource, RawSource, Source, Sources}
+import xstream.XStream
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.ScalaJSDefined
 
 @js.native
-trait RawHTTPSource extends IsolatableSource[RawHTTPSource, RawStream[RequestOptions]] with RawSource {
+trait RawHTTPSource extends RawSource with IsolatableSource[RawHTTPSource, RawHTTPSink] {
 
   def select(category: String): RawHTTPSource = js.native
 
@@ -17,11 +17,11 @@ trait RawHTTPSource extends IsolatableSource[RawHTTPSource, RawStream[RequestOpt
 
   def isolateSource(rawSource: RawHTTPSource, scope: String): RawHTTPSource = js.native
 
-  def isolateSink(rawSink: RawStream[RequestOptions], scope: String): RawStream[RequestOptions] = js.native
+  def isolateSink(rawSink: RawHTTPSink, scope: String): RawHTTPSink = js.native
 }
 
 @ScalaJSDefined
-class HTTPSource(val rawSource: RawHTTPSource) extends IsolatableSource[HTTPSource, XStream[RequestOptions]] {
+class HTTPSource(val rawSource: RawHTTPSource) extends Source with IsolatableSource[HTTPSource, HTTPSink] {
 
   def select(category: String): HTTPSource =
     new HTTPSource(rawSource.select(category))
@@ -35,7 +35,7 @@ class HTTPSource(val rawSource: RawHTTPSource) extends IsolatableSource[HTTPSour
   def isolateSource(source: HTTPSource, scope: String): HTTPSource =
     new HTTPSource(rawSource.isolateSource(source.rawSource, scope))
 
-  def isolateSink(sink: XStream[RequestOptions], scope: String): XStream[RequestOptions] =
+  def isolateSink(sink: HTTPSink, scope: String): HTTPSink =
     XStream.fromRawStream(rawSource.isolateSink(sink.rawStream, scope))
 }
 
