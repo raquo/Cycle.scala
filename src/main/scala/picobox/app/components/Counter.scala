@@ -2,12 +2,9 @@ package picobox.app.components
 
 import xstream.XStream
 import cycle.dom.{DOMSink, DOMSinks, DOMSources}
-import cycle.isolate.Isolator
-import snabbdom.Util.MouseEventCallback
+import cycle.isolate.Isolate
 
 import scala.scalajs.js.annotation.ScalaJSDefined
-
-//import snabbdom.streamToStreamNode
 import snabbdom.{DOMEventStream, Modifier, VNode, styles}
 import snabbdom.tags._
 import snabbdom.attrs._
@@ -18,7 +15,7 @@ import scala.scalajs.js.Dynamic.{global => g}
 import scala.util.Random
 
 @ScalaJSDefined
-class Counter private (
+class Counter private(
   val DOM: DOMSink,
   val countStream: XStream[Int]
 ) extends DOMSinks
@@ -35,15 +32,16 @@ class Counter private (
 
 object Counter {
 
-  private def main(sources: DOMSources): Counter = {
-
+  // @TODO[Performance] is this pattern efficient? Does it create a new function every time it's called?
+  // @TODO[API] Explore other options, e.g. classCounter/CounterSinks – might be less bothersome actually
+  def apply(intervalFactor: Double = 1): (DOMSources => Counter) = Isolate { sources =>
     val $incClick = sources.DOM.select(".inc").events(onClick)
     val $decClick = new DOMEventStream[MouseEvent]
     val $altIncClick = new DOMEventStream[MouseEvent]
 
-    val $time1 = XStream.periodic(1000).map(i => i + 1).startWith(0)
-    val $time2 = XStream.periodic(2000).map(i => i + 1).startWith(0)
-    val $time3 = XStream.periodic(3000).map(i => i + 1).startWith(0)
+    val $time1 = XStream.periodic((intervalFactor * 1000).toInt).map(i => i + 1).startWith(0)
+    val $time2 = XStream.periodic((intervalFactor * 2000).toInt).map(i => i + 1).startWith(0)
+    val $time3 = XStream.periodic((intervalFactor * 3000).toInt).map(i => i + 1).startWith(0)
 
     val $increment = XStream.merge($incClick, $altIncClick).map(ev => 1)
     val $decrement = $decClick.map(ev => -1)
@@ -73,7 +71,7 @@ object Counter {
         Seq[Modifier]("yo", b("lo"), "OMG"),
         Option("maybe"),
         None,
-        Some(i("some", onMouseOver := testHover)),  // @TODO bring this back
+        Some(i("some", onMouseOver := testHover)), // @TODO bring this back
         a(styles.border := "5px solid orange", styles.background := "yellow", href := "#yolo", "hoo"),
         $time1.map(time1 => div(s"TIME1: $time1")),
         $time2.map(time2 => div(s"TIME2: $time2")),
@@ -84,6 +82,4 @@ object Counter {
 
     new Counter($vnode, $count)
   }
-
-  def apply(sources: DOMSources): Counter = Isolator.isolate(main)(sources)
 }

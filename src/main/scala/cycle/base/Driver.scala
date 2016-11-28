@@ -2,7 +2,8 @@ package cycle.base
 
 import cycle.xstream.adapter.XStreamAdapter
 
-trait Driver[-Si <: Sink, +So <: Source, -Sis <: Sinks, +Sos <: Sources] {
+/** [[Sis]] and [[Sos]] are not used by drivers, but are crucial for type safety (see XStreamRun.scala) */
+trait Driver[-Si, +So, -Sis <: Sinks, +Sos <: Sources] {
 
   /** [[key]] must match the field name of [[Si]] in [[Sis]], and [[So]] in [[Sos]] */
   val key: String

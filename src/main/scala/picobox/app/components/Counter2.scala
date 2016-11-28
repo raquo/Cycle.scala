@@ -2,7 +2,7 @@ package picobox.app.components
 
 import xstream.XStream
 import cycle.dom.{DOMSink, DOMSinks, DOMSources}
-import cycle.isolate.Isolator
+import cycle.isolate.Isolate
 import snabbdom.VNode
 import org.scalajs.dom.raw.MouseEvent
 import snabbdom.tags._
@@ -18,7 +18,7 @@ class Counter2 private (
 
 object Counter2 {
 
-  private def main(sources: DOMSources): Counter2 = {
+  private def apply(): (DOMSources => Counter2) = Isolate { sources =>
     val $increment = sources.DOM.select("#entry #inc").events[MouseEvent]("click").map((ev: MouseEvent) => 1)
     val $decrement = sources.DOM.select("#entry #dec").events[MouseEvent]("click").map((ev: MouseEvent) => -1)
 
@@ -37,6 +37,4 @@ object Counter2 {
 
     new Counter2($vnode)
   }
-
-  def apply(sources: DOMSources): Counter2 = Isolator.isolate(main)(sources)
 }

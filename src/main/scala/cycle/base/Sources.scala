@@ -4,9 +4,6 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.ScalaJSDefined
 
 @ScalaJSDefined
-trait Source extends js.Object
-
-@ScalaJSDefined
 trait RawSource extends js.Object
 
 @ScalaJSDefined

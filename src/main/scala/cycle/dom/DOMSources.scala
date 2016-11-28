@@ -1,6 +1,6 @@
 package cycle.dom
 
-import cycle.base.{IsolatableSource, RawSource, Source, Sources}
+import cycle.base.{IsolatableSource, RawSource, Sources}
 import xstream.XStream
 import org.scalajs.dom.raw.{Event, HTMLElement}
 import snabbdom.EventProp
@@ -31,7 +31,7 @@ trait RawDOMSource extends RawSource with IsolatableSource[RawDOMSource, RawDOMS
 }
 
 @ScalaJSDefined
-class DOMSource(val rawSource: RawDOMSource) extends Source with IsolatableSource[DOMSource, DOMSink] {
+class DOMSource(val rawSource: RawDOMSource) extends IsolatableSource[DOMSource, DOMSink] {
 
   @inline def select(cssSelector: String): DOMSource = new DOMSource(rawSource.select(cssSelector))
 

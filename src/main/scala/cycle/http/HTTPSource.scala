@@ -1,6 +1,6 @@
 package cycle.http
 
-import cycle.base.{IsolatableSource, RawSource, Source, Sources}
+import cycle.base.{IsolatableSource, RawSource, Sources}
 import xstream.XStream
 
 import scala.scalajs.js
@@ -21,7 +21,7 @@ trait RawHTTPSource extends RawSource with IsolatableSource[RawHTTPSource, RawHT
 }
 
 @ScalaJSDefined
-class HTTPSource(val rawSource: RawHTTPSource) extends Source with IsolatableSource[HTTPSource, HTTPSink] {
+class HTTPSource(val rawSource: RawHTTPSource) extends IsolatableSource[HTTPSource, HTTPSink] {
 
   def select(category: String): HTTPSource =
     new HTTPSource(rawSource.select(category))
