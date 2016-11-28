@@ -1,14 +1,25 @@
 package cycle.base
 
+import cycle.xstream.adapter.XStreamAdapter
+
 import scala.scalajs.js
-import scala.scalajs.js.annotation.JSImport
+import scala.scalajs.js.annotation.{JSImport, ScalaJSDefined}
+
+@ScalaJSDefined
+trait RawDrivers extends js.Object
+
+@ScalaJSDefined
+class RawCycleOptions (
+  val streamAdapter: XStreamAdapter
+) extends js.Object
+
 
 @js.native
 @JSImport("@cycle/base", JSImport.Default)
-object Cycle extends js.Object {
-  def apply[TSources <: Sources, TSinks <: Sinks, TDrivers <: Drivers](
-    main: js.Function1[TSources, TSinks],
-    drivers: TDrivers,
-    options: Options
-  ): Execution[TSources, TSinks] = js.native
+object RawCycle extends js.Object {
+  def apply[Sos <: Sources, Sis <: Sinks](
+    main: js.Function1[Sos, Sis],
+    drivers: RawDrivers,
+    options: RawCycleOptions
+  ): Execution[Sos, Sis] = js.native
 }

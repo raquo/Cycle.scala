@@ -1,12 +1,14 @@
 package xstream
 
+import cycle.base.Sink
+
 import scalajs.js
 import scalajs.js.|
 import scala.scalajs.js.JSConverters._
 
 // @TODO Add documentation here
 
-class XStream[T] protected (val rawStream: RawStream[T]) {
+class XStream[T] protected (val rawStream: RawStream[T]) extends Sink {
 
   def addListener(listener: Listener[T]): Unit =
     rawStream.addListener(listener)

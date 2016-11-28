@@ -3,11 +3,11 @@ package cycle.base
 import scala.scalajs.js
 
 @js.native
-trait Execution[TSources <: Sources, TSinks <: Sinks] extends js.Object {
+trait Execution[+Sos <: Sources, +Sis <: Sinks] extends js.Object {
 
-  val sources: TSources = js.native
+  val sources: Sos = js.native
 
-  val sinks: TSinks = js.native
+  val sinks: Sis = js.native
 
   def run(): DisposeFunction = js.native
 }

@@ -7,10 +7,12 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.scalajs.js.Dynamic.{global => g}
 
-@ScalaJSDefined
-class XStreamAdapter extends js.Object {
+// @TODO[API] this should really be an object extending from a generic trait
 
-  // @TODO how to make this this is not DCE-d?
+@ScalaJSDefined
+class XStreamAdapter private extends js.Object {
+
+  // @TODO[Production] how to make this this is not DCE-d?
   /** This is needed to satisfy `isObjectEmpty(streamAdapter)` check inside cycle.js */
   val isObjectEmpty: Boolean = false
 
@@ -72,4 +74,8 @@ class XStreamAdapter extends js.Object {
     stream.addListener(listener)
     js.Any.fromFunction0(() => stream.removeListener(listener))
   }
+}
+
+object XStreamAdapter {
+  val sharedAdapter = new XStreamAdapter()
 }

@@ -1,8 +1,14 @@
 package cycle
 
+import _root_.xstream.XStream
+import cycle.base.RawDriverFunction
+import snabbdom.VNode
+import _root_.xstream.RawStream
+
 package object dom {
 
-  implicit def rawToDOMSource(rawDOMSource: RawDOMSource): DOMSource = new DOMSource(rawDOMSource)
+  type DOMSink = XStream[VNode]
+  type RawDOMSink = RawStream[VNode]
 
-  implicit def DOMSourceToRaw(DOMSource: DOMSource): RawDOMSource = DOMSource.rawSource
+  type RawDOMDriver = RawDriverFunction[RawDOMSink, RawDOMSource]
 }

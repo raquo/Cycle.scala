@@ -23,4 +23,4 @@ npmDependencies in Compile ++= Seq(
 
 scalaJSModuleKind := ModuleKind.CommonJSModule // not needed if using scalajs-bundler
 
-emitSourceMaps in fastOptJS := false
+emitSourceMaps in fastOptJS := true

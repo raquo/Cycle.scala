@@ -1,12 +1,13 @@
 package cycle.base
 
-import cycle.dom.RawDOMSource
-
 import scala.scalajs.js
 import scala.scalajs.js.annotation.ScalaJSDefined
 
 @ScalaJSDefined
 trait Source extends js.Object
+
+@ScalaJSDefined
+trait RawSource extends js.Object
 
 @ScalaJSDefined
 trait IsolatableSource[SelfSource <: IsolatableSource[_, Sink], Sink] extends Source {
@@ -16,10 +17,5 @@ trait IsolatableSource[SelfSource <: IsolatableSource[_, Sink], Sink] extends So
   def isolateSink(sink: Sink, scope: String): Sink
 }
 
-@js.native
+@ScalaJSDefined
 trait Sources extends js.Object
-
-@js.native
-class Sources_DOM() extends Sources {
-  val DOM: RawDOMSource = js.native
-}

@@ -1,6 +1,6 @@
 package cycle.dom
 
-import cycle.base.IsolatableSource
+import cycle.base.{IsolatableSource, RawSource, Sources}
 import xstream.{RawStream, XStream}
 import org.scalajs.dom.raw.{Event, HTMLElement}
 import snabbdom.{EventProp, VNode}
@@ -15,7 +15,7 @@ class EventOptions(
 ) extends js.Object
 
 @js.native
-trait RawDOMSource extends IsolatableSource[RawDOMSource, RawStream[VNode]] {
+trait RawDOMSource extends IsolatableSource[RawDOMSource, RawStream[VNode]] with RawSource {
 
   def select(selector: String): RawDOMSource = js.native
 
@@ -33,9 +33,9 @@ trait RawDOMSource extends IsolatableSource[RawDOMSource, RawStream[VNode]] {
 @ScalaJSDefined
 class DOMSource(val rawSource: RawDOMSource) extends IsolatableSource[DOMSource, XStream[VNode]] {
 
-  def select(selector: String): DOMSource = rawSource.select(selector)
+  @inline def select(selector: String): DOMSource = new DOMSource(rawSource.select(selector))
 
-  def elements[T <: HTMLElement](): XStream[T] = rawSource.elements[T]()
+  @inline def elements[T <: HTMLElement](): XStream[T] = rawSource.elements[T]()
 
   @inline def events[T <: Event](eventType: String): XStream[T] =
     rawSource.events[T](eventType)
@@ -50,8 +50,13 @@ class DOMSource(val rawSource: RawDOMSource) extends IsolatableSource[DOMSource,
     rawSource.events[T](eventProp.key, options)
 
   @inline def isolateSource(source: DOMSource, scope: String): DOMSource =
-    new DOMSource(rawSource.isolateSource(rawSource, scope))
+    new DOMSource(rawSource.isolateSource(source.rawSource, scope))
 
   @inline def isolateSink(sink: XStream[VNode], scope: String): XStream[VNode] =
     XStream.fromRawStream(rawSource.isolateSink(sink.rawStream, scope))
+}
+
+@ScalaJSDefined
+trait DOMSources extends Sources {
+  val DOM: DOMSource
 }
