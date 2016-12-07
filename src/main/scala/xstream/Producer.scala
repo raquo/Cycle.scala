@@ -4,7 +4,7 @@ import cycle.base.{Observer, OptionalDisposeFunction, OriginStream, StreamSubscr
 import cycle.xstream.adapter.ListenerCycleObserver
 
 import scala.scalajs.js
-import scala.scalajs.js.annotation.{JSName, ScalaJSDefined}
+import scala.scalajs.js.annotation.ScalaJSDefined
 
 @ScalaJSDefined
 /** Note: names `_start` and `_stop` are used internally by cycle.js, do not create members with such names */

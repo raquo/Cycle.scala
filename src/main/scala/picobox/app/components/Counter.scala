@@ -33,7 +33,7 @@ class Counter private(
 object Counter {
 
   // @TODO[Performance] is this pattern efficient? Does it create a new function every time it's called?
-  // @TODO[API] Explore other options, e.g. classCounter/CounterSinks – might be less bothersome actually
+  // @TODO[API] Explore other options, e.g. class Counter & CounterSinks – might be cleaner and more performant
   def apply(intervalFactor: Double = 1): (DOMSources => Counter) = Isolate { sources =>
     val $incClick = sources.DOM.select(".inc").events(onClick)
     val $decClick = new DOMEventStream[MouseEvent]

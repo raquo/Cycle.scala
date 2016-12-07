@@ -89,7 +89,7 @@ object RawStream extends js.Object {
   def periodic(period: Int): RawStream[Int] = js.native
 
 
-  def merge[T](streams: RawStream[T]*): RawStream[T] = js.native // @TODO does this do what I think it does?
+  def merge[T](streams: RawStream[T]*): RawStream[T] = js.native
 
   //  def merge[T](streams: js.Array[XStream[T]]): XStream[T] = js.native // @TODO does this do what I think it does?
 

@@ -14,5 +14,5 @@ trait IsolatableSource[So <: IsolatableSource[_, Si], Si] extends js.Object {
   def isolateSink(sink: Si, scope: String): Si
 }
 
-@ScalaJSDefined
+@js.native
 trait Sources extends js.Object

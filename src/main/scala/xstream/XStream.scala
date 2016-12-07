@@ -47,7 +47,7 @@ class XStream[T] protected (val rawStream: RawStream[T]) {
   def replaceError[E](replace: E => XStream[T]): XStream[T] =
     XStream.fromRawStream(rawStream.replaceError[E]((error: E) => replace(error).rawStream))
 
-  /** TODO: This only makes sense if T is Stream[R]. How do enforce this limitation in Scala? */
+  // @TODO: This only makes sense if T is Stream[R]. How do enforce this limitation in Scala?
   //  def flatten[R]: XStream[R] =
   //    XStream.createWithRawStream(rawStream.flatten)
 

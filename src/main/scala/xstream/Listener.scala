@@ -13,18 +13,18 @@ class Listener[T] private(
   maybeComplete: Option[() => Unit] = None
 ) extends RawListener[T] {
 
-  override def next(x: T) = maybeNext.getOrElse(Listener.noop1[T])(x)
+  override def next(x: T): Unit = maybeNext.getOrElse(Listener.noop1[T])(x)
 
-  override def error[E](e: E) = maybeError.getOrElse(Listener.noop1[E])
+  override def error[E](e: E): Unit = maybeError.getOrElse(Listener.noop1[E])
 
-  override def complete() = maybeComplete.getOrElse(Listener.noop0)
+  override def complete(): Unit = maybeComplete.getOrElse(Listener.noop0)
 }
 
 object Listener {
 
-  def noop0 = () => {}
+  private def noop0 = () => {}
 
-  def noop1[T] = (x: T) => {}
+  private def noop1[T] = (x: T) => {}
 
   def create[T](next: T => Unit): Listener[T] =
     new Listener(maybeNext = Some(next))

@@ -39,7 +39,7 @@ class HTTPSource(val rawSource: RawHTTPSource) extends IsolatableSource[HTTPSour
     XStream.fromRawStream(rawSource.isolateSink(sink.rawStream, scope))
 }
 
-@ScalaJSDefined
+@js.native
 trait HTTPSources extends Sources {
-  val HTTP: HTTPSource
+  val HTTP: HTTPSource = js.native
 }

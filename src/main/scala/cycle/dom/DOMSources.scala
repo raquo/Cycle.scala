@@ -56,7 +56,7 @@ class DOMSource(val rawSource: RawDOMSource) extends IsolatableSource[DOMSource,
     XStream.fromRawStream(rawSource.isolateSink(sink.rawStream, scope))
 }
 
-@ScalaJSDefined
+@js.native
 trait DOMSources extends Sources {
-  val DOM: DOMSource
+  val DOM: DOMSource = js.native
 }
