@@ -49,10 +49,10 @@ class DOMSource(val rawSource: RawDOMSource) extends IsolatableSource[DOMSource,
   @inline def events[E <: Event](eventProp: EventProp[EventCallback[E]], options: EventOptions): XStream[E] =
     rawSource.events[E](eventProp.key, options)
 
-  @inline def isolateSource(source: DOMSource, scope: String): DOMSource =
+  @inline protected def isolateSource(source: DOMSource, scope: String): DOMSource =
     new DOMSource(rawSource.isolateSource(source.rawSource, scope))
 
-  @inline def isolateSink(sink: DOMSink, scope: String): DOMSink =
+  @inline protected def isolateSink(sink: DOMSink, scope: String): DOMSink =
     XStream.fromRawStream(rawSource.isolateSink(sink.rawStream, scope))
 }
 

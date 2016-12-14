@@ -32,10 +32,10 @@ class HTTPSource(val rawSource: RawHTTPSource) extends IsolatableSource[HTTPSour
   def filter(predicate: RequestOptions => Boolean): HTTPSource =
     new HTTPSource(rawSource.filter(predicate))
 
-  def isolateSource(source: HTTPSource, scope: String): HTTPSource =
+  protected def isolateSource(source: HTTPSource, scope: String): HTTPSource =
     new HTTPSource(rawSource.isolateSource(source.rawSource, scope))
 
-  def isolateSink(sink: HTTPSink, scope: String): HTTPSink =
+  protected def isolateSink(sink: HTTPSink, scope: String): HTTPSink =
     XStream.fromRawStream(rawSource.isolateSink(sink.rawStream, scope))
 }
 

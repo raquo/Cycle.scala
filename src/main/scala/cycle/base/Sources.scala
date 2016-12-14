@@ -9,9 +9,9 @@ trait RawSource extends js.Object
 @ScalaJSDefined
 trait IsolatableSource[So <: IsolatableSource[_, Si], Si] extends js.Object {
 
-  def isolateSource(source: So, scope: String): So
+  protected def isolateSource(source: So, scope: String): So
 
-  def isolateSink(sink: Si, scope: String): Si
+  protected def isolateSink(sink: Si, scope: String): Si
 }
 
 @js.native
