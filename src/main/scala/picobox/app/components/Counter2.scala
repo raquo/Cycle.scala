@@ -1,6 +1,7 @@
 package picobox.app.components
 
 import xstream.XStream
+import xstream.XStream.merge
 import cycle.dom.{DOMSink, DOMSinks, DOMSources}
 import cycle.isolate.Isolate
 import snabbdom.VNode
@@ -18,22 +19,21 @@ class Counter2 private (
 
 object Counter2 {
 
-  private def apply(): (DOMSources => Counter2) = Isolate { sources =>
-    val $increment = sources.DOM.select("#entry #inc").events[MouseEvent]("click").map((ev: MouseEvent) => 1)
-    val $decrement = sources.DOM.select("#entry #dec").events[MouseEvent]("click").map((ev: MouseEvent) => -1)
+  def apply(): (DOMSources => Counter2) = Isolate { sources =>
+    val $increment = sources.DOM.select("#entry #inc").events[MouseEvent]("click").mapTo(1)
+    val $decrement = sources.DOM.select("#entry #dec").events[MouseEvent]("click").mapTo(-1)
 
-    val $count: XStream[Int] = XStream.merge($increment, $decrement)
+    val $count: XStream[Int] = merge($increment, $decrement)
       .startWith(0)
       .fold((a: Int, b: Int) => a + b, seed = 0)
 
-    val $vnode: XStream[VNode] = $count
-      .map((count: Int) => {
-        div(
-          button(id := "inc", typ := "button", "+"),
-          button(id := "dec", typ := "button", "–"),
-          p(s"Count: $count")
-        )
-      })
+    val $vnode: XStream[VNode] = $count.map { count =>
+      div(
+        button(id := "inc", typ := "button", "+"),
+        button(id := "dec", typ := "button", "–"),
+        p(s"Count: $count")
+      )
+    }
 
     new Counter2($vnode)
   }

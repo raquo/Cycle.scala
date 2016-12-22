@@ -14,6 +14,8 @@ class EventOptions(
   val useCapture: Boolean
 ) extends js.Object
 
+// @TODO[API] Use pimp-my-library pattern here
+
 @js.native
 trait RawDOMSource extends RawSource with IsolatableSource[RawDOMSource, RawDOMSink] {
 
@@ -33,9 +35,11 @@ trait RawDOMSource extends RawSource with IsolatableSource[RawDOMSource, RawDOMS
 @ScalaJSDefined
 class DOMSource(val rawSource: RawDOMSource) extends IsolatableSource[DOMSource, DOMSink] {
 
-  @inline def select(cssSelector: String): DOMSource = new DOMSource(rawSource.select(cssSelector))
+  @inline def select(cssSelector: String): DOMSource =
+    new DOMSource(rawSource.select(cssSelector))
 
-  @inline def elements[T <: HTMLElement](): XStream[T] = rawSource.elements[T]()
+  @inline def elements[T <: HTMLElement](): XStream[T] =
+    rawSource.elements[T]()
 
   @inline def events[E <: Event](eventType: String): XStream[E] =
     rawSource.events[E](eventType)
@@ -53,7 +57,7 @@ class DOMSource(val rawSource: RawDOMSource) extends IsolatableSource[DOMSource,
     new DOMSource(rawSource.isolateSource(source.rawSource, scope))
 
   @inline protected def isolateSink(sink: DOMSink, scope: String): DOMSink =
-    XStream.fromRawStream(rawSource.isolateSink(sink.rawStream, scope))
+    rawSource.isolateSink(sink, scope)
 }
 
 @js.native

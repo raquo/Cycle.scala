@@ -6,12 +6,12 @@ import xstream.XStream
 import scala.scalajs.js
 import scala.scalajs.js.annotation.ScalaJSDefined
 
+// @TODO use pimp-my-library pattern here
+
 @js.native
 trait RawHTTPSource extends RawSource with IsolatableSource[RawHTTPSource, RawHTTPSink] {
 
-  def select(category: String): RawHTTPSource = js.native
-
-  def select(): RawHTTPSource = js.native
+  def select(category: js.UndefOr[String] = js.undefined): XStream[RawResponseStream] = js.native
 
   def filter(predicate: RequestOptions => Boolean): RawHTTPSource = js.native
 
@@ -23,11 +23,12 @@ trait RawHTTPSource extends RawSource with IsolatableSource[RawHTTPSource, RawHT
 @ScalaJSDefined
 class HTTPSource(val rawSource: RawHTTPSource) extends IsolatableSource[HTTPSource, HTTPSink] {
 
-  def select(category: String): HTTPSource =
-    new HTTPSource(rawSource.select(category))
+  def select(category: String): XStream[ResponseStream] = {
+    rawSource.select(category).map(new ResponseStream(_))
+  }
 
-  def select(): HTTPSource =
-    new HTTPSource(rawSource.select())
+  def select(): XStream[ResponseStream] =
+    rawSource.select().map(new ResponseStream(_))
 
   def filter(predicate: RequestOptions => Boolean): HTTPSource =
     new HTTPSource(rawSource.filter(predicate))
@@ -36,7 +37,7 @@ class HTTPSource(val rawSource: RawHTTPSource) extends IsolatableSource[HTTPSour
     new HTTPSource(rawSource.isolateSource(source.rawSource, scope))
 
   protected def isolateSink(sink: HTTPSink, scope: String): HTTPSink =
-    XStream.fromRawStream(rawSource.isolateSink(sink.rawStream, scope))
+    rawSource.isolateSink(sink.stream, scope)
 }
 
 @js.native

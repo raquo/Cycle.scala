@@ -1,7 +1,7 @@
 package cycle.dom
 
 import cycle.base.Driver
-import cycle.xstream.adapter.XStreamAdapter
+import cycle.base.XStreamAdapter
 
 class DOMDriver (
   rawDriver: RawDOMDriver
@@ -10,6 +10,6 @@ class DOMDriver (
   val key = "DOM"
 
   def driverFunction(sink: DOMSink, streamAdapter: XStreamAdapter, key: String): DOMSource = {
-    new DOMSource(rawDriver(sink.rawStream, streamAdapter, key))
+    new DOMSource(rawDriver(sink, streamAdapter, key))
   }
 }

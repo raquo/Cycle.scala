@@ -1,7 +1,7 @@
 package cycle.http
 
 import scala.scalajs.js
-import scala.scalajs.js.annotation.ScalaJSDefined
+import scala.scalajs.js.annotation.{JSName, ScalaJSDefined}
 
 @ScalaJSDefined
 class Attachment (
@@ -16,16 +16,6 @@ class AgentOptions (
   val cert: String
 ) extends js.Object
 
-@js.native
-trait RawResponse extends js.Object {
-  val text: js.UndefOr[String] = js.native
-  val body: js.UndefOr[js.Object] = js.native
-  val header: js.UndefOr[js.Object] = js.native
-  val `type`: js.UndefOr[String] = js.native
-  val status: js.UndefOr[Int] = js.native
-  val request: js.UndefOr[RequestOptions] = js.native
-}
-
 @ScalaJSDefined
 class RequestOptions (
   val url: String,
@@ -34,7 +24,8 @@ class RequestOptions (
   val send: js.UndefOr[js.Object] = js.undefined,
   val headers: js.UndefOr[js.Object] = js.undefined,
   val accept: js.UndefOr[String] = js.undefined,
-  val `type`: js.UndefOr[String] = js.undefined,
+  @JSName("type")
+  val contentType: js.UndefOr[String] = js.undefined,
   val user: js.UndefOr[String] = js.undefined,
   val password: js.UndefOr[String] = js.undefined,
   val field: js.UndefOr[js.Object] = js.undefined,

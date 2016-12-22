@@ -1,20 +1,27 @@
 package cycle.xstream.run
 
 import cycle.base._
-import cycle.xstream.adapter.XStreamAdapter
 
 import scala.scalajs.js
+import scala.scalajs.js.annotation.JSImport
+
+@js.native
+@JSImport("@cycle/xstream-run", JSImport.Namespace)
+object RawXStreamRun extends js.Object {
+  def run[Sos <: Sources, Sis <: Sinks](
+    main: js.Function1[Sos, Sis],
+    drivers: RawDrivers
+  ): DisposeFunction = js.native
+}
 
 object XStreamRun {
-
-  private val cycleOptions = new RawCycleOptions(XStreamAdapter.sharedAdapter)
 
   @inline
   def apply[Sis <: Sinks, Sos <: Sources](
     main: Sos => Sis,
     driver: Driver[_, _, Sis, Sos]
   ): DisposeFunction = {
-    cycleExecution(main, driver).run()
+    run(main, driver)
   }
 
   @inline def apply[
@@ -25,7 +32,7 @@ object XStreamRun {
     driver1: Driver[_, _, Sis1, Sos1],
     driver2: Driver[_, _, Sis2, Sos2]
   ): DisposeFunction = {
-    cycleExecution(main, driver1, driver2).run()
+    run(main, driver1, driver2)
   }
 
   @inline def apply[
@@ -38,7 +45,7 @@ object XStreamRun {
     driver2: Driver[_, _, Sis2, Sos2],
     driver3: Driver[_, _, Sis3, Sos3]
   ): DisposeFunction = {
-    cycleExecution(main, driver1, driver2, driver3).run()
+    run(main, driver1, driver2, driver3)
   }
 
   @inline def apply[
@@ -53,15 +60,15 @@ object XStreamRun {
     driver3: Driver[_, _, Sis3, Sos3],
     driver4: Driver[_, _, Sis4, Sos4]
   ): DisposeFunction = {
-    cycleExecution(main, driver1, driver2, driver3, driver4).run()
+    run(main, driver1, driver2, driver3, driver4)
   }
 
   @inline
-  private def cycleExecution[Sos <: Sources, Sis <: Sinks](
+  private def run[Sos <: Sources, Sis <: Sinks](
     main: Sos => Sis,
     drivers: Driver[_, _, _, _]*
-  ): Execution[Sos, Sis] = {
-    RawCycle(main, combineDrivers(drivers), cycleOptions)
+  ): DisposeFunction = {
+    RawXStreamRun.run(main, combineDrivers(drivers))
   }
 
   private def combineDrivers(drivers: Seq[Driver[_, _, _, _]]): RawDrivers = {

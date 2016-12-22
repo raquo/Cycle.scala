@@ -1,6 +1,6 @@
 package cycle
 
-import cycle.xstream.adapter.XStreamAdapter
+import _root_.xstream.{MemoryStream, XStream}
 
 import scala.scalajs.js
 
@@ -17,5 +17,7 @@ package object base {
 
   type OptionalDisposeFunction = js.UndefOr[DisposeFunction]
 
-  type StreamSubscribeFunction[TStream, TCycleObserver] = js.Function2[TStream, TCycleObserver, OptionalDisposeFunction]
+  type StreamSubscribeFunction[Stream, CycleObserver] = js.Function2[Stream, CycleObserver, OptionalDisposeFunction]
+
+  type XStreamAdapter = StreamAdapter[XStream, MemoryStream]
 }

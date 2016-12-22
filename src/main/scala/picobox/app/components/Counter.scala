@@ -1,11 +1,13 @@
 package picobox.app.components
 
 import xstream.XStream
+import xstream.XStream.{combine, merge, periodic}
 import cycle.dom.{DOMSink, DOMSinks, DOMSources}
+import cycle.dom.Transposition.transpose
 import cycle.isolate.Isolate
 
 import scala.scalajs.js.annotation.ScalaJSDefined
-import snabbdom.{DOMEventStream, Modifier, VNode, styles}
+import snabbdom.{Modifier, VNode, styles}
 import snabbdom.tags._
 import snabbdom.attrs._
 import snabbdom.events._
@@ -36,47 +38,54 @@ object Counter {
   // @TODO[API] Explore other options, e.g. class Counter & CounterSinks – might be cleaner and more performant
   def apply(intervalFactor: Double = 1): (DOMSources => Counter) = Isolate { sources =>
     val $incClick = sources.DOM.select(".inc").events(onClick)
-    val $decClick = new DOMEventStream[MouseEvent]
-    val $altIncClick = new DOMEventStream[MouseEvent]
+    val $decClick = XStream.create[MouseEvent]()
+    val $altIncClick = XStream.create[MouseEvent]()
 
-    val $time1 = XStream.periodic((intervalFactor * 1000).toInt).map(i => i + 1).startWith(0)
-    val $time2 = XStream.periodic((intervalFactor * 2000).toInt).map(i => i + 1).startWith(0)
-    val $time3 = XStream.periodic((intervalFactor * 3000).toInt).map(i => i + 1).startWith(0)
+    val $time1 = periodic((intervalFactor * 1000).toInt).startWith(-1).map(i => (i + 1) * 1)
+    val $time2 = periodic((intervalFactor * 2000).toInt).startWith(-1).map(i => (i + 1) * 2)
+    val $time3 = periodic((intervalFactor * 4000).toInt).startWith(-1).map(i => (i + 1) * 4)
 
-    val $increment = XStream.merge($incClick, $altIncClick).map(ev => 1)
-    val $decrement = $decClick.map(ev => -1)
+    val $increment = merge($incClick, $altIncClick).mapTo(1).debug("inc")
+    val $decrement = $decClick.mapTo(-1).debug("dec")
 
-    val $count = XStream.merge($increment, $decrement)
+    val $count = merge($increment, $decrement)
       .startWith(0)
       .fold((acc: Int, nextVal: Int) => acc + nextVal, 0)
+      .debug("count")
 
     val testHover = (e: MouseEvent) => println("some hover")
 
     val test: XStream[VNode] = $time1.map(time1 => div(s"TIME1: $time1"))
 
+    val $tuple = combine($time1, $time2, $time3)
+      .filter((time1: Int, time2: Int, time3: Int) => true)
+      //      .debug((time1: Int, time2: Int, time3: Int) => g.console.log("tupler"))
+      .map((time1: Int, time2: Int, time3: Int) => div(s"Tupled times: ($time1, $time2, $time3)"))
+
     // Note that Random.nextInt will NOT be updated if time$* updates, only when count$ updates. Because transposition.
-    val $vnode = $count.map(count =>
+    val $vnode = transpose(
       div(
         "Foo",
         "bar",
         button(cls := "inc", typ := "button", "+"),
-        button(cls := "dec", onClick := $decClick, typ := "button", "–"),
-        p(s"Count = $count"),
+        button(cls := "dec", onClick --> $decClick, typ := "button", "–"),
+        $count.map(count => p(s"Count = $count")),
         p(s"rand = ${Random.nextInt()}"),
         "Hello",
         "world",
         test,
-        button(id := "xxx", typ := "button", onClick := $altIncClick, "alt+"), // @TODO bring this back
+        button(id := "xxx", typ := "button", onClick --> $altIncClick, "alt+"),
         a(href := "#yolo", "boooo"),
         Seq[Modifier]("yo", b("lo"), "OMG"),
         Option("maybe"),
         None,
-        Some(i("some", onMouseOver := testHover)), // @TODO bring this back
+        Some(i("some", onMouseOver := testHover)),
         a(styles.border := "5px solid orange", styles.background := "yellow", href := "#yolo", "hoo"),
         $time1.map(time1 => div(s"TIME1: $time1")),
         $time2.map(time2 => div(s"TIME2: $time2")),
         $time3.map(time3 => div(s"TIME3: $time3")),
-        "FOO"
+        $tuple,
+        "<<<"
       )
     )
 

@@ -1,7 +1,5 @@
 package cycle.base
 
-import cycle.xstream.adapter.XStreamAdapter
-
 /** [[Sis]] and [[Sos]] are not used by drivers, but are crucial for type safety (see XStreamRun.scala) */
 trait Driver[-Si, +So, -Sis <: Sinks, +Sos <: Sources] {
 

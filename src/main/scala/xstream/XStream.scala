@@ -1,194 +1,142 @@
 package xstream
 
-import scalajs.js
-import scalajs.js.|
+import scala.scalajs.js
+import scala.scalajs.js.annotation.JSName
 import scala.scalajs.js.JSConverters._
+import scala.scalajs.js.|
 
-// @TODO Add documentation here
+@js.native
+trait XStream[T] extends js.Object {
 
-class XStream[T] protected (val rawStream: RawStream[T]) {
+  def addListener(listener: Listener[T]): Unit = js.native
 
-  def addListener(listener: Listener[T]): Unit =
-    rawStream.addListener(listener)
+  def removeListener(listener: Listener[T]): Unit = js.native
 
-  def removeListener(listener: Listener[T]): Unit =
-    rawStream.removeListener(listener)
+  def subscribe(listener: Listener[T]): Subscription[T] = js.native
 
-  def subscribe(listener: Listener[T]): RawSubscription[T] =
-    rawStream.subscribe(listener)
+  @JSName("map")
+  def mapJs[U](project: js.Function1[T, U]): XStream[U] = js.native
 
-  def map[U](project: T => U): XStream[U] =
-    XStream.fromRawStream(rawStream.map(project))
+  def mapTo[U](projectedValue: U): XStream[U] = js.native
 
-  def mapTo[U](projectedValue: U): XStream[U] =
-    XStream.fromRawStream(rawStream.mapTo(projectedValue))
+  def filter(passes: js.Function1[T, Boolean]): XStream[T] = js.native
 
-  def filter(passes: T => Boolean): XStream[T] =
-    XStream.fromRawStream(rawStream.filter(passes))
+  def take(amount: Int): XStream[T] = js.native
 
-  def take(amount: Int): XStream[T] =
-    XStream.fromRawStream(rawStream.take(amount))
+  def drop(amount: Int): XStream[T] = js.native
 
-  def drop(amount: Int): XStream[T] =
-    XStream.fromRawStream(rawStream.drop(amount))
+  def last(): XStream[T] = js.native
 
-  def last(): XStream[T] =
-    XStream.fromRawStream(rawStream.last())
+  def startWith(initial: T): MemoryStream[T] = js.native
 
-  def startWith(initial: T): XStream[T] = // MemoryStream
-    new XStream(rawStream.startWith(initial))
+  def endWhen(other: XStream[_]): XStream[T] = js.native
 
-  def endWhen[U](other: XStream[U]): XStream[T] =
-    XStream.fromRawStream(rawStream.endWhen(other.rawStream))
+  def fold[R](accumulate: js.Function2[R, T, R], seed: R): MemoryStream[R] = js.native
 
-  def fold[R](accumulate: (R, T) => R, seed: R): XStream[R] = // MemoryStream
-    new XStream(rawStream.fold(accumulate, seed))
+  // @TODO should `E` type exist here? In Typescript it's `any`
+  def replaceError[E](replace: js.Function1[E, XStream[T]]): XStream[T] = js.native
 
-  def replaceError[E](replace: E => XStream[T]): XStream[T] =
-    XStream.fromRawStream(rawStream.replaceError[E]((error: E) => replace(error).rawStream))
+  @JSName("flatten")
+  private[xstream] def flattenJs[R]: XStream[R] = js.native
 
-  // @TODO: This only makes sense if T is Stream[R]. How do enforce this limitation in Scala?
-  //  def flatten[R]: XStream[R] =
-  //    XStream.createWithRawStream(rawStream.flatten)
+  def compose[U](operator: js.Function1[XStream[T], XStream[U]]): XStream[U] = js.native
 
-  def compose[U](operator: XStream[T] => XStream[U]): XStream[U] = {
-    XStream.fromRawStream(rawStream.compose[U] { someRawStream: RawStream[T] =>
-      operator(XStream.fromRawStream(someRawStream)).rawStream
-    })
-  }
+  def compose[U](operator: js.Function1[XStream[T], MemoryStream[U]]): MemoryStream[U] = js.native
 
-  def remember(): XStream[T] = // MemoryStream
-    new XStream(rawStream.remember())
+  def remember(): MemoryStream[T] = js.native
 
-  def debug(spy: T => Unit): XStream[T] =
-    XStream.fromRawStream(rawStream.debug(spy))
+  def debug(spy: js.Function1[T, Any]): XStream[T] = js.native
 
-  def debug(label: String): XStream[T] =
-    XStream.fromRawStream(rawStream.debug(label))
+  def debug(label: String): XStream[T] = js.native
 
-  def debug(): XStream[T] =
-    XStream.fromRawStream(rawStream.debug())
+  def debug(): XStream[T] = js.native
 
-  def imitate(target: XStream[T]): Unit =
-    rawStream.imitate(target.rawStream)
+  def imitate(target: XStream[T]): Unit = js.native
 
-  def shamefullySendNext(value: T): Unit =
-    rawStream.shamefullySendNext(value)
+  def shamefullySendNext(value: T): Unit = js.native
 
-  def shamefullySendError[E](error: E): Unit =
-    rawStream.shamefullySendError(error)
+  def shamefullySendError[E](error: E): Unit = js.native
 
-  def shamefullySendComplete(): Unit =
-    rawStream.shamefullySendComplete()
+  def shamefullySendComplete(): Unit = js.native
 
-  def setDebugListener(listener: Listener[T]): Unit =
-    rawStream.setDebugListener(listener)
+  def setDebugListener(listener: Listener[T]): Unit = js.native
 }
 
 object XStream {
 
+  // @TODO Method
+
   // Simple streams
 
+  @inline def of[T](value: T): XStream[T] =
+    RawXStream.of(value)
+
   @inline def never(): XStream[Nothing] =
-    new XStream[Nothing](RawStream.never())
+    RawXStream.never()
 
   @inline def empty(): XStream[Nothing] =
-    new XStream[Nothing](RawStream.empty())
+    RawXStream.empty()
 
   @inline def throwError[T](error: T): XStream[T] =
-    new XStream(RawStream.`throw`(error))
+    RawXStream.`throw`(error)
 
   @inline def periodic(period: Int): XStream[Int] =
-    new XStream(RawStream.periodic(period))
+    RawXStream.periodic(period)
 
   // create & createWithMemory
 
   @inline def create[T](): XStream[T] =
-    new XStream(RawStream.create[T]())
+    RawXStream.create[T]()
 
-  @inline def create[T](producer: Producer[T]): XStream[T] =
-    new XStream(RawStream.create[T](producer))
+  @inline def create[T](producer: RichProducer[T]): XStream[T] =
+    RawXStream.create[T](producer)
 
-  @inline def createWithMemory[T](): XStream[T] = // MemoryStream
-    new XStream(RawStream.createWithMemory[T]())
+  @inline def createWithMemory[T](): MemoryStream[T] =
+    RawXStream.createWithMemory[T]()
 
-  @inline def createWithMemory[T](producer: Producer[T]): XStream[T] = // MemoryStream
-    new XStream(RawStream.createWithMemory[T](producer))
-
-  // fromRawStream
-
-  @inline def fromRawStream[T](rawStream: RawStream[T]): XStream[T] =
-    new XStream[T](rawStream)
-
-  @inline def fromRawStream[T1, T2](rawStream: RawStream[(T1, T2)]): TupleStream2[T1, T2] =
-    new TupleStream2[T1, T2](rawStream)
-
-  @inline def fromRawStream[T1, T2, T3](rawStream: RawStream[(T1, T2, T3)]): TupleStream3[T1, T2, T3] =
-    new TupleStream3[T1, T2, T3](rawStream)
-
-  @inline def fromRawStream[T1, T2, T3, T4](rawStream: RawStream[(T1, T2, T3, T4)]): TupleStream4[T1, T2, T3, T4] =
-    new TupleStream4[T1, T2, T3, T4](rawStream)
+  @inline def createWithMemory[T](producer: RichProducer[T]): MemoryStream[T] =
+    RawXStream.createWithMemory[T](producer)
 
   // from<X>
 
-  @inline def fromStream[T](stream: XStream[T]): XStream[T] =
-    new XStream(RawStream.from(stream.rawStream))
-
-  //  def fromObservable[T](observable: Any): Stream[T] = js.native // @TODO ES6 observable?
-
   @inline def fromSeq[T](seq: Seq[T]): XStream[T] =
-    new XStream(RawStream.fromArray(seq.toJSArray))
+    RawXStream.fromArray(seq.toJSArray)
 
   @inline def fromPromise[T](promise: js.Promise[T]): XStream[T] =
-    new XStream(RawStream.fromPromise(promise))
+    RawXStream.fromPromise(promise)
 
   @inline def fromJSArray[T](array: js.Array[T]): XStream[T] =
-    new XStream(RawStream.from(array))
+    RawXStream.fromArray(array)
 
-  @inline def of[T](items: T*): XStream[T] =
-    new XStream(RawStream.fromArray(items.toJSArray))
-
-  // fromTuple<N>Stream
-
-  @inline def fromTuple2Stream[T1, T2](stream: TupleStream2[T1, T2]): TupleStream2[T1, T2] =
-    new TupleStream2[T1, T2](RawStream.from(stream.rawStream))
-
-  @inline def fromTuple3Stream[T1, T2, T3](stream: TupleStream3[T1, T2, T3]): TupleStream3[T1, T2, T3] =
-    new TupleStream3[T1, T2, T3](RawStream.from(stream.rawStream))
-
-  @inline def fromTuple4Stream[T1, T2, T3, T4](stream: TupleStream4[T1, T2, T3, T4]): TupleStream4[T1, T2, T3, T4] =
-    new TupleStream4[T1, T2, T3, T4](RawStream.from(stream.rawStream))
+  //  @inline def fromJsObservable[T](observable: Any): Stream[T] = js.native // @TODO ES6 observable?
 
   // Merge
 
   @inline def merge[T](streams: XStream[T]*): XStream[T] =
-    new XStream(RawStream.merge(streams.map(_.rawStream): _*))
+    RawXStream.merge(streams: _*)
 
   // Combine
 
   @inline def combine[T1, T2](
     stream1: XStream[T1], stream2: XStream[T2]
-  ): TupleStream2[T1, T2] = new TupleStream2(
-    RawStream
-      .combine(stream1.rawStream, stream2.rawStream)
-      .map(JSArrayToTuple2[T1, T2] _)
-  )
+  ): XStream[(T1, T2)] =
+    RawXStream
+      .combine(stream1, stream2)
+      .mapJs(JSArrayToTuple2[T1, T2] _)
 
   @inline def combine[T1, T2, T3](
     stream1: XStream[T1], stream2: XStream[T2], stream3: XStream[T3]
-  ): TupleStream3[T1, T2, T3] = new TupleStream3(
-    RawStream
-      .combine(stream1.rawStream, stream2.rawStream, stream3.rawStream)
-      .map(JSArrayToTuple3[T1, T2, T3] _)
-  )
+  ): XStream[(T1, T2, T3)] =
+    RawXStream
+      .combine(stream1, stream2, stream3)
+      .mapJs(JSArrayToTuple3[T1, T2, T3] _)
 
   @inline def combine[T1, T2, T3, T4](
     stream1: XStream[T1], stream2: XStream[T2], stream3: XStream[T3], stream4: XStream[T4]
-  ): TupleStream4[T1, T2, T3, T4] = new TupleStream4(
-    RawStream
-      .combine(stream1.rawStream, stream2.rawStream, stream3.rawStream, stream4.rawStream)
-      .map(JSArrayToTuple4[T1, T2, T3, T4] _)
-  )
+  ): XStream[(T1, T2, T3, T4)] =
+    RawXStream
+      .combine(stream1, stream2, stream3, stream4)
+      .mapJs(JSArrayToTuple4[T1, T2, T3, T4] _)
 
   //
   //  @inline def combine[T1, T2, T3, T4, T5](
@@ -214,9 +162,7 @@ object XStream {
     (arr(0).asInstanceOf[T1], arr(1).asInstanceOf[T2], arr(2).asInstanceOf[T3], arr(3).asInstanceOf[T4])
   }
 
-//  @inline private def JSArrayToTuple5[T1, T2, T3, T4, T5](arr: js.Array[T1 | T2 | T3 | T4 | T5]): (T1, T2, T3, T4, T5) = {
-//    (arr(0).asInstanceOf[T1], arr(1).asInstanceOf[T2], arr(2).asInstanceOf[T3], arr(3).asInstanceOf[T4], arr(4).asInstanceOf[T5])
-//  }
+  //  @inline private def JSArrayToTuple5[T1, T2, T3, T4, T5](arr: js.Array[T1 | T2 | T3 | T4 | T5]): (T1, T2, T3, T4, T5) = {
+  //    (arr(0).asInstanceOf[T1], arr(1).asInstanceOf[T2], arr(2).asInstanceOf[T3], arr(3).asInstanceOf[T4], arr(4).asInstanceOf[T5])
+  //  }
 }
-
-

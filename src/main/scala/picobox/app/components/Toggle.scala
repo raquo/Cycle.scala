@@ -13,9 +13,9 @@ class Toggle(
   private val click$ = DOMSource.select("#entry #toggle").events[MouseEvent]("click")
 
   val DOM$: XStream[VNode] = click$
-    .map((ev: MouseEvent) => ev.target.asInstanceOf[HTMLInputElement].checked)
+    .map(ev => ev.target.asInstanceOf[HTMLInputElement].checked)
     .startWith(false)
-    .map((toggled: Boolean) => {
+    .map(toggled => {
       div(
         input(id := "toggle", typ := "checkbox"),
         label(`for` := "toggle", "TOGGLE MEEEE"),
