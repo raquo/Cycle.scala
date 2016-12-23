@@ -3,9 +3,6 @@ package cycle.base
 import scala.scalajs.js
 import scala.scalajs.js.annotation.ScalaJSDefined
 
-@ScalaJSDefined
-trait RawSource extends js.Object
-
 // @TODO[Integrity] Use this self-type pattern? https://gist.github.com/odersky/56323c309a186cffe9af
 
 @ScalaJSDefined

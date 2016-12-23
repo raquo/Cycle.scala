@@ -1,6 +1,6 @@
 package cycle.dom
 
-import cycle.base.{IsolatableSource, RawSource, Sources}
+import cycle.base.{IsolatableSource, Sources}
 import xstream.XStream
 import org.scalajs.dom.raw.{Event, HTMLElement}
 
@@ -13,7 +13,7 @@ class EventOptions(
 ) extends js.Object
 
 @js.native
-trait DOMSource extends RawSource with IsolatableSource[DOMSource, DOMSink] {
+trait DOMSource extends IsolatableSource[DOMSource, DOMSink] {
 
   def select(cssSelector: String): DOMSource = js.native
 

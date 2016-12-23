@@ -7,8 +7,6 @@ package object http {
 
   type HTTPSink = XStream[RequestOptions]
 
-  type RawHTTPSink = XStream[RequestOptions]
-
   type RawHTTPDriver = RawDriver[HTTPSink, HTTPSource]
 
   implicit class RichHTTPSource(val source: HTTPSource) extends AnyVal {

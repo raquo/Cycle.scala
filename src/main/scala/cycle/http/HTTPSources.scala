@@ -1,15 +1,12 @@
 package cycle.http
 
-import cycle.base.{IsolatableSource, RawSource, Sources}
+import cycle.base.{IsolatableSource, Sources}
 import xstream.XStream
 
 import scala.scalajs.js
-import scala.scalajs.js.annotation.ScalaJSDefined
-
-// @TODO use pimp-my-library pattern here
 
 @js.native
-trait HTTPSource extends RawSource with IsolatableSource[HTTPSource, HTTPSink] {
+trait HTTPSource extends IsolatableSource[HTTPSource, HTTPSink] {
 
   def select(): XStream[RawResponseStream] = js.native
 
