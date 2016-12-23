@@ -9,7 +9,6 @@ class DOMDriver (
 
   val key = "DOM"
 
-  def driverFunction(sink: DOMSink, streamAdapter: XStreamAdapter, key: String): DOMSource = {
-    new DOMSource(rawDriver(sink, streamAdapter, key))
-  }
+  def driverFunction(sink: DOMSink, streamAdapter: XStreamAdapter, key: String): DOMSource =
+    rawDriver(sink, streamAdapter, key)
 }
