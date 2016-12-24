@@ -7,9 +7,9 @@ import scala.scalajs.js.annotation.ScalaJSDefined
 
 // @TODO[performance] replace Options with js.UndefOr?
 
-// @TODO change this to object method somehow? Should this be a value class?
+// @TODO[API] change this to object method somehow? Should this be a value class?
 
-// @TODO this pattern is weird. There must be a better way. See examples in Scala.js 0.14 release notes.
+// @TODO[API] this pattern is weird. There must be a better way. See examples in Scala.js 0.14 release notes.
 
 @ScalaJSDefined
 trait Listener[T] extends js.Object {

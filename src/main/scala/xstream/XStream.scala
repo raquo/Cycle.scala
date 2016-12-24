@@ -37,7 +37,7 @@ trait XStream[T] extends js.Object {
   def replaceError[E](replace: js.Function1[E, XStream[T]]): XStream[T] = js.native
 
   @JSName("flatten")
-  private[xstream] def flattenJs[R]: XStream[R] = js.native
+  private[xstream] def flattenJs[R](): XStream[R] = js.native
 
   def compose[U](operator: js.Function1[XStream[T], XStream[U]]): XStream[U] = js.native
 

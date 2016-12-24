@@ -41,7 +41,7 @@ package object xstream {
 
   implicit class MetaStream[T] (val streamOfStreams: XStream[XStream[T]]) extends AnyVal {
 
-    def flatten: XStream[T] = streamOfStreams.flattenJs[T]
+    def flatten: XStream[T] = streamOfStreams.flattenJs[T]()
   }
 
   implicit class TupleStream2[T1, T2](val tupleStream: XStream[(T1, T2)]) extends AnyVal {
