@@ -18,8 +18,8 @@ object Init extends js.JSApp {
 
       XStreamRun(
         MyApp.apply,
-        makeDOMDriver("#entry", transposition = true)
-//        makeHTTPDriver()
+        makeDOMDriver("#entry", transposition = true),
+        makeHTTPDriver()
       )
     })
   }

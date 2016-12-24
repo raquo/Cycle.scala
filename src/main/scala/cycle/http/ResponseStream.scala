@@ -2,11 +2,9 @@ package cycle.http
 
 import xstream.XStream
 
-class ResponseStream(rawResponseStream: RawResponseStream) {
+import scala.scalajs.js
 
-  val stream: XStream[Response] =
-    rawResponseStream.map(new Response(_))
-
-  val request: RequestOptions =
-    rawResponseStream.request
+@js.native
+trait ResponseStream extends XStream[Response] {
+  val request: RequestOptions
 }

@@ -8,9 +8,9 @@ import scala.scalajs.js
 @js.native
 trait HTTPSource extends IsolatableSource[HTTPSource, HTTPSink] {
 
-  def select(): XStream[RawResponseStream] = js.native
+  def select(): XStream[ResponseStream] = js.native
 
-  def select(category: String): XStream[RawResponseStream] = js.native
+  def select(category: String): XStream[ResponseStream] = js.native
 
   def filter(predicate: js.Function1[RequestOptions, Boolean]): HTTPSource = js.native
 
