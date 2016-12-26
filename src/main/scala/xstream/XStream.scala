@@ -5,6 +5,7 @@ import scala.scalajs.js.annotation.JSName
 import scala.scalajs.js.JSConverters._
 import scala.scalajs.js.|
 
+/** @see https://github.com/staltz/xstream */
 @js.native
 trait XStream[+T] extends js.Object {
 
@@ -62,6 +63,7 @@ trait XStream[+T] extends js.Object {
   def setDebugListener(listener: Listener[T]): Unit = js.native
 }
 
+/** @see https://github.com/staltz/xstream */
 object XStream {
 
   // @TODO Method names are not very consistent: merge() makes sense on its own, but of() needs XStream.of for context.

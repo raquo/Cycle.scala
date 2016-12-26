@@ -2,6 +2,7 @@ package cycle.http
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSName
+import scala.scalajs.js.|
 
 /** SuperAgent.js response object
   * For more detailed docs @see http://visionmedia.github.io/superagent/#response-properties
@@ -26,10 +27,14 @@ trait Response extends js.Object {
 
   /** JS object containing the parsed response
     * Note: This field is defined only if Content-Type is "application/json" or "application/x-www-form-urlencoded"
+    * Note: this field can be null if the request fails
+    * @see also [[RichResponse.maybeBody]]
     */
   private[http] val body: js.UndefOr[js.Object] = js.native
 
-  /** Dictionary of response headers with keys lower-cased, e.g. content-length */
+  /** Dictionary of response headers with keys lower-cased, e.g. content-length
+    * @see also [[RichResponse.headers]]
+    */
   @JSName("header")
   private[http] val headers: js.Dictionary[String] = js.native
 
@@ -69,9 +74,10 @@ trait Response extends js.Object {
   @JSName("serverError")
   val isServerError: Boolean = js.native
 
-  /** statusCode is 4xx or 5xx */
-  @JSName("error")
-  val isError: Boolean = js.native
+  /** If statusCode is 4xx or 5xx, contains an Error object, otherwise is false
+    * @see also [[RichResponse.maybeError]]
+    */
+  private[http] val error: Boolean | js.Error = js.native
 
 
   // --- Specific status codes ---

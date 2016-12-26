@@ -2,7 +2,7 @@ package picobox.app.components
 
 import xstream.XStream
 import cycle.dom.{DOMSink, DOMSinks, DOMSources}
-import cycle.http.{HTTPSink, HTTPSinks, HTTPSources, RequestOptions, Response}
+import cycle.http.{HTTPError, HTTPSink, HTTPSinks, HTTPSources, RequestOptions}
 import cycle.isolate.Isolate
 
 import scala.scalajs.js.annotation.ScalaJSDefined
@@ -23,13 +23,12 @@ object RandomUser {
     // @TODO make request in response to button click
 
     val category = "randomUser"
-    val $request = XStream.fromSeq(Seq(new RequestOptions(
+    val request = new RequestOptions(
       url = "https://randomuser.me/api/",
-      method = "GET",
-      category = category
-    )))
-    val $$response = sources.HTTP.select(category).debug("$$$").map(_.stream).debug("$$")
-    val $response = $$response.flatten.debug("$")
+      method = "GET"
+    )
+    val $request = XStream.of(request)
+    val $response = sources.HTTP.selectByRequest(request)
 
     val $vnode = $response.map { response =>
       val name = response.maybeBody.map(
@@ -50,7 +49,9 @@ object RandomUser {
       )
     }.startWith(
       div("Loading random user...")
-    )
+    ).replaceError { (err: HTTPError) =>
+      XStream.of(div(s" - Error loading user (${err.response.statusCode}) :("))
+    }
 
     new RandomUser($vnode, $request)
   }

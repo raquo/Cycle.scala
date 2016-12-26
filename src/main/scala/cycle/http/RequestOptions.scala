@@ -30,10 +30,10 @@ class RequestOptions (
   val password: js.UndefOr[String] = js.undefined,
   val field: js.UndefOr[js.Object] = js.undefined,
   val progress: js.UndefOr[Boolean] = js.undefined,
-  val attach: js.UndefOr[js.Array[js.Object]] = js.undefined, // Array<Attachment>
-  val agent: js.UndefOr[js.Object] = js.undefined, // AgentOptions
+  val attach: js.UndefOr[js.Array[Attachment]] = js.undefined,
+  val agent: js.UndefOr[AgentOptions] = js.undefined,
   val withCredentials: js.UndefOr[Boolean] = js.undefined,
   val redirects: js.UndefOr[Int] = js.undefined,
-  val category: js.UndefOr[String],
+  val category: js.UndefOr[String] = js.undefined,
   val `lazy`: js.UndefOr[Boolean] = js.undefined
 ) extends js.Object

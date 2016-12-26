@@ -4,13 +4,15 @@ import cycle.base.{IsolatableSource, Sources}
 import xstream.XStream
 
 import scala.scalajs.js
+import scala.scalajs.js.annotation.JSName
 
 @js.native
 trait HTTPSource extends IsolatableSource[HTTPSource, HTTPSink] {
 
   def select(): XStream[ResponseStream] = js.native
 
-  def select(category: String): XStream[ResponseStream] = js.native
+  @JSName("select")
+  def selectByCategory(category: String): XStream[ResponseStream] = js.native
 
   def filter(predicate: js.Function1[RequestOptions, Boolean]): HTTPSource = js.native
 
