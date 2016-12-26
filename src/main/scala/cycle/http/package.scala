@@ -1,8 +1,7 @@
 package cycle
 
 import cycle.base.RawDriver
-import _root_.xstream.XStream
-
+import com.raquo.xstream.XStream
 import scala.scalajs.js
 
 package object http {

@@ -1,7 +1,7 @@
 package picobox.app.components
 
-import xstream.XStream
-import xstream.XStream.{combine, merge, periodic}
+import com.raquo.xstream.XStream
+import com.raquo.xstream.XStream.{combine, merge, periodic}
 import cycle.dom.{DOMSink, DOMSinks, DOMSources}
 import cycle.dom.Transposition.transpose
 import cycle.isolate.Isolate

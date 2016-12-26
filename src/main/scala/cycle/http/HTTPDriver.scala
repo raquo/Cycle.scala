@@ -10,5 +10,5 @@ class HTTPDriver (
   val key = "HTTP"
 
   def driverFunction(sink: HTTPSink, streamAdapter: XStreamAdapter, key: String): HTTPSource =
-    rawDriver(sink.stream, streamAdapter, key)
+    rawDriver(sink, streamAdapter, key)
 }

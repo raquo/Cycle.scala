@@ -1,6 +1,6 @@
 package cycle
 
-import _root_.xstream.{Listener, MemoryStream, XStream}
+import com.raquo.xstream.{Listener, MemoryStream, XStream}
 
 import scala.scalajs.js
 

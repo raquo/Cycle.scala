@@ -1,7 +1,7 @@
 package cycle.dom
 
 import cycle.base.{IsolatableSource, Sources}
-import xstream.XStream
+import com.raquo.xstream.XStream
 import org.scalajs.dom.raw.{Event, HTMLElement}
 
 import scala.scalajs.js

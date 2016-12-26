@@ -4,7 +4,7 @@ import cycle.dom.DOMSource
 import snabbdom.tags._
 import snabbdom.attrs._
 import snabbdom.VNode
-import xstream.XStream
+import com.raquo.xstream.XStream
 import org.scalajs.dom.raw.{HTMLInputElement, MouseEvent}
 
 class Toggle(

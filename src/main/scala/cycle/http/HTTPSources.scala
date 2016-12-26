@@ -1,7 +1,7 @@
 package cycle.http
 
 import cycle.base.{IsolatableSource, Sources}
-import xstream.XStream
+import com.raquo.xstream.XStream
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSName

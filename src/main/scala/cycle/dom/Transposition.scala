@@ -3,7 +3,7 @@ package cycle.dom
 import cycle.base.XStreamAdapter
 import cycle.xstream.adapter.XStreamAdapter
 import snabbdom.VNode
-import xstream.XStream
+import com.raquo.xstream.XStream
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport

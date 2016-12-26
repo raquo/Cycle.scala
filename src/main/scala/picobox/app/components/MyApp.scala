@@ -4,7 +4,7 @@ import cycle.dom.{DOMSink, DOMSinks, DOMSources}
 import cycle.http.{HTTPSink, HTTPSinks, HTTPSources, RequestOptions}
 import snabbdom.VNode
 import snabbdom.tags.{br, div}
-import xstream.XStream.combine
+import com.raquo.xstream.XStream.combine
 
 import scala.scalajs.js.Dynamic.{global => g}
 import scala.scalajs.js.annotation.ScalaJSDefined

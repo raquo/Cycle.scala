@@ -1,7 +1,7 @@
 package picobox.app.components
 
-import xstream.XStream
-import xstream.XStream.merge
+import com.raquo.xstream.XStream
+import com.raquo.xstream.XStream.merge
 import cycle.dom.{DOMSink, DOMSinks, DOMSources}
 import cycle.isolate.Isolate
 import snabbdom.VNode

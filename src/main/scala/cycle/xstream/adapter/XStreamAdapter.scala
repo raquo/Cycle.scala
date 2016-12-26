@@ -1,7 +1,7 @@
 package cycle.xstream.adapter
 
 import cycle.base.{Observer, OptionalDisposeFunction, OriginStream, StreamAdapter, StreamSubscribeFunction, Subject}
-import xstream.{MemoryStream, XStream}
+import com.raquo.xstream.{MemoryStream, XStream}
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport

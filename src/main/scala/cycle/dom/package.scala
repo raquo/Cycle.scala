@@ -3,7 +3,7 @@ package cycle
 import cycle.base.RawDriver
 import snabbdom.{EventProp, VNode}
 import snabbdom.Util.EventCallback
-import _root_.xstream.XStream
+import com.raquo.xstream.XStream
 import org.scalajs.dom.raw.Event
 
 package object dom {

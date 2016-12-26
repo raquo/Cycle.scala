@@ -1,6 +1,6 @@
 package picobox.app.components
 
-import xstream.XStream
+import com.raquo.xstream.XStream
 import cycle.dom.{DOMSink, DOMSinks, DOMSources}
 import cycle.http.{HTTPError, HTTPSink, HTTPSinks, HTTPSources, RequestOptions}
 import cycle.isolate.Isolate
