@@ -85,7 +85,7 @@ package object snabbdom {
       thisNode
     }
 
-    private[snabbdom] def addAttr[TValue](attrPair: AttrPair[TValue]): Unit = {
+    private[snabbdom] def addAttr[V](attrPair: AttrPair[V]): Unit = {
       val attrKey = attrPair.attr.key
       val attrValue: js.Any = if (attrPair.value.isInstanceOf[Boolean]) {
         attrPair.value.asInstanceOf[js.Any]
@@ -99,7 +99,7 @@ package object snabbdom {
       }
     }
 
-    private[snabbdom] def addEventProp[TValue <: js.Function](eventPropPair: EventPropPair[TValue]): Unit = {
+    private[snabbdom] def addEventProp[V <: js.Function](eventPropPair: EventPropPair[V]): Unit = {
       val eventKey = eventPropPair.eventProp.key
       val eventValue = eventPropPair.value
       if (thisNode.data.on.isEmpty) {
@@ -109,7 +109,7 @@ package object snabbdom {
       }
     }
 
-    private[snabbdom] def addProp[TValue](propPair: PropPair[TValue]): Unit = {
+    private[snabbdom] def addProp[V](propPair: PropPair[V]): Unit = {
       val propKey = propPair.prop.key
       val propValue: js.Any = propPair.value.asInstanceOf[js.Any]
       if (thisNode.data.props.isEmpty) {
@@ -119,7 +119,7 @@ package object snabbdom {
       }
     }
 
-    private[snabbdom] def addStyle[TValue](stylePair: StylePair[TValue]): Unit = {
+    private[snabbdom] def addStyle[V](stylePair: StylePair[V]): Unit = {
       val styleKey = stylePair.style.jsKey
       val styleValue: js.Any = stylePair.value.asInstanceOf[js.Any]
       if (thisNode.data.style.isEmpty) {
