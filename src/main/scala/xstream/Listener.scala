@@ -12,7 +12,7 @@ import scala.scalajs.js.annotation.ScalaJSDefined
 // @TODO[API] this pattern is weird. There must be a better way. See examples in Scala.js 0.14 release notes.
 
 @ScalaJSDefined
-trait Listener[T] extends js.Object {
+trait Listener[-T] extends js.Object {
 
   def next(x: T): Unit
 

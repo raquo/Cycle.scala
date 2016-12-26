@@ -3,6 +3,7 @@ import snabbdom.Util.EventCallback
 import snabbdom.VNode.{Child, Children}
 import snabbdom.collections._
 import xstream.XStream
+import xstream.OptionalImplicits.ShamefulStream
 
 import scala.scalajs.js
 import scala.scalajs.js.Dynamic.{global => g}

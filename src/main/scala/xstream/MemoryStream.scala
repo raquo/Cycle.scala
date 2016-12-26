@@ -4,7 +4,7 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.JSName
 
 @js.native
-trait MemoryStream[T] extends XStream[T] {
+trait MemoryStream[+T] extends XStream[T] {
 
   @JSName("map")
   override def mapJs[U](project: js.Function1[T, U]): MemoryStream[U] = js.native
@@ -15,7 +15,7 @@ trait MemoryStream[T] extends XStream[T] {
 
   override def endWhen(other: XStream[_]): MemoryStream[T] = js.native
 
-  override def replaceError[E](replace: js.Function1[E, XStream[T]]): MemoryStream[T] = js.native // @TODO should `E` type exist here? In Typescript it's `any`
+  override def replaceError[E, U >: T](replace: js.Function1[E, XStream[U]]): MemoryStream[T] = js.native // @TODO should `E` type exist here? In Typescript it's `any`
 
   override def debug(spy: js.Function1[T, Any]): MemoryStream[T] = js.native // @TODO is it ok to change argument names? In TS this is labelOrSpy
 

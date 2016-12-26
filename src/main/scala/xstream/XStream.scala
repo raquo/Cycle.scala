@@ -6,13 +6,13 @@ import scala.scalajs.js.JSConverters._
 import scala.scalajs.js.|
 
 @js.native
-trait XStream[T] extends js.Object {
+trait XStream[+T] extends js.Object {
 
   def addListener(listener: Listener[T]): Unit = js.native
 
   def removeListener(listener: Listener[T]): Unit = js.native
 
-  def subscribe(listener: Listener[T]): Subscription[T] = js.native
+  def subscribe[U >: T](listener: Listener[U]): Subscription[U] = js.native
 
   @JSName("map")
   def mapJs[U](project: js.Function1[T, U]): XStream[U] = js.native
@@ -27,14 +27,14 @@ trait XStream[T] extends js.Object {
 
   def last(): XStream[T] = js.native
 
-  def startWith(initial: T): MemoryStream[T] = js.native
+  def startWith[U >: T](initial: U): MemoryStream[U] = js.native
 
   def endWhen(other: XStream[_]): XStream[T] = js.native
 
   def fold[R](accumulate: js.Function2[R, T, R], seed: R): MemoryStream[R] = js.native
 
   // @TODO should `E` type exist here? In Typescript it's `any`
-  def replaceError[E](replace: js.Function1[E, XStream[T]]): XStream[T] = js.native
+  def replaceError[E, U >: T](replace: js.Function1[E, XStream[U]]): XStream[U] = js.native
 
   @JSName("flatten")
   private[xstream] def flattenJs[R](): XStream[R] = js.native
@@ -51,20 +51,20 @@ trait XStream[T] extends js.Object {
 
   def debug(): XStream[T] = js.native
 
-  def imitate(target: XStream[T]): Unit = js.native
+  def imitate[U >: T](target: XStream[U]): Unit = js.native
 
-  def shamefullySendNext(value: T): Unit = js.native
+  private[xstream] def shamefullySendNext[U >: T](value: U): Unit = js.native
 
-  def shamefullySendError[E](error: E): Unit = js.native
+  private[xstream] def shamefullySendError[E](error: E): Unit = js.native
 
-  def shamefullySendComplete(): Unit = js.native
+  private[xstream] def shamefullySendComplete(): Unit = js.native
 
   def setDebugListener(listener: Listener[T]): Unit = js.native
 }
 
 object XStream {
 
-  // @TODO Method
+  // @TODO Method names are not very consistent: merge() makes sense on its own, but of() needs XStream.of for context.
 
   // Simple streams
 
