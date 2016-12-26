@@ -150,8 +150,6 @@ object XStream {
   //    )
   //  }
 
-  // @TODO[performance] encode these as functions instead of methods?
-
   @inline private def JSArrayToTuple2[T1, T2](arr: js.Array[T1 | T2]): (T1, T2) = {
     (arr(0).asInstanceOf[T1], arr(1).asInstanceOf[T2])
   }

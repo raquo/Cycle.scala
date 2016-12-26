@@ -63,8 +63,7 @@ object XStreamRun {
     run(main, driver1, driver2, driver3, driver4)
   }
 
-  @inline
-  private def run[Sos <: Sources, Sis <: Sinks](
+  @inline private def run[Sos <: Sources, Sis <: Sinks](
     main: Sos => Sis,
     drivers: Driver[_, _, _, _]*
   ): DisposeFunction = {
@@ -72,10 +71,9 @@ object XStreamRun {
   }
 
   private def combineDrivers(drivers: Seq[Driver[_, _, _, _]]): RawDrivers = {
-    // @TODO[Integrity] asInstanceOf
-    val rawDriverPairs = drivers
-      .map(_.asInstanceOf[Driver[_, _, Sinks, Sources]])
-      .map(driver => (driver.key, js.Any.fromFunction3(driver.driverFunction)))
+    val rawDriverPairs = drivers.map(driver =>
+      (driver.key, js.Any.fromFunction3(driver.driverFunction))
+    )
 
     js.Dictionary(rawDriverPairs: _*)
   }

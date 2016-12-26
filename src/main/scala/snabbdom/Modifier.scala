@@ -20,5 +20,5 @@ trait Modifier extends js.Object {
 
 @ScalaJSDefined
 object NoModifier extends Modifier {
-  def applyTo(vnode: VNode): Unit = ()
+  @inline def applyTo(vnode: VNode): Unit = ()
 }

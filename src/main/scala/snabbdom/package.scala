@@ -6,7 +6,6 @@ import xstream.XStream
 import xstream.OptionalImplicits.ShamefulStream
 
 import scala.scalajs.js
-import scala.scalajs.js.Dynamic.{global => g}
 import scala.scalajs.js.annotation.{JSName, ScalaJSDefined}
 
 package object snabbdom {
@@ -29,16 +28,10 @@ package object snabbdom {
     }
   }
 
-  implicit class StreamEventProp[Ev <: Event] (
-    val eventProp: EventProp[EventCallback[Ev]]
-  ) extends AnyVal {
+  implicit class StreamEventProp[Ev <: Event] (val eventProp: EventProp[EventCallback[Ev]]) extends AnyVal {
 
     def sendTo(stream: XStream[Ev]): EventPropPair[EventCallback[Ev]] = {
-      def addEventToStream(event: Ev): Unit = {
-        //      g.console.log("addEventToStream")
-        //      g.console.log(ev)
-        stream.shamefullySendNext(event)
-      }
+      @inline def addEventToStream(event: Ev): Unit = stream.shamefullySendNext(event)
 
       new EventPropPair[EventCallback[Ev]](eventProp, addEventToStream _)
     }
@@ -52,19 +45,19 @@ package object snabbdom {
   @ScalaJSDefined
   implicit class TextNode(val text: String) extends Modifier {
 
-    def applyTo(vnode: VNode): Unit = vnode.addTextChild(this)
+    @inline def applyTo(vnode: VNode): Unit = vnode.addTextChild(this)
   }
 
   @ScalaJSDefined
   implicit class SeqNode(val modifiers: Seq[Modifier]) extends Modifier {
 
-    def applyTo(vnode: VNode): Unit = vnode.apply(modifiers: _*)
+    @inline def applyTo(vnode: VNode): Unit = vnode.apply(modifiers: _*)
   }
 
   @ScalaJSDefined
   implicit class StreamNode(val stream: XStream[VNode]) extends Modifier {
 
-    def applyTo(vnode: VNode): Unit = vnode.addStreamChild(this)
+    @inline def applyTo(vnode: VNode): Unit = vnode.addStreamChild(this)
   }
 
   implicit class RichNode(val thisNode: VNode) extends AnyVal {
@@ -92,7 +85,7 @@ package object snabbdom {
       thisNode
     }
 
-    def addAttr[TValue](attrPair: AttrPair[TValue]): Unit = {
+    private[snabbdom] def addAttr[TValue](attrPair: AttrPair[TValue]): Unit = {
       val attrKey = attrPair.attr.key
       val attrValue: js.Any = if (attrPair.value.isInstanceOf[Boolean]) {
         attrPair.value.asInstanceOf[js.Any]
@@ -106,7 +99,7 @@ package object snabbdom {
       }
     }
 
-    def addEventProp[TValue <: js.Function](eventPropPair: EventPropPair[TValue]): Unit = {
+    private[snabbdom] def addEventProp[TValue <: js.Function](eventPropPair: EventPropPair[TValue]): Unit = {
       val eventKey = eventPropPair.eventProp.key
       val eventValue = eventPropPair.value
       if (thisNode.data.on.isEmpty) {
@@ -116,7 +109,7 @@ package object snabbdom {
       }
     }
 
-    def addProp[TValue](propPair: PropPair[TValue]): Unit = {
+    private[snabbdom] def addProp[TValue](propPair: PropPair[TValue]): Unit = {
       val propKey = propPair.prop.key
       val propValue: js.Any = propPair.value.asInstanceOf[js.Any]
       if (thisNode.data.props.isEmpty) {
@@ -126,7 +119,7 @@ package object snabbdom {
       }
     }
 
-    def addStyle[TValue](stylePair: StylePair[TValue]): Unit = {
+    private[snabbdom] def addStyle[TValue](stylePair: StylePair[TValue]): Unit = {
       val styleKey = stylePair.style.jsKey
       val styleValue: js.Any = stylePair.value.asInstanceOf[js.Any]
       if (thisNode.data.style.isEmpty) {
@@ -136,7 +129,7 @@ package object snabbdom {
       }
     }
 
-    def addChild(vnode: VNode): Unit = {
+    private[snabbdom] def addChild(vnode: VNode): Unit = {
       if (thisNode.text.isDefined) {
         addChildToList(new TextNode(thisNode.text.asInstanceOf[String]))
         thisNode.text = js.undefined
@@ -144,7 +137,7 @@ package object snabbdom {
       addChildToList(vnode)
     }
 
-    def addTextChild(textNode: TextNode): Unit = {
+    private[snabbdom] def addTextChild(textNode: TextNode): Unit = {
       val hasChildren = thisNode.children.isDefined && thisNode.children.asInstanceOf[Children].length > 0
       if (hasChildren) {
         addChildToList(textNode)
@@ -155,9 +148,8 @@ package object snabbdom {
       }
     }
 
-    def addStreamChild(streamNode: StreamNode): Unit = {
-      // @TODO[Integrity] This is ugly. streamNode.stream is NOT actually and instance of ChildVNode
-      addChildToList(streamNode.stream/*.asInstanceOf[ChildVNode]*/)
+    @inline private[snabbdom] def addStreamChild(streamNode: StreamNode): Unit = {
+      addChildToList(streamNode.stream)
     }
 
     @inline private def addChildToList(child: Child): Unit = {

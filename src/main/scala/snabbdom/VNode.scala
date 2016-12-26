@@ -27,7 +27,7 @@ class VNode(tagName: String) extends Modifier {
 
   var children: js.UndefOr[VNode.Children] = js.undefined
 
-  def applyTo(vnode: VNode): Unit = vnode.addChild(this)
+  @inline def applyTo(vnode: VNode): Unit = vnode.addChild(this)
 }
 
 object VNode {
