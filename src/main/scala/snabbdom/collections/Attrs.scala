@@ -1,5 +1,6 @@
 package snabbdom.collections
 
+import snabbdom.Attr
 import snabbdom.Util.attr
 
 trait Attrs {
@@ -15,7 +16,7 @@ trait Attrs {
     *
     * MDN
     */
-  lazy val href = attr[String]("href")
+  lazy val href: Attr[String] = attr("href")
 
   /**
     * This attribute defines the alternative text describing the image. Users
@@ -24,7 +25,7 @@ trait Attrs {
     *
     * MDN
     */
-  lazy val alt = attr[String]("alt")
+  lazy val alt: Attr[String] = attr("alt")
 
   /**
     * This attribute names a relationship of the linked document to the current
@@ -36,7 +37,7 @@ trait Attrs {
     *
     * MDN
     */
-  lazy val rel = attr[String]("rel")
+  lazy val rel: Attr[String] = attr("rel")
 
   /**
     * If the value of the type attribute is image, this attribute specifies a URI
@@ -45,12 +46,12 @@ trait Attrs {
     *
     * MDN
     */
-  lazy val src = attr[String]("src")
+  lazy val src: Attr[String] = attr("src")
 
   /**
     *
     */
-  lazy val xmlns = attr[String]("xmlns")
+  lazy val xmlns: Attr[String] = attr("xmlns")
 
   /**
     * If the value of the type attribute is file, this attribute indicates the
@@ -58,7 +59,7 @@ trait Attrs {
     *
     * MDN
     */
-  lazy val accept = attr[String]("accept")
+  lazy val accept: Attr[String] = attr("accept")
 
   /**
     * Declares the character encoding of the page or script. Used on meta and
@@ -66,7 +67,7 @@ trait Attrs {
     *
     * MDN
     */
-  lazy val charset = attr[String]("charset")
+  lazy val charset: Attr[String] = attr("charset")
 
   /**
     * This Boolean attribute indicates that the form control is not available for
@@ -78,7 +79,7 @@ trait Attrs {
     *
     * MDN
     */
-  lazy val disabled = attr[Boolean]("disabled")
+  lazy val disabled: Attr[Boolean] = attr("disabled")
 
   /**
     * Describes elements which belongs to this one. Used on labels and output
@@ -86,14 +87,14 @@ trait Attrs {
     *
     * MDN
     */
-  lazy val `for` = attr[String]("for")
+  lazy val `for`: Attr[String] = attr("for")
 
   /**
     * The number of visible text lines for the control.
     *
     * MDN
     */
-  lazy val rows = attr[Int]("rows")
+  lazy val rows: Attr[Int] = attr("rows")
 
   /**
     * The visible width of the text control, in average character widths. If it
@@ -102,7 +103,7 @@ trait Attrs {
     *
     * MDN
     */
-  lazy val cols = attr[Int]("cols")
+  lazy val cols: Attr[Int] = attr("cols")
 
   /**
     * The attribute describes the role(s) the current element plays in the
@@ -119,7 +120,7 @@ trait Attrs {
     *
     * See: [[http://www.w3.org/TR/role-attribute/#s_role_module_attributes]]
     */
-  lazy val role = attr[String]("role")
+  lazy val role: Attr[String] = attr("role")
 
   /**
     * This attribute gives the value associated with the http-equiv or name
@@ -127,7 +128,7 @@ trait Attrs {
     *
     * MDN
     */
-  lazy val content = attr[String]("content")
+  lazy val content: Attr[String] = attr("content")
 
   /**
     * This enumerated attribute defines the pragma that can alter servers and
@@ -142,7 +143,7 @@ trait Attrs {
     *
     * MDN
     */
-  lazy val httpEquiv = attr[String]("http-equiv")
+  lazy val httpEquiv: Attr[String] = attr("http-equiv")
 
   /**
     * This attribute specifies the media which the linked resource applies to.
@@ -152,7 +153,7 @@ trait Attrs {
     *
     * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#attr-media
     */
-  lazy val media = attr[String]("media")
+  lazy val media: Attr[String] = attr("media")
 
   /**
 
@@ -164,7 +165,7 @@ trait Attrs {
     *
     * MDN
     */
-  lazy val colSpan = attr[Int]("colspan")
+  lazy val colSpan: Attr[Int] = attr("colspan")
 
   /**
     * This attribute contains a non-negative integer value that indicates for how many
@@ -174,7 +175,7 @@ trait Attrs {
     *
     * MDN
     */
-  lazy val rowSpan = attr[Int]("rowspan")
+  lazy val rowSpan: Attr[Int] = attr("rowspan")
 
   /**
     * ARIA is a set of special accessibility attributes which can be added
@@ -366,7 +367,7 @@ trait Attrs {
   /**
     * Indicates a selected option in an option list of a <select> element.
     */
-  lazy val selected = attr[Boolean]("selected")
+  lazy val selected: Attr[Boolean] = attr("selected")
 
   /**
     * For use in &lt;style&gt; tags.
@@ -374,29 +375,29 @@ trait Attrs {
     * If this attribute is present, then the style applies only to its parent element.
     * If absent, the style applies to the whole document.
     */
-  lazy val scoped = attr[Boolean]("scoped")
+  lazy val scoped: Attr[Boolean] = attr("scoped")
 
   /**
     * For use in &lt;meter&gt; tags.
     *
     * @see https://css-tricks.com/html5-meter-element/
     */
-  lazy val high = attr[Double]("high")
+  lazy val high: Attr[Double] = attr("high")
 
   /**
     * For use in &lt;meter&gt; tags.
     *
     * @see https://css-tricks.com/html5-meter-element/
     */
-  lazy val low = attr[Double]("low")
+  lazy val low: Attr[Double] = attr("low")
 
   /**
     * For use in &lt;meter&gt; tags.
     *
     * @see https://css-tricks.com/html5-meter-element/
     */
-  lazy val optimum = attr[Double]("optimum")
+  lazy val optimum: Attr[Double] = attr("optimum")
 
   /** IE-specific property to prevent user selection */
-  lazy val unSelectable = attr[Boolean]("unselectable")
+  lazy val unSelectable: Attr[Boolean] = attr("unselectable")
 }

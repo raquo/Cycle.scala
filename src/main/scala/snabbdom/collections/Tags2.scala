@@ -1,6 +1,7 @@
 package snabbdom.collections
 
 import snabbdom.Util.vnode
+import snabbdom.VNode
 
 /**
   * Contains HTML tags which are used less frequently. These are generally
@@ -17,14 +18,14 @@ trait Tags2 {
     *
     * MDN
     */
-  def title = vnode("title")
+  def title: VNode = vnode("title")
 
   /**
     * Used to write inline CSS.
     *
     *  MDN
     */
-  def style = vnode("style")
+  def style: VNode = vnode("style")
 
   // Scripting
 
@@ -34,7 +35,7 @@ trait Tags2 {
     *
     *  MDN
     */
-  def noScript = vnode("noscript")
+  def noScript: VNode = vnode("noscript")
 
   // Sections
 
@@ -44,7 +45,7 @@ trait Tags2 {
     *
     *  MDN
     */
-  def section = vnode("section")
+  def section: VNode = vnode("section")
 
   /**
     * Represents a section of a page that links to other pages or to parts within
@@ -52,7 +53,7 @@ trait Tags2 {
     *
     *  MDN
     */
-  def nav = vnode("nav")
+  def nav: VNode = vnode("nav")
 
   /**
     * Defines self-contained content that could exist independently of the rest
@@ -60,7 +61,7 @@ trait Tags2 {
     *
     *  MDN
     */
-  def article = vnode("article")
+  def article: VNode = vnode("article")
 
   /**
     * Defines some content loosely related to the page content. If it is removed,
@@ -68,14 +69,14 @@ trait Tags2 {
     *
     *  MDN
     */
-  def aside = vnode("aside")
+  def aside: VNode = vnode("aside")
 
   /**
     * Defines a section containing contact information.
     *
     *  MDN
     */
-  def address = vnode("address")
+  def address: VNode = vnode("address")
 
   /**
     * Defines the main or important content in the document. There is only one
@@ -83,7 +84,7 @@ trait Tags2 {
     *
     *  MDN
     */
-  def main = vnode("main")
+  def main: VNode = vnode("main")
 
   // Text level semantics
 
@@ -92,7 +93,7 @@ trait Tags2 {
     *
     *  MDN
     */
-  def q = vnode("q")
+  def q: VNode = vnode("q")
 
   /**
     * Represents a term whose definition is contained in its nearest ancestor
@@ -100,7 +101,7 @@ trait Tags2 {
     *
     *  MDN
     */
-  def dfn = vnode("dfn")
+  def dfn: VNode = vnode("dfn")
 
   /**
     * An abbreviation or acronym; the expansion of the abbreviation can be
@@ -108,14 +109,14 @@ trait Tags2 {
     *
     *  MDN
     */
-  def abbr = vnode("abbr")
+  def abbr: VNode = vnode("abbr")
 
   /**
     * Associates to its content a machine-readable equivalent.
     *
     *  MDN
     */
-  def data = vnode("data")
+  def data: VNode = vnode("data")
 
   /**
     * Represents a date and time value; the machine-readable equivalent can be
@@ -123,35 +124,35 @@ trait Tags2 {
     *
     *  MDN
     */
-  def time = vnode("time")
+  def time: VNode = vnode("time")
 
   /**
     * Represents a variable.
     *
     *  MDN
     */
-  def `var` = vnode("var")
+  def `var`: VNode = vnode("var")
 
   /**
     * Represents the output of a program or a computer.
     *
     *  MDN
     */
-  def samp = vnode("samp")
+  def samp: VNode = vnode("samp")
 
   /**
     * Represents user input, often from a keyboard, but not necessarily.
     *
     *  MDN
     */
-  def kbd = vnode("kbd")
+  def kbd: VNode = vnode("kbd")
 
   /**
     * Defines a mathematical formula.
     *
     *  MDN
     */
-  def math = vnode("math")
+  def math: VNode = vnode("math")
 
   /**
     * Represents text highlighted for reference purposes, that is for its
@@ -159,7 +160,7 @@ trait Tags2 {
     *
     *  MDN
     */
-  def mark = vnode("mark")
+  def mark: VNode = vnode("mark")
 
   /**
     * Represents content to be marked with ruby annotations, short runs of text
@@ -169,14 +170,14 @@ trait Tags2 {
     *
     *  MDN
     */
-  def ruby = vnode("ruby")
+  def ruby: VNode = vnode("ruby")
 
   /**
     * Represents the text of a ruby annotation.
     *
     *  MDN
     */
-  def rt = vnode("rt")
+  def rt: VNode = vnode("rt")
 
   /**
     * Represents parenthesis around a ruby annotation, used to display the
@@ -185,7 +186,7 @@ trait Tags2 {
     *
     *  MDN
     */
-  def rp = vnode("rp")
+  def rp: VNode = vnode("rp")
 
   /**
     * Represents text that must be isolated from its surrounding for bidirectional
@@ -194,7 +195,7 @@ trait Tags2 {
     *
     *  MDN
     */
-  def bdi = vnode("bdi")
+  def bdi: VNode = vnode("bdi")
 
   /**
     * Represents the directionality of its children, in order to explicitly
@@ -202,7 +203,7 @@ trait Tags2 {
     *
     *  MDN
     */
-  def bdo = vnode("bdo")
+  def bdo: VNode = vnode("bdo")
 
   // Forms
 
@@ -211,28 +212,28 @@ trait Tags2 {
     *
     *  MDN
     */
-  def keyGen = vnode("keygen")
+  def keyGen: VNode = vnode("keygen")
 
   /**
     * The result of a calculation
     *
     *  MDN
     */
-  def output = vnode("output")
+  def output: VNode = vnode("output")
 
   /**
     * A progress completion bar
     *
     *  MDN
     */
-  def progress = vnode("progress")
+  def progress: VNode = vnode("progress")
 
   /**
     * A scalar measurement within a known range.
     *
     *  MDN
     */
-  def meter = vnode("meter")
+  def meter: VNode = vnode("meter")
 
   // Interactive elements
 
@@ -242,26 +243,26 @@ trait Tags2 {
     *
     *  MDN
     */
-  def details = vnode("details")
+  def details: VNode = vnode("details")
 
   /**
     * A summary, caption, or legend for a given details.
     *
     *  MDN
     */
-  def summary = vnode("summary")
+  def summary: VNode = vnode("summary")
 
   /**
     * A command that the user can invoke.
     *
     *  MDN
     */
-  def command = vnode("command")
+  def command: VNode = vnode("command")
 
   /**
     * A list of commands
     *
     *  MDN
     */
-  def menu = vnode("menu")
+  def menu: VNode = vnode("menu")
 }

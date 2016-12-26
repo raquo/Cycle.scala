@@ -1,5 +1,6 @@
 package snabbdom.collections
 
+import snabbdom.Prop
 import snabbdom.Util.{GenericEventCallback, prop}
 
 /**
@@ -15,70 +16,70 @@ trait WindowEventProps extends SharedEventProps {
     *
     * MDN
     */
-  lazy val onLoad = prop[GenericEventCallback]("onload")
+  lazy val onLoad: Prop[GenericEventCallback] = prop("onload")
 
   /**
     * Script to be run after the document is printed
     */
-  lazy val onAfterPrint = prop[GenericEventCallback]("onafterprint")
+  lazy val onAfterPrint: Prop[GenericEventCallback] = prop("onafterprint")
 
   /**
     * Script to be run before the document is printed
     */
-  lazy val onBeforePrint = prop[GenericEventCallback]("onbeforeprint")
+  lazy val onBeforePrint: Prop[GenericEventCallback] = prop("onbeforeprint")
 
   /**
     * Script to be run when the document is about to be unloaded
     */
-  lazy val onBeforeUnload = prop[GenericEventCallback]("onbeforeunload")
+  lazy val onBeforeUnload: Prop[GenericEventCallback] = prop("onbeforeunload")
 
   /**
     * Script to be run when there has been changes to the anchor part of the a URL
     */
-  lazy val onHashChange = prop[GenericEventCallback]("onhashchange")
+  lazy val onHashChange: Prop[GenericEventCallback] = prop("onhashchange")
 
   /**
     * Script to be run when the message is triggered
     */
-  lazy val onMessage = prop[GenericEventCallback]("onmessage")
+  lazy val onMessage: Prop[GenericEventCallback] = prop("onmessage")
 
   /**
     * Script to be run when the browser starts to work offline
     */
-  lazy val onOffline = prop[GenericEventCallback]("onoffline")
+  lazy val onOffline: Prop[GenericEventCallback] = prop("onoffline")
 
   /**
     * Script to be run when the browser starts to work online
     */
-  lazy val onOnline = prop[GenericEventCallback]("ononline")
+  lazy val onOnline: Prop[GenericEventCallback] = prop("ononline")
 
   /**
     * Script to be run when a user navigates away from a page
     */
-  lazy val onPageHide = prop[GenericEventCallback]("onpagehide")
+  lazy val onPageHide: Prop[GenericEventCallback] = prop("onpagehide")
 
   /**
     * Script to be run when a user navigates to a page
     */
-  lazy val onPageShow = prop[GenericEventCallback]("onpageshow")
+  lazy val onPageShow: Prop[GenericEventCallback] = prop("onpageshow")
 
   /**
     * Script to be run when the window's history changes
     */
-  lazy val onPopState = prop[GenericEventCallback]("onpopstate")
+  lazy val onPopState: Prop[GenericEventCallback] = prop("onpopstate")
 
   /**
     * Fires when the browser window is resized
     */
-  lazy val onResize = prop[GenericEventCallback]("onresize")
+  lazy val onResize: Prop[GenericEventCallback] = prop("onresize")
 
   /**
     * Script to be run when a Web Storage area is updated
     */
-  lazy val onStorage = prop[GenericEventCallback]("onstorage")
+  lazy val onStorage: Prop[GenericEventCallback] = prop("onstorage")
 
   /**
     * Fires once a page has unloaded (or the browser window has been closed)
     */
-  lazy val onUnload = prop[GenericEventCallback]("onunload")
+  lazy val onUnload: Prop[GenericEventCallback] = prop("onunload")
 }

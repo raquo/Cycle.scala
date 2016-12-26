@@ -1,5 +1,6 @@
 package snabbdom.collections
 
+import snabbdom.Prop
 import snabbdom.Util.prop
 
 trait Props {
@@ -15,7 +16,7 @@ trait Props {
     *
     * MDN
     */
-  lazy val href = prop[String]("href")
+  lazy val href: Prop[String] = prop("href")
 
   /**
     * This attribute defines the alternative text describing the image. Users
@@ -24,7 +25,7 @@ trait Props {
     *
     * MDN
     */
-  lazy val alt = prop[String]("alt")
+  lazy val alt: Prop[String] = prop("alt")
 
   /**
     * This attribute names a relationship of the linked document to the current
@@ -36,7 +37,7 @@ trait Props {
     *
     * MDN
     */
-  lazy val rel = prop[String]("rel")
+  lazy val rel: Prop[String] = prop("rel")
 
   /**
     * If the value of the type attribute is image, this attribute specifies a URI
@@ -45,12 +46,12 @@ trait Props {
     *
     * MDN
     */
-  lazy val src = prop[String]("src")
+  lazy val src: Prop[String] = prop("src")
 
   /**
     *
     */
-  lazy val xmlns = prop[String]("xmlns")
+  lazy val xmlns: Prop[String] = prop("xmlns")
 
   /**
     * If the value of the type attribute is file, this attribute indicates the
@@ -58,7 +59,7 @@ trait Props {
     *
     * MDN
     */
-  lazy val accept = prop[String]("accept")
+  lazy val accept: Prop[String] = prop("accept")
 
   /**
     * Declares the character encoding of the page or script. Used on meta and
@@ -66,7 +67,7 @@ trait Props {
     *
     * MDN
     */
-  lazy val charSet = prop[String]("charset")
+  lazy val charSet: Prop[String] = prop("charset")
 
   /**
     * This Boolean attribute indicates that the form control is not available for
@@ -78,7 +79,7 @@ trait Props {
     *
     * MDN
     */
-  lazy val disabled = prop[Boolean]("disabled")
+  lazy val disabled: Prop[Boolean] = prop("disabled")
 
   /**
     * Describes elements which belongs to this one. Used on labels and output
@@ -86,14 +87,14 @@ trait Props {
     *
     * MDN
     */
-  lazy val `for` = prop[String]("for")
+  lazy val `for`: Prop[String] = prop("for")
 
   /**
     * The number of visible text lines for the control.
     *
     * MDN
     */
-  lazy val rows = prop[Int]("rows")
+  lazy val rows: Prop[Int] = prop("rows")
 
   /**
     * The visible width of the text control, in average character widths. If it
@@ -102,7 +103,7 @@ trait Props {
     *
     * MDN
     */
-  lazy val cols = prop[Int]("cols")
+  lazy val cols: Prop[Int] = prop("cols")
 
   /**
     * The attribute describes the role(s) the current element plays in the
@@ -119,7 +120,7 @@ trait Props {
     *
     * See: [[http://www.w3.org/TR/role-attribute/#s_role_module_attributes]]
     */
-  lazy val role = prop[String]("role")
+  lazy val role: Prop[String] = prop("role")
 
   /**
     * This attribute gives the value associated with the http-equiv or name
@@ -127,7 +128,7 @@ trait Props {
     *
     * MDN
     */
-  lazy val content = prop[String]("content")
+  lazy val content: Prop[String] = prop("content")
 
   /**
     * This enumerated attribute defines the pragma that can alter servers and
@@ -142,7 +143,7 @@ trait Props {
     *
     * MDN
     */
-  lazy val httpEquiv = prop[String]("httpEquiv")
+  lazy val httpEquiv: Prop[String] = prop("httpEquiv")
 
   /**
     * This attribute specifies the media which the linked resource applies to.
@@ -152,7 +153,7 @@ trait Props {
     *
     * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#attr-media
     */
-  lazy val media = prop[String]("media")
+  lazy val media: Prop[String] = prop("media")
 
   /**
 
@@ -164,7 +165,7 @@ trait Props {
     *
     * MDN
     */
-  lazy val colSpan = prop[Int]("colspan")
+  lazy val colSpan: Prop[Int] = prop("colspan")
 
   /**
     * This attribute contains a non-negative integer value that indicates for how many
@@ -174,7 +175,7 @@ trait Props {
     *
     * MDN
     */
-  lazy val rowSpan = prop[Int]("rowspan")
+  lazy val rowSpan: Prop[Int] = prop("rowspan")
 
   /**
     * ARIA is a set of special accessibility attributes which can be added
@@ -368,29 +369,29 @@ trait Props {
     * If this attribute is present, then the style applies only to its parent element.
     * If absent, the style applies to the whole document.
     */
-  lazy val scoped = prop[Boolean]("scoped")
+  lazy val scoped: Prop[Boolean] = prop("scoped")
 
   /**
     * For use in &lt;meter&gt; tags.
     *
     * @see https://css-tricks.com/html5-meter-element/
     */
-  lazy val high = prop[Double]("high")
+  lazy val high: Prop[Double] = prop("high")
 
   /**
     * For use in &lt;meter&gt; tags.
     *
     * @see https://css-tricks.com/html5-meter-element/
     */
-  lazy val low = prop[Double]("low")
+  lazy val low: Prop[Double] = prop("low")
 
   /**
     * For use in &lt;meter&gt; tags.
     *
     * @see https://css-tricks.com/html5-meter-element/
     */
-  lazy val optimum = prop[Double]("optimum")
+  lazy val optimum: Prop[Double] = prop("optimum")
 
   /** IE-specific property to prevent user selection */
-  lazy val unSelectable = prop[Boolean]("unselectable")
+  lazy val unSelectable: Prop[Boolean] = prop("unselectable")
 }

@@ -1,5 +1,6 @@
 package snabbdom.collections
 
+import snabbdom.Attr
 import snabbdom.Util.attr
 
 // @TODO[API][cleanup] Why is this separate from Attrs? How is it different?
@@ -13,7 +14,7 @@ trait GlobalAttrs {
   /**
     * Specifies a shortcut key to activate/focus an element
     */
-  lazy val accessKey	= attr[String]("accesskey")
+  lazy val accessKey: Attr[String] = attr("accesskey")
 
   /**
     * This attribute is a space-separated list of the classes of the element.
@@ -24,23 +25,23 @@ trait GlobalAttrs {
     *
     * MDN
     */
-  lazy val cls = attr[String]("class")
+  lazy val cls: Attr[String] = attr("class")
 
   /**
     * Alias for the `cls` attribute
     */
-  lazy val `class` = cls
+  lazy val `class`: Attr[String] = cls
 
   /**
     * Specifies whether the content of an element is editable or not
     */
-  lazy val contentEditable	= attr[Boolean]("contenteditable")
+  lazy val contentEditable: Attr[Boolean] = attr("contenteditable")
 
   /**
     * Specifies a context menu for an element by its element id.
     * The context menu appears when a user right-clicks on the element
     */
-  lazy val contextMenu	= attr[String]("contextmenu")
+  lazy val contextMenu: Attr[String] = attr("contextmenu")
 
   /**
     * This class of attributes, called custom data attributes, allows proprietary
@@ -70,37 +71,36 @@ trait GlobalAttrs {
 //    def :=[T](v: T)(implicit ev: AttrValue[Builder, T]) =
 //      AttrPair(Attr(sections.reverse.mkString("-")), v, ev)
 //  }
-//  def data(suffix: String) = attr("data-" + suffix)
-  def data(suffix: String) = ???
+  def data(suffix: String): Attr[String] = attr(s"data-$suffix")
 
   /**
     * Specifies the text direction for the content in an element. The valid values are:
     *
-    * - `ltr`	Default. Left-to-right text direction
+    * - `ltr` Default. Left-to-right text direction
     *
-    * - `rtl`	Right-to-left text direction
+    * - `rtl` Right-to-left text direction
     *
-    * - `auto`	Let the browser figure out the text direction, based on the content,
+    * - `auto` Let the browser figure out the text direction, based on the content,
     *          (only recommended if the text direction is unknown)
     */
-  lazy val dir	= attr[String]("dir")
+  lazy val dir: Attr[String] = attr("dir")
 
   /**
     * A Boolean attribute that specifies whether an element is draggable or not
     */
-  lazy val draggable	= attr[Boolean]("draggable")
+  lazy val draggable: Attr[Boolean] = attr("draggable")
 
   /**
     * Specifies whether the dragged data is copied, moved, or linked, when dropped
     * Acceptable values: `copy` | `move` | `link`
     */
-  lazy val dropZone = attr[String]("dropzone")
+  lazy val dropZone: Attr[String] = attr("dropzone")
 
   /**
     * Specifies that an element is not yet, or is no longer, relevant and
     * consequently hidden from view of the user.
     */
-  lazy val hidden = attr[Boolean]("hidden")
+  lazy val hidden: Attr[Boolean] = attr("hidden")
 
   /**
     * This attribute defines a unique identifier (ID) which must be unique in
@@ -109,7 +109,7 @@ trait GlobalAttrs {
     *
     * MDN
     */
-  lazy val id	= attr[String]("id")
+  lazy val id: Attr[String] = attr("id")
 
   /**
     * This attribute participates in defining the language of the element, the
@@ -122,7 +122,7 @@ trait GlobalAttrs {
     *
     * MDN
     */
-  lazy val lang = attr[String]("lang")
+  lazy val lang: Attr[String] = attr("lang")
 
   /**
     * This enumerated attribute defines whether the element may be checked for
@@ -130,7 +130,7 @@ trait GlobalAttrs {
     *
     * MDN
     */
-  lazy val spellCheck = attr[Boolean]("spellcheck")
+  lazy val spellCheck: Attr[Boolean] = attr("spellcheck")
 
   /**
     * This attribute contains CSS styling declarations to be applied to the
@@ -140,7 +140,7 @@ trait GlobalAttrs {
     *
     * MDN
     */
-  lazy val style = attr[String]("style")
+  lazy val style: Attr[String] = attr("style")
 
   /**
     * This integer attribute indicates if the element can take input focus (is
@@ -160,7 +160,7 @@ trait GlobalAttrs {
     *
     * An element with a 0 value, an invalid value, or no tabindex value should be placed after elements with a positive tabindex in the sequential keyboard navigation order.
     */
-  lazy val tabIndex = attr[Int]("tabindex")
+  lazy val tabIndex: Attr[Int] = attr("tabindex")
 
   /**
     * This attribute contains a text representing advisory information related to
@@ -169,10 +169,10 @@ trait GlobalAttrs {
     *
     * MDN
     */
-  lazy val title = attr[String]("title")
+  lazy val title: Attr[String] = attr("title")
 
   /**
     * Specifies whether the content of an element should be translated or not
     */
-  lazy val translate	= attr[Boolean]("translate")
+  lazy val translate: Attr[Boolean] = attr("translate")
 }

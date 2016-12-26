@@ -2,6 +2,7 @@ package snabbdom.collections
 
 import snabbdom.Util.{EventCallback, eventProp}
 import org.scalajs.dom.KeyboardEvent
+import snabbdom.EventProp
 
 /**
   * Keyboard Events - triggered by user action son the keyboard or similar user actions
@@ -13,14 +14,14 @@ trait KeyboardEventProps {
     *
     * MDN
     */
-  lazy val onKeyDown = eventProp[EventCallback[KeyboardEvent]]("keydown")
+  lazy val onKeyDown: EventProp[EventCallback[KeyboardEvent]] = eventProp("keydown")
 
   /**
     * The keyup event is raised when the user releases a key that's been pressed.
     *
     * MDN
     */
-  lazy val onKeyUp = eventProp[EventCallback[KeyboardEvent]]("keyup")
+  lazy val onKeyUp: EventProp[EventCallback[KeyboardEvent]] = eventProp("keyup")
 
   /**
     * The keypress event should be raised when the user presses a key on the keyboard.
@@ -31,5 +32,5 @@ trait KeyboardEventProps {
     *
     * MDN
     */
-  lazy val onKeyPress = eventProp[EventCallback[KeyboardEvent]]("keypress")
+  lazy val onKeyPress: EventProp[EventCallback[KeyboardEvent]] = eventProp("keypress")
 }

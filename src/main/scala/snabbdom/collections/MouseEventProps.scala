@@ -1,5 +1,6 @@
 package snabbdom.collections
 
+import snabbdom.EventProp
 import snabbdom.Util.{eventProp, MouseEventCallback}
 
 /**
@@ -13,7 +14,7 @@ trait MouseEventProps {
     *
     * MDN
     */
-  lazy val onClick = eventProp[MouseEventCallback]("click")
+  lazy val onClick: EventProp[MouseEventCallback] = eventProp("click")
 
   /**
     * The dblclick event is fired when a pointing device button (usually a
@@ -21,56 +22,56 @@ trait MouseEventProps {
     *
     * MDN
     */
-  lazy val onDblClick = eventProp[MouseEventCallback]("dblclick")
+  lazy val onDblClick: EventProp[MouseEventCallback] = eventProp("dblclick")
 
   /**
     * Script to be run when an element is dragged
     */
-  val onDrag = eventProp[MouseEventCallback]("drag")
+  val onDrag: EventProp[MouseEventCallback] = eventProp("drag")
 
   /**
     * Script to be run at the end of a drag operation
     */
-  lazy val onDragEnd = eventProp[MouseEventCallback]("dragend")
+  lazy val onDragEnd: EventProp[MouseEventCallback] = eventProp("dragend")
 
   /**
     * Script to be run when an element has been dragged to a valid drop target
     */
-  lazy val onDragEnter = eventProp[MouseEventCallback]("dragenter")
+  lazy val onDragEnter: EventProp[MouseEventCallback] = eventProp("dragenter")
 
   /**
     * Script to be run when an element leaves a valid drop target
     */
-  lazy val onDragLeave = eventProp[MouseEventCallback]("dragleave")
+  lazy val onDragLeave: EventProp[MouseEventCallback] = eventProp("dragleave")
 
   /**
     * Script to be run when an element is being dragged over a valid drop target
     */
-  lazy val onDragOver = eventProp[MouseEventCallback]("dragover")
+  lazy val onDragOver: EventProp[MouseEventCallback] = eventProp("dragover")
 
   /**
     * Script to be run at the start of a drag operation
     */
-  lazy val onDragStart = eventProp[MouseEventCallback]("dragstart")
+  lazy val onDragStart: EventProp[MouseEventCallback] = eventProp("dragstart")
 
   /**
     * Script to be run when dragged element is being dropped
     */
-  lazy val onDrop = eventProp[MouseEventCallback]("drop")
+  lazy val onDrop: EventProp[MouseEventCallback] = eventProp("drop")
 
   /**
     * The mousedown event is raised when the user presses the mouse button.
     *
     * MDN
     */
-  lazy val onMouseDown = eventProp[MouseEventCallback]("mousedown")
+  lazy val onMouseDown: EventProp[MouseEventCallback] = eventProp("mousedown")
 
   /**
     * The mousemove event is raised when the user moves the mouse.
     *
     * MDN
     */
-  lazy val onMouseMove = eventProp[MouseEventCallback]("mousemove")
+  lazy val onMouseMove: EventProp[MouseEventCallback] = eventProp("mousemove")
 
   /**
     * The mouseout event is raised when the mouse leaves an element (e.g, when
@@ -79,7 +80,7 @@ trait MouseEventProps {
     *
     * MDN
     */
-  lazy val onMouseOut = eventProp[MouseEventCallback]("mouseout")
+  lazy val onMouseOut: EventProp[MouseEventCallback] = eventProp("mouseout")
 
   /**
     * The mouseover event is raised when the user moves the mouse over a
@@ -87,24 +88,24 @@ trait MouseEventProps {
     *
     * MDN
     */
-  lazy val onMouseOver = eventProp[MouseEventCallback]("mouseover")
+  lazy val onMouseOver: EventProp[MouseEventCallback] = eventProp("mouseover")
 
   /**
     * The mouseup event is raised when the user releases the mouse button.
     *
     * MDN
     */
-  lazy val onMouseUp = eventProp[MouseEventCallback]("mouseup")
+  lazy val onMouseUp: EventProp[MouseEventCallback] = eventProp("mouseup")
 
   /**
     * Specifies the function to be called when the window is scrolled.
     *
     * MDN
     */
-  lazy val onScroll = eventProp[MouseEventCallback]("scroll")
+  lazy val onScroll: EventProp[MouseEventCallback] = eventProp("scroll")
 
   /**
     * Fires when the mouse wheel rolls up or down over an element
     */
-  lazy val onWheel = eventProp[MouseEventCallback]("wheel")
+  lazy val onWheel: EventProp[MouseEventCallback] = eventProp("wheel")
 }
