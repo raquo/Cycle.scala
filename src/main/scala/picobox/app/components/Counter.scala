@@ -2,18 +2,17 @@ package picobox.app.components
 
 import com.raquo.xstream.XStream
 import com.raquo.xstream.XStream.{combine, merge, periodic}
-import cycle.dom.{DOMSink, DOMSinks, DOMSources}
-import cycle.dom.Transposition.transpose
-import cycle.isolate.Isolate
-
-import scala.scalajs.js.annotation.ScalaJSDefined
-import snabbdom.{Modifier, VNode, styles}
-import snabbdom.tags._
-import snabbdom.attrs._
-import snabbdom.events._
+import com.raquo.cycle.dom.{DOMSink, DOMSinks, DOMSources}
+import com.raquo.cycle.dom.Transposition.transpose
+import com.raquo.cycle.isolate.Isolate
+import com.raquo.snabbdom.{Modifier, VNode, styles}
+import com.raquo.snabbdom.tags._
+import com.raquo.snabbdom.attrs._
+import com.raquo.snabbdom.events._
 import org.scalajs.dom.MouseEvent
 
 import scala.scalajs.js.Dynamic.{global => g}
+import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.util.Random
 
 @ScalaJSDefined

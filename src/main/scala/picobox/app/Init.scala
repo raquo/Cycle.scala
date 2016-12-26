@@ -1,11 +1,11 @@
 package picobox.app
 
 import picobox.app.components.MyApp
+import com.raquo.cycle.dom.CycleDOM.makeDOMDriver
+import com.raquo.cycle.http.CycleHTTP.makeHTTPDriver
+import com.raquo.cycle.xstream.run.XStreamRun
 import org.scalajs.dom.raw.Event
 import org.scalajs.dom.document
-import cycle.dom.CycleDOM.makeDOMDriver
-import cycle.http.CycleHTTP.makeHTTPDriver
-import cycle.xstream.run.XStreamRun
 
 import scala.scalajs.js
 import scala.scalajs.js.Dynamic.{global => g}

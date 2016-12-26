@@ -2,11 +2,21 @@ enablePlugins(ScalaJSPlugin)
 
 enablePlugins(ScalaJSBundlerPlugin)
 
-name := "picobox-scala-js"
+name := "Cycle.scala"
 
-version := "1.0"
+normalizedName := "cycle"
+
+organization := "com.raquo"
+
+version := "0.1-SNAPSHOT"
 
 scalaVersion := "2.11.8"
+
+// crossScalaVersions := Seq("2.11.8", "2.12.1")
+
+homepage := Some(url("https://github.com/raquo/cycle-scala"))
+
+licenses += ("MIT", url("https://github.com/raquo/cycle-scala/blob/master/LICENSE.md"))
 
 libraryDependencies ++= Seq(
   "com.raquo" %%% "xstream" % "0.1-SNAPSHOT",

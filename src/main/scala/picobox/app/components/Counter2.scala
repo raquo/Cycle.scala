@@ -2,12 +2,12 @@ package picobox.app.components
 
 import com.raquo.xstream.XStream
 import com.raquo.xstream.XStream.merge
-import cycle.dom.{DOMSink, DOMSinks, DOMSources}
-import cycle.isolate.Isolate
-import snabbdom.VNode
+import com.raquo.cycle.dom.{DOMSink, DOMSinks, DOMSources}
+import com.raquo.cycle.isolate.Isolate
+import com.raquo.snabbdom.VNode
+import com.raquo.snabbdom.tags._
+import com.raquo.snabbdom.attrs._
 import org.scalajs.dom.raw.MouseEvent
-import snabbdom.tags._
-import snabbdom.attrs._
 
 import scala.scalajs.js.Dynamic.{global => g}
 import scala.scalajs.js.annotation.ScalaJSDefined

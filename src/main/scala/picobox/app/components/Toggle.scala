@@ -1,9 +1,9 @@
 package picobox.app.components
 
-import cycle.dom.DOMSource
-import snabbdom.tags._
-import snabbdom.attrs._
-import snabbdom.VNode
+import com.raquo.cycle.dom.DOMSource
+import com.raquo.snabbdom.tags._
+import com.raquo.snabbdom.attrs._
+import com.raquo.snabbdom.VNode
 import com.raquo.xstream.XStream
 import org.scalajs.dom.raw.{HTMLInputElement, MouseEvent}
 

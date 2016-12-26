@@ -1,9 +1,9 @@
 package picobox.app.components
 
-import cycle.dom.{DOMSink, DOMSinks, DOMSources}
-import cycle.http.{HTTPSink, HTTPSinks, HTTPSources, RequestOptions}
-import snabbdom.VNode
-import snabbdom.tags.{br, div}
+import com.raquo.cycle.dom.{DOMSink, DOMSinks, DOMSources}
+import com.raquo.cycle.http.{HTTPSink, HTTPSinks, HTTPSources}
+import com.raquo.snabbdom.VNode
+import com.raquo.snabbdom.tags.{br, div}
 import com.raquo.xstream.XStream.combine
 
 import scala.scalajs.js.Dynamic.{global => g}

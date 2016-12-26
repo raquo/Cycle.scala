@@ -1,12 +1,12 @@
 package picobox.app.components
 
 import com.raquo.xstream.XStream
-import cycle.dom.{DOMSink, DOMSinks, DOMSources}
-import cycle.http.{HTTPError, HTTPSink, HTTPSinks, HTTPSources, RequestOptions}
-import cycle.isolate.Isolate
+import com.raquo.cycle.dom.{DOMSink, DOMSinks, DOMSources}
+import com.raquo.cycle.http.{HTTPError, HTTPSink, HTTPSinks, HTTPSources, RequestOptions}
+import com.raquo.cycle.isolate.Isolate
 
 import scala.scalajs.js.annotation.ScalaJSDefined
-import snabbdom.tags._
+import com.raquo.snabbdom.tags._
 
 import scala.scalajs.js
 
