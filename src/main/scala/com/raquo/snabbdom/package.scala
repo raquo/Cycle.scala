@@ -133,14 +133,14 @@ package object snabbdom {
 
     private[snabbdom] def addChild(vnode: VNode): Unit = {
       if (thisNode.text.isDefined) {
-        addChildToList(new TextNode(thisNode.text.asInstanceOf[String]))
+        addChildToList(new TextNode(thisNode.text.get))
         thisNode.text = js.undefined
       }
       addChildToList(vnode)
     }
 
     private[snabbdom] def addTextChild(textNode: TextNode): Unit = {
-      val hasChildren = thisNode.children.isDefined && thisNode.children.asInstanceOf[Children].length > 0
+      val hasChildren = thisNode.children.isDefined && thisNode.children.get.length > 0
       if (hasChildren) {
         addChildToList(textNode)
       } else if (thisNode.text.isEmpty) {
@@ -158,7 +158,7 @@ package object snabbdom {
       if (thisNode.children.isEmpty) {
         thisNode.children = new Children()
       }
-      thisNode.children.asInstanceOf[Children].push(child)
+      thisNode.children.get.push(child)
     }
   }
 }
