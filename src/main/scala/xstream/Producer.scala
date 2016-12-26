@@ -8,23 +8,18 @@ import scala.scalajs.js.annotation.ScalaJSDefined
 @ScalaJSDefined
 trait Producer[T] extends js.Object {
 
-  def start(listener: Listener[T]): Unit
+  def start: js.Function1[Listener[T], Unit]
 
-  def stop(): Unit
+  def stop: js.Function0[Unit]
 }
 
 object Producer {
 
-  def apply[T](start: Listener[T] => Unit, stop: () => Unit): Producer[T] =
-    new RichProducer[T](start, stop)
-}
-
-
-@ScalaJSDefined
-/** Note: names `_start` and `_stop` are used internally by cycle.js, do not create members with such names */
-class RichProducer[T] private[xstream] (__start: Listener[T] => Unit, __stop: () => Unit) extends Producer[T] {
-
-  override def start(rawListener: Listener[T]): Unit = __start(Listener.fromRawListener(rawListener))
-
-  override def stop(): Unit = __stop()
+  def apply[T](
+    onStart: Listener[T] => Unit,
+    onStop: () => Unit
+  ): Producer[T] = new Producer[T] {
+    override def start: js.Function1[Listener[T], Unit] = onStart
+    override def stop: js.Function0[Unit] = onStop
+  }
 }

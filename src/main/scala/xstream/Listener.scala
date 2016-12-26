@@ -1,7 +1,5 @@
 package xstream
 
-import cycle.base.Observer
-
 import scala.scalajs.js
 import scala.scalajs.js.annotation.ScalaJSDefined
 
@@ -14,54 +12,53 @@ import scala.scalajs.js.annotation.ScalaJSDefined
 @ScalaJSDefined
 trait Listener[-T] extends js.Object {
 
-  def next(x: T): Unit
+  val next: js.Function1[T, Unit]
 
-  def error[E](e: E): Unit
+  val error: js.Function1[Any, Unit] // Any should be E
 
-  def complete(): Unit
+  val complete: js.Function0[Unit]
 }
 
 object Listener {
 
-  private[xstream] def noop0 = () => {}
+  // @TODO[Elegance] Is there a better way to define empty no-op functions?
 
-  private[xstream] def noop1[T] = (x: T) => {}
+  private[xstream] def noop0(): Unit = ()
 
-  def create[T](next: T => Unit): Listener[T] =
-    new RichListener(maybeNext = Some(next))
+  private[xstream] def noop1[T](x: T): Unit = ()
 
-  def create[T, E](next: T => Unit, error: E => Unit): Listener[T] =
-    new RichListener(maybeNext = Some(next), maybeError = Some(error))
+  def apply[T](
+    maybeNext: Option[T => Unit],
+    maybeError: Option[Any => Unit],
+    maybeComplete: Option[() => Unit]
+  ): Listener[T] = new Listener[T] {
+    override val next: js.Function1[T, Unit] = js.Any.fromFunction1(maybeNext.getOrElse(noop1[T]))
+    override val error: js.Function1[Any, Unit] = js.Any.fromFunction1(maybeError.getOrElse(noop1[Any]))
+    override val complete: js.Function0[Unit] = js.Any.fromFunction0(maybeComplete.getOrElse(noop0))
+  }
 
-  def create[T, E](next: T => Unit, complete: () => Unit): Listener[T] =
-    new RichListener(maybeNext = Some(next), maybeComplete = Some(complete))
+  def create[T](onNext: T => Unit): Listener[T] = new Listener[T] {
+    override val next: js.Function1[T, Unit] = onNext
+    override val error: js.Function1[Any, Unit] = noop1 _
+    override val complete: js.Function0[Unit] = noop0 _
+  }
 
-  def create[T, E](next: T => Unit, error: E => Unit, complete: () => Unit): Listener[T] =
-    new RichListener(maybeNext = Some(next), maybeError = Some(error), maybeComplete = Some(complete))
+  // TODO: This should have error type
+  def create[T](onNext: T => Unit, onError: Any => Unit): Listener[T] = new Listener[T] {
+    override val next: js.Function1[T, Unit] = onNext
+    override val error: js.Function1[Any, Unit] = onError
+    override val complete: js.Function0[Unit] = noop0 _
+  }
 
-  def fromCycleObserver[T](observer: Observer[T]): Listener[T] = new RichListener(
-    maybeNext = Some(observer.next _),
-    maybeError = Some(observer.error _),
-    maybeComplete = Some(observer.complete _)
-  )
+  def create[T](onNext: T => Unit, onComplete: () => Unit): Listener[T] = new Listener[T] {
+    override val next: js.Function1[T, Unit] = onNext
+    override val error: js.Function1[Any, Unit] = noop1 _
+    override val complete: js.Function0[Unit] = onComplete
+  }
 
-  def fromRawListener[T](rawListener: Listener[T]): Listener[T] = new RichListener(
-    maybeNext = Some(rawListener.next _),
-    maybeError = Some(rawListener.error _),
-    maybeComplete = Some(rawListener.complete _)
-  )
-}
-
-@ScalaJSDefined
-class RichListener[T] private[xstream] (
-  maybeNext: Option[T => Unit] = None,
-  maybeError: Option[_ => Unit] = None,
-  maybeComplete: Option[() => Unit] = None
-) extends Listener[T] {
-
-  override def next(x: T): Unit = maybeNext.getOrElse(Listener.noop1[T])(x)
-
-  override def error[E](e: E): Unit = maybeError.getOrElse(Listener.noop1[E])
-
-  override def complete(): Unit = maybeComplete.getOrElse(Listener.noop0)
+  def create[T](onNext: T => Unit, onError: Any => Unit, onComplete: () => Unit): Listener[T] = new Listener[T] {
+    override val next: js.Function1[T, Unit] = onNext
+    override val error: js.Function1[Any, Unit] = onError
+    override val complete: js.Function0[Unit] = onComplete
+  }
 }

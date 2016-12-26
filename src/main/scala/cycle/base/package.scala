@@ -1,6 +1,6 @@
 package cycle
 
-import _root_.xstream.{MemoryStream, XStream}
+import _root_.xstream.{Listener, MemoryStream, XStream}
 
 import scala.scalajs.js
 
@@ -20,4 +20,13 @@ package object base {
   type StreamSubscribeFunction[Stream, CycleObserver] = js.Function2[Stream, CycleObserver, OptionalDisposeFunction]
 
   type XStreamAdapter = StreamAdapter[XStream, MemoryStream]
+
+  implicit class RichObserver[T] (val observer: Observer[T]) extends AnyVal {
+
+    def toListener: Listener[T] = new Listener[T] {
+      override val next: js.Function1[T, Unit] = observer.next _
+      override val error: js.Function1[Any, Unit] = observer.error _
+      override val complete: js.Function0[Unit] = observer.complete _
+    }
+  }
 }

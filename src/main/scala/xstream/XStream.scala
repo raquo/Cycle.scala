@@ -90,13 +90,13 @@ object XStream {
   @inline def create[T](): XStream[T] =
     RawXStream.create[T]()
 
-  @inline def create[T](producer: RichProducer[T]): XStream[T] =
+  @inline def create[T](producer: Producer[T]): XStream[T] =
     RawXStream.create[T](producer)
 
   @inline def createWithMemory[T](): MemoryStream[T] =
     RawXStream.createWithMemory[T]()
 
-  @inline def createWithMemory[T](producer: RichProducer[T]): MemoryStream[T] =
+  @inline def createWithMemory[T](producer: Producer[T]): MemoryStream[T] =
     RawXStream.createWithMemory[T](producer)
 
   // from<X>
