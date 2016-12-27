@@ -17,11 +17,11 @@ object RawTransposition extends js.Object {
   def makeTransposeVNode(runStreamAdapter: XStreamAdapter): RawTransposeVNodeFunction = js.native
 }
 
-object Transposition {
+object Transpose {
+
+  @inline def apply(vnode: VNode): XStream[VNode] =
+    rawTransposeVNode(vnode)
 
   private val rawTransposeVNode: RawTransposition.RawTransposeVNodeFunction =
     RawTransposition.makeTransposeVNode(XStreamAdapter)
-
-  @inline def transpose(vnode: VNode): XStream[VNode] =
-    rawTransposeVNode(vnode)
 }

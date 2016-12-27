@@ -3,7 +3,7 @@ package picobox.app.components
 import com.raquo.xstream.XStream
 import com.raquo.xstream.XStream.{combine, merge, periodic}
 import com.raquo.cycle.dom.{DOMSink, DOMSinks, DOMSources}
-import com.raquo.cycle.dom.Transposition.transpose
+import com.raquo.cycle.dom.Transpose
 import com.raquo.cycle.isolate.Isolate
 import com.raquo.snabbdom.{Modifier, VNode, styles}
 import com.raquo.snabbdom.tags._
@@ -62,7 +62,7 @@ object Counter {
       .map((time1: Int, time2: Int, time3: Int) => div(s"Tupled times: ($time1, $time2, $time3)"))
 
     // Note that Random.nextInt will NOT be updated if time$* updates, only when count$ updates. Because transposition.
-    val $vnode = transpose(
+    val $vnode = Transpose(
       div(
         "Foo",
         "bar",
