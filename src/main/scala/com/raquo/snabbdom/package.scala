@@ -50,10 +50,12 @@ package object snabbdom {
     @inline def applyTo(vnode: VNode): Unit = vnode.addTextChild(this)
   }
 
-  @ScalaJSDefined
-  implicit class SeqNode(val modifiers: Seq[Modifier]) extends Modifier {
+  // @TODO[API] Require implicit conversion to Modifier
 
-    @inline def applyTo(vnode: VNode): Unit = vnode.apply(modifiers: _*)
+  @ScalaJSDefined
+  implicit class IterableNode(val modifiers: Iterable[Modifier]) extends Modifier {
+
+    @inline def applyTo(vnode: VNode): Unit = vnode.apply(modifiers.toSeq: _*)
   }
 
   @ScalaJSDefined

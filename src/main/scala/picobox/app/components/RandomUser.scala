@@ -35,14 +35,16 @@ object RandomUser {
         body => body.asInstanceOf[js.Dynamic].results.asInstanceOf[js.Array[js.Dynamic]](0).name.first.asInstanceOf[String]
       ).getOrElse("Response was not parsed")
 
+      val headers = response.headers.map {
+        case (key: String, value: String) => div(s"$key: $value")
+      }
+
       div(
         h2("Random user"),
         div(b("Status: "), s"${response.statusCode} ${response.statusText}"),
         div(
           b("Headers:"),
-          response.headers.map {
-            case (key: String, value: String) => div(s"$key: $value")
-          }.toSeq // @TODO[API] Inconvenient. Use Iterable, not Seq
+          headers
         ),
         div(b("Parsed name: "), name),
         div(b("Raw content: "), pre(response.text))
