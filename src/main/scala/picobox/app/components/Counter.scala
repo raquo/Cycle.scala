@@ -17,9 +17,9 @@ import scala.util.Random
 
 @ScalaJSDefined
 class Counter private(
-  val DOM: DOMSink,
-  val countStream: XStream[Int]
-) extends DOMSinks
+  val DOM: DOMSink[Nothing],
+  val countStream: XStream[Int, Nothing]
+) extends DOMSinks[Nothing]
 
 // @TODO[WTF] figure out why this will fail if I rename $decClick to decClick$ (trailing dollar sign!?)
 //object x {
@@ -37,8 +37,8 @@ object Counter {
   // @TODO[API] Explore other options, e.g. class Counter & CounterSinks – might be cleaner and more performant
   def apply(intervalFactor: Double = 1): (DOMSources => Counter) = Isolate { sources =>
     val $incClick = sources.DOM.select(".inc").events(onClick)
-    val $decClick = XStream.create[MouseEvent]()
-    val $altIncClick = XStream.create[MouseEvent]()
+    val $decClick = XStream.create[MouseEvent, Nothing]()
+    val $altIncClick = XStream.create[MouseEvent, Nothing]()
 
     val $time1 = periodic((intervalFactor * 1000).toInt).startWith(-1).map(i => (i + 1) * 1)
     val $time2 = periodic((intervalFactor * 2000).toInt).startWith(-1).map(i => (i + 1) * 2)
@@ -54,7 +54,7 @@ object Counter {
 
     val testHover = (e: MouseEvent) => println("some hover")
 
-    val test: XStream[VNode] = $time1.map(time1 => div(s"TIME1: $time1"))
+    val test: XStream[VNode, Nothing] = $time1.map(time1 => div(s"TIME1: $time1"))
 
     val $tuple = combine($time1, $time2, $time3)
       .filter((time1: Int, time2: Int, time3: Int) => true)

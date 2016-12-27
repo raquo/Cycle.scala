@@ -5,6 +5,6 @@ import com.raquo.cycle.base.Sinks
 import scala.scalajs.js.annotation.ScalaJSDefined
 
 @ScalaJSDefined
-trait HTTPSinks extends Sinks {
-  val HTTP: HTTPSink
+trait HTTPSinks[Err] extends Sinks {
+  val HTTP: HTTPSink[Err]
 }

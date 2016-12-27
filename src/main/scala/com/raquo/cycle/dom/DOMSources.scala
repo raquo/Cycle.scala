@@ -17,15 +17,15 @@ trait DOMSource extends IsolatableSource[DOMSource, DOMSink] {
 
   def select(cssSelector: String): DOMSource = js.native
 
-  def elements[T <: HTMLElement](): XStream[T] = js.native
+  def elements[T <: HTMLElement](): XStream[T, Nothing] = js.native // @TODO>>> Signature seems incorrect - should be multiple elements? Or... Check cycle source.
 
-  def events[E <: Event](eventType: String): XStream[E] = js.native
+  def events[Ev <: Event](eventType: String): XStream[Ev, Nothing] = js.native
 
-  def events[E <: Event](eventType: String, options: EventOptions): XStream[E] = js.native
+  def events[Ev <: Event](eventType: String, options: EventOptions): XStream[Ev, Nothing] = js.native
 
   def isolateSource(source: DOMSource, scope: String): DOMSource = js.native
 
-  def isolateSink(sink: DOMSink, scope: String): DOMSink = js.native
+  def isolateSink[Err](sink: DOMSink[Err], scope: String): DOMSink[Err] = js.native
 }
 
 @js.native

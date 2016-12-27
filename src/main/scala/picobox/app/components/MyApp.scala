@@ -11,9 +11,9 @@ import scala.scalajs.js.annotation.ScalaJSDefined
 
 @ScalaJSDefined
 class MyApp(
-  val DOM: DOMSink,
-  val HTTP: HTTPSink
-) extends DOMSinks with HTTPSinks
+  val DOM: DOMSink[Nothing],
+  val HTTP: HTTPSink[Nothing]
+) extends DOMSinks[Nothing] with HTTPSinks[Nothing]
 
 object MyApp {
   def apply(sources: DOMSources with HTTPSources): MyApp = {

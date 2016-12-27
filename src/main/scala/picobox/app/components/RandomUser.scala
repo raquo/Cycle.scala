@@ -12,9 +12,9 @@ import scala.scalajs.js
 
 @ScalaJSDefined
 class RandomUser private(
-  val DOM: DOMSink,
-  val HTTP: HTTPSink
-) extends DOMSinks with HTTPSinks
+  val DOM: DOMSink[Nothing],
+  val HTTP: HTTPSink[Nothing]
+) extends DOMSinks[Nothing] with HTTPSinks[Nothing]
 
 object RandomUser {
 

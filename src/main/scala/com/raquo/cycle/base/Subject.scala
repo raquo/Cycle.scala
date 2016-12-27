@@ -6,7 +6,7 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.ScalaJSDefined
 
 @ScalaJSDefined
-class Subject[T](
-  val stream: XStream[T],
-  val observer: Observer[T]
+class Subject[T, E](
+  val stream: XStream[T, E],
+  val observer: Observer[T, E]
 ) extends js.Object

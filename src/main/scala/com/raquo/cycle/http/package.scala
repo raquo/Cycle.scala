@@ -6,21 +6,21 @@ import scala.scalajs.js
 
 package object http {
 
-  type HTTPSink = XStream[RequestOptions]
+  type HTTPSink[Err] = XStream[RequestOptions, Err]
 
-  type RawHTTPDriver = RawDriver[HTTPSink, HTTPSource]
+  type RawHTTPDriver = RawDriver[HTTPSink[Nothing], HTTPSource]
 
   implicit class RichHTTPSource(val source: HTTPSource) extends AnyVal {
 
-    @inline def selectByRequest(requestOptions: RequestOptions): XStream[Response] =
+    @inline def selectByRequest(requestOptions: RequestOptions): XStream[Response, HTTPError] =
       source.filter { actualRequestOptions: RequestOptions =>
         actualRequestOptions == requestOptions
       }.selectAll()
 
-    @inline def selectAll(): XStream[Response] =
+    @inline def selectAll(): XStream[Response, HTTPError] =
       source.select().flatten
 
-    @inline def selectAllByCategory(category: String): XStream[Response] =
+    @inline def selectAllByCategory(category: String): XStream[Response, HTTPError] =
       source.selectByCategory(category).flatten
 
     @inline def filter(predicate: RequestOptions => Boolean): HTTPSource =

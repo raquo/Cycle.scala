@@ -11,29 +11,29 @@ import scala.scalajs.js.annotation.JSImport
 object XStreamAdapter extends StreamAdapter[XStream, MemoryStream] {
 
   /** Convert Origin stream to XStream */
-  override def adapt[T](
+  override def adapt[T, E](
     originStream: OriginStream,
-    originStreamSubscribe: StreamSubscribeFunction[OriginStream, Observer[T]]
-  ): XStream[T] = js.native
+    originStreamSubscribe: StreamSubscribeFunction[OriginStream, Observer[T, E]]
+  ): XStream[T, E] = js.native
 
   /** Convert Origin stream to XStream – already converted */
-  override def adapt[T](
-    originStream: XStream[T],
-    originStreamSubscribe: StreamSubscribeFunction[XStream[T], Observer[T]]
-  ): XStream[T] = js.native
+  override def adapt[T, E](
+    originStream: XStream[T, E],
+    originStreamSubscribe: StreamSubscribeFunction[XStream[T, E], Observer[T, E]]
+  ): XStream[T, E] = js.native
 
   /** Create memory stream */
-  override def remember[T](stream: XStream[T]): MemoryStream[T] = js.native
+  override def remember[T, E](stream: XStream[T, E]): MemoryStream[T, E] = js.native
 
   /** What exactly does this method do... ? @TODO[Docs] */
-  override def makeSubject[T](): Subject[T] = js.native
+  override def makeSubject[T, E](): Subject[T, E] = js.native
 
   /** Check if the stream is a valid XStream – case of origin stream */
   override def isValidStream(stream: OriginStream): Boolean = js.native
 
   /** Check if the stream is a valid XStream */
-  override def isValidStream(stream: XStream[_]): Boolean = js.native
+  override def isValidStream(stream: XStream[_, _]): Boolean = js.native
 
   /** Subscribe a Cycle observer to a XStream */
-  override def streamSubscribe[T](stream: XStream[T], observer: Observer[T]): OptionalDisposeFunction = js.native
+  override def streamSubscribe[T, E](stream: XStream[T, E], observer: Observer[T, E]): OptionalDisposeFunction = js.native
 }
