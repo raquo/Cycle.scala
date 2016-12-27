@@ -21,7 +21,7 @@ package object base {
 
   type XStreamAdapter = StreamAdapter[XStream, MemoryStream]
 
-  implicit class RichObserver[T, E] (val observer: Observer[T, E]) extends AnyVal {
+  implicit class RichObserver[T, E <: js.Error] (val observer: Observer[T, E]) extends AnyVal {
 
     def toListener: Listener[T, E] = new Listener[T, E] {
       override val next: js.Function1[T, Unit] = observer.next _

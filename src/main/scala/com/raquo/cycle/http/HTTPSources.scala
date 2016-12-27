@@ -18,7 +18,7 @@ trait HTTPSource extends IsolatableSource[HTTPSource, HTTPSink] {
 
   def isolateSource(source: HTTPSource, scope: String): HTTPSource = js.native
 
-  def isolateSink[Err](sink: HTTPSink[Err], scope: String): HTTPSink[Err] = js.native
+  def isolateSink[Err <: js.Error](sink: HTTPSink[Err], scope: String): HTTPSink[Err] = js.native
 }
 
 @js.native

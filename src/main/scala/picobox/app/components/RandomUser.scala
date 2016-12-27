@@ -51,9 +51,9 @@ object RandomUser {
       )
     }.startWith(
       div("Loading random user...")
-    ).replaceError { (err: HTTPError) =>
+    ).replaceError(err =>
       XStream.of(div(s" - Error loading user (${err.response.statusCode}) :("))
-    }
+    )
 
     new RandomUser($vnode, $request)
   }

@@ -25,7 +25,7 @@ trait DOMSource extends IsolatableSource[DOMSource, DOMSink] {
 
   def isolateSource(source: DOMSource, scope: String): DOMSource = js.native
 
-  def isolateSink[Err](sink: DOMSink[Err], scope: String): DOMSink[Err] = js.native
+  def isolateSink[Err <: js.Error](sink: DOMSink[Err], scope: String): DOMSink[Err] = js.native
 }
 
 @js.native

@@ -6,7 +6,7 @@ import scala.scalajs.js
 
 package object http {
 
-  type HTTPSink[Err] = XStream[RequestOptions, Err]
+  type HTTPSink[Err <: js.Error] = XStream[RequestOptions, Err]
 
   type RawHTTPDriver = RawDriver[HTTPSink[Nothing], HTTPSource]
 
