@@ -31,6 +31,8 @@ npmDependencies in Compile ++= Seq(
   "@cycle/xstream-run" -> "3.1.0"
 )
 
+// Webpack bundle is not being generated? Remember that you need to run `sbt fastOptJS::webpack`, not just `sbt fastOptJS`.
+
 //webpackConfigFile in fastOptJS := Some(baseDirectory.value / "webpack-config.js")
 
 scalaJSModuleKind := ModuleKind.CommonJSModule // not needed if using scalajs-bundler

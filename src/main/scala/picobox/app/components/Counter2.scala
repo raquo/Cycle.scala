@@ -7,7 +7,7 @@ import com.raquo.cycle.isolate.Isolate
 import com.raquo.snabbdom.VNode
 import com.raquo.snabbdom.tags._
 import com.raquo.snabbdom.attrs._
-import org.scalajs.dom.raw.MouseEvent
+import com.raquo.snabbdom.events._
 
 import scala.scalajs.js.Dynamic.{global => g}
 import scala.scalajs.js.annotation.ScalaJSDefined
@@ -20,8 +20,8 @@ class Counter2 private (
 object Counter2 {
 
   def apply(): (DOMSources => Counter2) = Isolate { sources =>
-    val $increment = sources.DOM.select("#entry #inc").events[MouseEvent]("click").mapTo(1)
-    val $decrement = sources.DOM.select("#entry #dec").events[MouseEvent]("click").mapTo(-1)
+    val $increment = sources.DOM.select("#entry #inc").$event(onClick).mapTo(1)
+    val $decrement = sources.DOM.select("#entry #dec").$event(onClick).mapTo(-1)
 
     val $count: XStream[Int, Nothing] = merge($increment, $decrement)
       .startWith(0)

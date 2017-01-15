@@ -6,6 +6,7 @@ import org.scalajs.dom.raw.{Event, HTMLElement}
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.ScalaJSDefined
+import scala.scalajs.js.|
 
 @ScalaJSDefined
 class EventOptions(
@@ -17,11 +18,11 @@ trait DOMSource extends IsolatableSource[DOMSource, DOMSink] {
 
   def select(cssSelector: String): DOMSource = js.native
 
-  def elements[T <: HTMLElement](): XStream[T, Nothing] = js.native // @TODO>>> Signature seems incorrect - should be multiple elements? Or... Check cycle source.
+  private[dom] def elements(): XStream[HTMLElement | js.Array[HTMLElement], Nothing] = js.native
 
-  def events[Ev <: Event](eventType: String): XStream[Ev, Nothing] = js.native
+  private[dom] def events[Ev <: Event](eventType: String): XStream[Ev, Nothing] = js.native
 
-  def events[Ev <: Event](eventType: String, options: EventOptions): XStream[Ev, Nothing] = js.native
+  private[dom] def events[Ev <: Event](eventType: String, options: EventOptions): XStream[Ev, Nothing] = js.native
 
   def isolateSource(source: DOMSource, scope: String): DOMSource = js.native
 

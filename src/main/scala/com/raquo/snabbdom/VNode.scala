@@ -32,8 +32,6 @@ class VNode(tagName: String) extends Modifier {
 
 object VNode {
 
-  // @TODO>>>
-
   type Child = VNode | TextNode | XStream[VNode, Nothing] | XStream[TextNode, Nothing] | XStream[VNode | TextNode, Nothing]
 
   type Children = js.Array[Child]
