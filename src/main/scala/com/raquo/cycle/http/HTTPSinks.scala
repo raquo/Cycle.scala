@@ -6,6 +6,6 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.ScalaJSDefined
 
 @ScalaJSDefined
-trait HTTPSinks[Err <: js.Error] extends Sinks {
+trait HTTPSinks[Err <: Exception] extends Sinks {
   val HTTP: HTTPSink[Err]
 }

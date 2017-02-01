@@ -2,7 +2,7 @@ package picobox.app.components
 
 import com.raquo.xstream.XStream
 import com.raquo.cycle.dom.{DOMSink, DOMSinks, DOMSources}
-import com.raquo.cycle.http.{HTTPError, HTTPSink, HTTPSinks, HTTPSources, RequestOptions}
+import com.raquo.cycle.http.{RawHTTPError, HTTPSink, HTTPSinks, HTTPSources, RequestOptions}
 import com.raquo.cycle.isolate.Isolate
 
 import scala.scalajs.js.annotation.ScalaJSDefined
@@ -31,28 +31,30 @@ object RandomUser {
     val $response = sources.HTTP.selectByRequest(request)
 
     val $vnode = $response.map { response =>
-      val name = response.maybeBody.map(
-        body => body.asInstanceOf[js.Dynamic].results.asInstanceOf[js.Array[js.Dynamic]](0).name.first.asInstanceOf[String]
-      ).getOrElse("Response was not parsed")
+      if (response.isOk) {
+        val name = response.maybeBody.map(
+          body => body.asInstanceOf[js.Dynamic].results.asInstanceOf[js.Array[js.Dynamic]](0).name.first.asInstanceOf[String]
+        ).getOrElse("Response was not parsed")
 
-      val headers = response.headers.map {
-        case (key: String, value: String) => div(s"$key: $value")
-      }
+        val headers = response.headers.map {
+          case (key: String, value: String) => div(s"$key: $value")
+        }
 
-      div(
-        h2("Random user"),
-        div(b("Status: "), s"${response.statusCode} ${response.statusText}"),
         div(
-          b("Headers:"),
-          headers
-        ),
-        div(b("Parsed name: "), name),
-        div(b("Raw content: "), pre(response.text))
-      )
+          h2("Random user"),
+          div(b("Status: "), s"${response.statusCode} ${response.statusText}"),
+          div(
+            b("Headers:"),
+            headers
+          ),
+          div(b("Parsed name: "), name),
+          div(b("Raw content: "), pre(response.text))
+        )
+      } else {
+        div(s" - Error loading user (${response.statusCode}) :(")
+      }
     }.startWith(
       div("Loading random user...")
-    ).replaceError(err =>
-      XStream.of(div(s" - Error loading user (${err.response.statusCode}) :("))
     )
 
     new RandomUser($vnode, $request)

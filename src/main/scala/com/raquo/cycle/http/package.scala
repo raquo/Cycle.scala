@@ -2,29 +2,48 @@ package com.raquo.cycle
 
 import com.raquo.cycle.base.RawDriver
 import com.raquo.xstream.XStream
+
 import scala.scalajs.js
+import scala.scalajs.js.|
 
 package object http {
 
-  type HTTPSink[Err <: js.Error] = XStream[RequestOptions, Err]
+  type HTTPSink[Err <: Exception] = XStream[RequestOptions, Err]
 
   type RawHTTPDriver = RawDriver[HTTPSink[Nothing], HTTPSource]
 
   implicit class RichHTTPSource(val source: HTTPSource) extends AnyVal {
 
-    @inline def selectByRequest(requestOptions: RequestOptions): XStream[Response, HTTPError] =
+    @inline def selectByRequest(requestOptions: RequestOptions): XStream[Response, Nothing] =
       source.filter { actualRequestOptions: RequestOptions =>
         actualRequestOptions == requestOptions
       }.selectAll()
 
-    @inline def selectAll(): XStream[Response, HTTPError] =
-      source.select().flatten
+    @inline def selectAll(): XStream[Response, Nothing] =
+      source.select().flatten.replaceAllErrors(replaceHTTPError)
 
-    @inline def selectAllByCategory(category: String): XStream[Response, HTTPError] =
-      source.selectByCategory(category).flatten
+    @inline def selectAllByCategory(category: String): XStream[Response, Nothing] =
+      source.select(category).flatten.replaceAllErrors(replaceHTTPError)
 
     @inline def filter(predicate: RequestOptions => Boolean): HTTPSource =
       source.filter(predicate)
+
+    private def replaceHTTPError(error: Exception | js.Error): XStream[Response, Nothing] = {
+      val isJSError = !error.isInstanceOf[Exception]
+      val errorResponse = error.asInstanceOf[js.Dynamic].response.asInstanceOf[js.UndefOr[Response]]
+      val isHTTPError = isJSError && errorResponse.isDefined
+
+      if (isHTTPError) {
+        // @TODO[Integrity] is it ok to return a completed stream here?
+        XStream.of(errorResponse.get)
+      } else if (isJSError) {
+        // Some other JS error, re-throw it
+        throw js.JavaScriptException(error.asInstanceOf[js.Error])
+      } else {
+        // Some Scala exception, re-throw it
+        throw error.asInstanceOf[Exception]
+      }
+    }
   }
 
   implicit class RichResponse (val response: Response) extends AnyVal {

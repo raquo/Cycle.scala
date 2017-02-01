@@ -3,6 +3,7 @@ package com.raquo.cycle
 import com.raquo.xstream.{Listener, MemoryStream, XStream}
 
 import scala.scalajs.js
+import scala.scalajs.js.|
 
 package object base {
 
@@ -21,12 +22,13 @@ package object base {
 
   type XStreamAdapter = StreamAdapter[XStream, MemoryStream]
 
-  implicit class RichObserver[T, E <: js.Error] (val observer: Observer[T, E]) extends AnyVal {
+  implicit class RichObserver[T, EE <: Exception] (val observer: Observer[T, EE]) extends AnyVal {
 
-    def toListener: Listener[T, E] = new Listener[T, E] {
-      override val next: js.Function1[T, Unit] = observer.next _
-      override val error: js.Function1[E, Unit] = observer.error _
-      override val complete: js.Function0[Unit] = js.Any.fromFunction0(observer.complete)
-    }
+    def toListener: Listener[T, EE] = Listener[T, EE](
+      onNext = observer.next,
+      onExpectedError = (err: EE) => observer.error(err),
+      onUnexpectedError = (err: Exception | js.Error) => observer.error(err),
+      onComplete = observer.complete
+    )
   }
 }

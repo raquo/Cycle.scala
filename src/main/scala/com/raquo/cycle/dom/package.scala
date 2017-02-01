@@ -7,13 +7,13 @@ import com.raquo.snabbdom.Util.EventCallback
 import com.raquo.xstream.XStream
 import org.scalajs.dom.raw.{Event, HTMLElement}
 
-import scala.reflect.{ClassTag, classTag}
+import scala.reflect.ClassTag
 import scala.scalajs.js
 import scala.scalajs.js.|
 
 package object dom {
 
-  type DOMSink[Err <: js.Error] = XStream[VNode, Err]
+  type DOMSink[Err <: Exception] = XStream[VNode, Err]
 
   type RawDOMDriver = RawDriver[DOMSink[Nothing], DOMSource]
 

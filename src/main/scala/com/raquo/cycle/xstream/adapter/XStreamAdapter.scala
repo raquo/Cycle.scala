@@ -11,29 +11,29 @@ import scala.scalajs.js.annotation.JSImport
 object XStreamAdapter extends StreamAdapter[XStream, MemoryStream] {
 
   /** Convert Origin stream to XStream */
-  override def adapt[T, E <: js.Error](
+  override def adapt[T, E <: Exception](
     originStream: OriginStream,
     originStreamSubscribe: StreamSubscribeFunction[OriginStream, Observer[T, E]]
   ): XStream[T, E] = js.native
 
   /** Convert Origin stream to XStream – already converted */
-  override def adapt[T, E <: js.Error](
+  override def adapt[T, E <: Exception](
     originStream: XStream[T, E],
     originStreamSubscribe: StreamSubscribeFunction[XStream[T, E], Observer[T, E]]
   ): XStream[T, E] = js.native
 
   /** Create memory stream */
-  override def remember[T, E <: js.Error](stream: XStream[T, E]): MemoryStream[T, E] = js.native
+  override def remember[T, E <: Exception](stream: XStream[T, E]): MemoryStream[T, E] = js.native
 
   /** What exactly does this method do... ? @TODO[Docs] */
-  override def makeSubject[T, E <: js.Error](): Subject[T, E] = js.native
+  override def makeSubject[T, E <: Exception](): Subject[T, E] = js.native
 
   /** Check if the stream is a valid XStream – case of origin stream */
   override def isValidStream(stream: OriginStream): Boolean = js.native
 
   /** Check if the stream is a valid XStream */
-  override def isValidStream(stream: XStream[_, _ <: js.Error]): Boolean = js.native
+  override def isValidStream(stream: XStream[_, _ <: Exception]): Boolean = js.native
 
   /** Subscribe a Cycle observer to a XStream */
-  override def streamSubscribe[T, E <: js.Error](stream: XStream[T, E], observer: Observer[T, E]): OptionalDisposeFunction = js.native
+  override def streamSubscribe[T, E <: Exception](stream: XStream[T, E], observer: Observer[T, E]): OptionalDisposeFunction = js.native
 }

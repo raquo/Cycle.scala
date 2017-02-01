@@ -32,13 +32,13 @@ package object snabbdom {
 
   implicit class StreamEventProp[Ev <: Event] (val eventProp: EventProp[EventCallback[Ev]]) extends AnyVal {
 
-    def sendTo(stream: XStream[Ev, _ <: js.Error]): EventPropPair[EventCallback[Ev]] = {
+    def sendTo(stream: XStream[Ev, Nothing]): EventPropPair[EventCallback[Ev]] = {
       @inline def addEventToStream(event: Ev): Unit = stream.shamefullySendNext(event)
 
       new EventPropPair[EventCallback[Ev]](eventProp, addEventToStream _)
     }
 
-    @inline def -->(stream: XStream[Ev, _ <: js.Error]): EventPropPair[EventCallback[Ev]] =
+    @inline def -->(stream: XStream[Ev, Nothing]): EventPropPair[EventCallback[Ev]] =
       sendTo(stream)
   }
 

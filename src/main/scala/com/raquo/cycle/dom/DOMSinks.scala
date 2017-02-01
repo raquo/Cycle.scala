@@ -6,6 +6,6 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.ScalaJSDefined
 
 @ScalaJSDefined
-trait DOMSinks[Err <: js.Error] extends Sinks {
+trait DOMSinks[Err <: Exception] extends Sinks {
   val DOM: DOMSink[Err]
 }
