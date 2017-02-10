@@ -12,14 +12,14 @@ import scala.scalajs.js.annotation.JSImport
 @JSImport("@cycle/dom/lib/transposition", JSImport.Namespace)
 object RawTransposition extends js.Object {
 
-  type RawTransposeVNodeFunction = js.Function1[VNode, XStream[VNode, Nothing]]
+  type RawTransposeVNodeFunction = js.Function1[VNode, XStream[VNode]]
 
   def makeTransposeVNode(runStreamAdapter: XStreamAdapter): RawTransposeVNodeFunction = js.native
 }
 
 object Transpose {
 
-  @inline def apply(vnode: VNode): XStream[VNode, Nothing] =
+  @inline def apply(vnode: VNode): XStream[VNode] =
     rawTransposeVNode(vnode)
 
   private val rawTransposeVNode: RawTransposition.RawTransposeVNodeFunction =

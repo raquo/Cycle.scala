@@ -9,7 +9,7 @@ import scala.scalajs.js.annotation.JSName
 @js.native
 trait HTTPSource extends IsolatableSource[HTTPSource, HTTPSink] {
 
-  private[http] def select(category: js. UndefOr[String] = js.undefined): XStream[RawResponseStream, Nothing] = js.native
+  private[http] def select(category: js. UndefOr[String] = js.undefined): XStream[RawResponseStream] = js.native
 
   def filter(predicate: js.Function1[RequestOptions, Boolean]): HTTPSource = js.native
 

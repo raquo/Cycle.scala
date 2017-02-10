@@ -1,6 +1,6 @@
 package com.raquo.cycle
 
-import com.raquo.xstream.{Listener, MemoryStream, XStream}
+import com.raquo.xstream.{Listener, MemoryStream, EStream}
 
 import scala.scalajs.js
 import scala.scalajs.js.|
@@ -18,9 +18,9 @@ package object base {
 
   type OptionalDisposeFunction = js.UndefOr[DisposeFunction]
 
-  type StreamSubscribeFunction[Stream, CycleObserver] = js.Function2[Stream, CycleObserver, OptionalDisposeFunction]
+  type StreamSubscribeFunction[EStream, CycleObserver] = js.Function2[EStream, CycleObserver, OptionalDisposeFunction]
 
-  type XStreamAdapter = StreamAdapter[XStream, MemoryStream]
+  type XStreamAdapter = StreamAdapter[EStream, MemoryStream]
 
   implicit class RichObserver[T, EE <: Exception] (val observer: Observer[T, EE]) extends AnyVal {
 

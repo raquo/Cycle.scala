@@ -32,7 +32,7 @@ class VNode(tagName: String) extends Modifier {
 
 object VNode {
 
-  type Child = VNode | TextNode | XStream[VNode, Nothing] | XStream[TextNode, Nothing] | XStream[VNode | TextNode, Nothing]
+  type Child = VNode | TextNode | XStream[VNode] | XStream[TextNode] | XStream[VNode | TextNode]
 
   type Children = js.Array[Child]
 }

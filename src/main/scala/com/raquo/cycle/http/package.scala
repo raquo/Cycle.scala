@@ -2,33 +2,34 @@ package com.raquo.cycle
 
 import com.raquo.cycle.base.RawDriver
 import com.raquo.xstream.XStream
+import com.raquo.xstream.EStream
 
 import scala.scalajs.js
 import scala.scalajs.js.|
 
 package object http {
 
-  type HTTPSink[Err <: Exception] = XStream[RequestOptions, Err]
+  type HTTPSink[Err <: Exception] = EStream[RequestOptions, Err]
 
   type RawHTTPDriver = RawDriver[HTTPSink[Nothing], HTTPSource]
 
   implicit class RichHTTPSource(val source: HTTPSource) extends AnyVal {
 
-    @inline def selectByRequest(requestOptions: RequestOptions): XStream[Response, Nothing] =
+    @inline def selectByRequest(requestOptions: RequestOptions): XStream[Response] =
       source.filter { actualRequestOptions: RequestOptions =>
         actualRequestOptions == requestOptions
       }.selectAll()
 
-    @inline def selectAll(): XStream[Response, Nothing] =
+    @inline def selectAll(): XStream[Response] =
       source.select().flatten.replaceAllErrors(replaceHTTPError)
 
-    @inline def selectAllByCategory(category: String): XStream[Response, Nothing] =
+    @inline def selectAllByCategory(category: String): XStream[Response] =
       source.select(category).flatten.replaceAllErrors(replaceHTTPError)
 
     @inline def filter(predicate: RequestOptions => Boolean): HTTPSource =
       source.filter(predicate)
 
-    private def replaceHTTPError(error: Exception | js.Error): XStream[Response, Nothing] = {
+    private def replaceHTTPError(error: Exception | js.Error): XStream[Response] = {
       val isJSError = !error.isInstanceOf[Exception]
       val errorResponse = error.asInstanceOf[js.Dynamic].response.asInstanceOf[js.UndefOr[Response]]
       val isHTTPError = isJSError && errorResponse.isDefined

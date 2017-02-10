@@ -18,11 +18,11 @@ trait DOMSource extends IsolatableSource[DOMSource, DOMSink] {
 
   def select(cssSelector: String): DOMSource = js.native
 
-  private[dom] def elements(): XStream[HTMLElement | js.Array[HTMLElement], Nothing] = js.native
+  private[dom] def elements(): XStream[HTMLElement | js.Array[HTMLElement]] = js.native
 
-  private[dom] def events[Ev <: Event](eventType: String): XStream[Ev, Nothing] = js.native
+  private[dom] def events[Ev <: Event](eventType: String): XStream[Ev] = js.native
 
-  private[dom] def events[Ev <: Event](eventType: String, options: EventOptions): XStream[Ev, Nothing] = js.native
+  private[dom] def events[Ev <: Event](eventType: String, options: EventOptions): XStream[Ev] = js.native
 
   def isolateSource(source: DOMSource, scope: String): DOMSource = js.native
 

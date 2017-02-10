@@ -13,7 +13,7 @@ class Toggle(
 ) {
   private val click$ = DOMSource.select("#entry #toggle").$event(onClick)
 
-  val DOM$: XStream[VNode, Nothing] = click$
+  val DOM$: XStream[VNode] = click$
     .map(ev => ev.target.asInstanceOf[HTMLInputElement].checked)
     .startWith(false)
     .map(toggled => {
