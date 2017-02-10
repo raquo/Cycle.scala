@@ -1,4 +1,4 @@
-package picobox.app.components
+package example.app.components
 
 import com.raquo.xstream.XStream
 import com.raquo.xstream.XStream.merge

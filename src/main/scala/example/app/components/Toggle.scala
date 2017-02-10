@@ -1,4 +1,4 @@
-package picobox.app.components
+package example.app.components
 
 import com.raquo.cycle.dom.DOMSource
 import com.raquo.snabbdom.tags._

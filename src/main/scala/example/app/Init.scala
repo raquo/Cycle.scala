@@ -1,9 +1,9 @@
-package picobox.app
+package example.app
 
-import picobox.app.components.MyApp
 import com.raquo.cycle.dom.CycleDOM.makeDOMDriver
 import com.raquo.cycle.http.CycleHTTP.makeHTTPDriver
 import com.raquo.cycle.xstream.run.XStreamRun
+import example.app.components.MyApp
 import org.scalajs.dom.raw.Event
 import org.scalajs.dom.document
 

@@ -1,4 +1,4 @@
-package picobox.app.components
+package example.app.components
 
 import com.raquo.cycle.dom.{DOMSink, DOMSinks, DOMSources}
 import com.raquo.cycle.http.{HTTPSink, HTTPSinks, HTTPSources}
