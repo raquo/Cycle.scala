@@ -5,7 +5,7 @@ import com.raquo.snabbdom.Util.EventCallback
 import com.raquo.snabbdom.VNode.{Child, Children}
 import com.raquo.snabbdom.collections._
 import com.raquo.xstream.XStream
-import com.raquo.xstream.OptionalImplicits.ShamefulStream
+import com.raquo.xstream.ShamefulStream
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSName, ScalaJSDefined}
@@ -33,7 +33,7 @@ package object snabbdom {
   implicit class StreamEventProp[Ev <: Event] (val eventProp: EventProp[EventCallback[Ev]]) extends AnyVal {
 
     def sendTo(stream: XStream[Ev]): EventPropPair[EventCallback[Ev]] = {
-      @inline def addEventToStream(event: Ev): Unit = stream.shamefullySendNext(event)
+      @inline def addEventToStream(event: Ev): Unit = new ShamefulStream(stream).shamefullySendNext(event)
 
       new EventPropPair[EventCallback[Ev]](eventProp, addEventToStream _)
     }
