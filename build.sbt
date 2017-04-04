@@ -14,9 +14,9 @@ scalaVersion := "2.11.8"
 
 // crossScalaVersions := Seq("2.11.8", "2.12.1")
 
-homepage := Some(url("https://github.com/raquo/cycle-scala"))
+homepage := Some(url("https://github.com/raquo/Cycle.scala"))
 
-licenses += ("MIT", url("https://github.com/raquo/cycle-scala/blob/master/LICENSE.md"))
+licenses += ("MIT", url("https://github.com/raquo/Cycle.scala/blob/master/LICENSE.txt"))
 
 libraryDependencies ++= Seq(
   "com.raquo" %%% "xstream" % "0.1-SNAPSHOT",
