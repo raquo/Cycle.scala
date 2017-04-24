@@ -44,13 +44,13 @@ object Counter {
     val $time2 = periodic((intervalFactor * 2000).toInt).startWith(-1).map(i => (i + 1) * 2)
     val $time3 = periodic((intervalFactor * 4000).toInt).startWith(-1).map(i => (i + 1) * 4)
 
-    val $increment = merge($incClick, $altIncClick).mapTo(1).debug("inc")
-    val $decrement = $decClick.mapTo(-1).debug("dec")
+    val $increment = merge($incClick, $altIncClick).mapTo(1).debugWithLabel("inc")
+    val $decrement = $decClick.mapTo(-1).debugWithLabel("dec")
 
     val $count = merge($increment, $decrement)
       .startWith(0)
       .fold((acc: Int, nextVal: Int) => acc + nextVal, 0)
-      .debug("count")
+      .debugWithLabel("count")
 
     val testHover = (e: MouseEvent) => println("some hover")
 
@@ -58,7 +58,7 @@ object Counter {
 
     val $tuple = combine($time1, $time2, $time3)
       .filter((time1: Int, time2: Int, time3: Int) => true)
-      //      .debug((time1: Int, time2: Int, time3: Int) => g.console.log("tupler"))
+      //.debugWithSpy((time1: Int, time2: Int, time3: Int) => g.console.log("tupler"))
       .map((time1: Int, time2: Int, time3: Int) => div(s"Tupled times: ($time1, $time2, $time3)"))
 
     // Note that Random.nextInt will NOT be updated if time$* updates, only when count$ updates. Because transposition.

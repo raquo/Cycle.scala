@@ -19,7 +19,7 @@ homepage := Some(url("https://github.com/raquo/Cycle.scala"))
 licenses += ("MIT", url("https://github.com/raquo/Cycle.scala/blob/master/LICENSE.txt"))
 
 libraryDependencies ++= Seq(
-  "com.raquo" %%% "xstream" % "0.1-SNAPSHOT",
+  "com.raquo.xstream" %%% "xstream" % "0.1.1",
   "org.scala-js" %%% "scalajs-dom" % "0.9.1"
 )
 
