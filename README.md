@@ -16,6 +16,15 @@ Adding some tests would also be nice. Cycle.js has its own tests but this interf
 
 Other than that there aren't really any pressing concerns, just a bunch of minor things to improve.
 
+## My Related Projects
+
+- [Scala DOM Types](https://github.com/raquo/scala-dom-types) – Type definitions that my projects use for all the HTML tags, attributes, properties, and styles
+- [Scala DOM Builder](https://github.com/raquo/scala-dom-builder) – Low-level Scala & Scala.js library for building and manipulating DOM trees
+- [Scala DOM TestUtils](https://github.com/raquo/scala-dom-testutils) – Test that your Javascript DOM nodes match your expectations
+- [Laminar](https://github.com/raquo/laminar) – Reactive UI library based on _Scala DOM Builder_
+- [Snabbdom.scala](https://github.com/raquo/Snabbdom.scala) – Scala.js interface to a popular JS virtual DOM library
+- [XStream.scala](https://github.com/raquo/XStream.scala) – Scala.js interface to a simple JS reactive streams library
+
 ## License
 
 Cycle.scala is provided under MIT license. Comments for DOM definitions are courtesy of Mozzilla contributors and are provided under a Creative Commons Attribution-ShareAlike license.
